@@ -40,8 +40,8 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/login" method="post" >
-                                        <input type="text" name="user-name" placeholder="Username" />
-                                        <input type="password" name="user-password" placeholder="Password" />
+                                        <input type="text" name="username" placeholder="Username" required/>
+                                        <input type="password" name="password" placeholder="Password" required/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox" />
@@ -58,12 +58,23 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/register" method="post">
-                                        <input type="text" name="user-name" placeholder="Username" />
-                                        <input type="password" name="user-password" placeholder="Password" />
-                                        <input name="user-email" placeholder="Email" type="email" />
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" name="first-name" placeholder="First Name" required/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="last-name" placeholder="Last Name" required/>
+                                            </div>
+                                        </div>
+                                        <input name="email" placeholder="Email" type="email" required/>
+                                        <input type="text" name="username" placeholder="Username" required/>
+                                        <input type="password" name="password" placeholder="Password" required/>
+                                        <input type="password" name="re-password" placeholder="Confirm Password" required/>
+                                        
                                         <div class="button-box">
                                             <button type="submit"><span>Register</span></button>
                                         </div>
+                                        <div id="msg-box" style="opacity: 0;text-align: center;">-</div>
                                     </form>
                                 </div>
                             </div>
@@ -74,5 +85,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    //get register & signin form
+    var registerForm = document.getElementById("lg2").getElementsByClassName("login-register-form")[0];
+    var signinForm = document.getElementById("lg1").getElementsByClassName("login-register-form")[0];
+
+    // check if password and re-password are the same
+    registerForm.addEventListener("submit", function(event) {
+        var password = registerForm.querySelector("input[name='password']").value;
+        var rePassword = registerForm.querySelector("input[name='re-password']").value;
+        if (password != rePassword) {
+            event.preventDefault();
+
+            // show error message
+            var msgBox = document.getElementById("msg-box");
+            msgBox.innerHTML = "Passwords do not match!";
+            msgBox.style.color = "red";
+            msgBox.style.opacity = "1";
+
+            // highlight the fields
+            registerForm.querySelector("input[name='password']").style.borderColor = "red";
+            registerForm.querySelector("input[name='re-password']").style.borderColor = "red";
+        }
+    });
+</script>
 <!-- login area end -->
 {% endblock %}

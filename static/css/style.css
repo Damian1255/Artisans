@@ -483,11 +483,25 @@ input {
           align-items: center;
 }
 .header-actions > * + * {
-  margin-left: 18px;
+  margin-left: 15px;
 }
+
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 3px;
+  max-width: 62px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 @media only screen and (max-width: 575px) {
   .header-actions > * + * {
     margin-left: 15px;
+  }
+  .user-name {
+    display: none;
   }
 }
 @media only screen and (max-width: 479px) {
@@ -595,7 +609,7 @@ input {
   }
 }
 .main-menu ul li a {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   text-decoration: none;
   text-transform: uppercase;
@@ -4699,10 +4713,12 @@ Pages - My Account
   border: medium none;
   color: #000000;
   cursor: pointer;
+  width: 100%;
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
-  padding: 11px 30px;
+  padding: 18px 30px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;

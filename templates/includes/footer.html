@@ -51,12 +51,10 @@
                                     <ul class="align-items-center">
                                         <li class="li"><a class="single-link" href="about.html">About us</a></li>
                                         <li class="li"><a class="single-link" href="#">Delivery information</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.html">Privacy
-                                                Policy</a></li>
+                                        <li class="li"><a class="single-link" href="privacy-policy.html">Privacy Policy</a></li>
                                         <li class="li"><a class="single-link" href="#">Sales</a></li>
                                         <li class="li"><a class="single-link" href="#">Terms & Conditions</a></li>
                                         <li class="li"><a class="single-link" href="#">Shipping Policy</a></li>
-                                        <li class="li"><a class="single-link" href="#">EMI Payment</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -70,15 +68,16 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="my-account.html"> My account</a>
-                                        </li>
-                                        <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
-                                        <li class="li"><a class="single-link" href="#">Returns</a></li>
-                                        <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shipping</a>
-                                        </li>
-                                        <li class="li"><a class="single-link" href="wishlist.html">Wishlist</a></li>
-                                        <li class="li"><a class="single-link" href="#">How Does It Work</a></li>
-                                        <li class="li"><a class="single-link" href="#">Merchant Sign Up</a></li>
+                                        {% if session['logged_in'] %}
+                                            <li class="li"><a class="single-link" href="/account"> My account</a></li>
+                                            <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
+                                            <li class="li"><a class="single-link" href="#">Returns</a></li>
+                                            <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shipping</a></li>
+                                            <li class="li"><a class="single-link" href="wishlist.html">Wishlist</a></li>
+                                        {% else %}
+                                            <li class="li"><a class="single-link" href="/admin">Employee Sign In</a></li>
+                                            <li class="li"><a class="single-link" href="/checkout">Checkout</a></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -92,9 +91,7 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="index.html">Affiliate</a></li>
-                                        <li class="li"><a class="single-link"
-                                                href="shop-left-sidebar.html">Bestsellers</a></li>
+                                        <li class="li"><a class="single-link" href="shop-left-sidebar.html">Bestsellers</a></li>
                                         <li class="li"><a class="single-link" href="#">Discount</a></li>
                                         <li class="li"><a class="single-link" href="#">Latest products</a></li>
                                         <li class="li"><a class="single-link" href="#">Sale</a></li>
@@ -115,7 +112,7 @@
                             <div class="footer-links">
                                 <!-- News letter area -->
                                 <p class="mail">If you have any question.please <br>
-                                    contact us at <a href="mailto:demo@example.com">demo@example.com</a> </p>
+                                    contact us at <a href="mailto:demo@example.com">joemama@example.com</a> </p>
                                 <p class="address"><i class="pe-7s-map-marker"></i> <span>Your address goes here.
                                         <br>
                                         123, Address.</span> </p>
