@@ -49,7 +49,7 @@
                                                 <a href="#">Forgot Password?</a>
                                             </div>
                                             <button type="submit"><span>Login</span></button>
-                                            <div id="login-msg-box" style="opacity: 0;text-align: center;"></div>
+                                            <div id="login-msg-box" style="text-align: center; color: red"></div>
                                         </div>
                                     </form>
                                 </div>
@@ -71,17 +71,12 @@
                                         <input name="email" placeholder="Email" type="email" required />
                                         <input type="text" name="username" placeholder="Username" required />
                                         <input type="password" name="password" placeholder="Password" required />
-                                        <input type="password" name="re-password" placeholder="Confirm Password"
-                                            required />
-
+                                        <input type="password" name="re-password" placeholder="Confirm Password" required />
                                         <div class="button-box">
                                             <button type="submit"><span>Register</span></button>
                                         </div>
-                                        <div id="reg-msg-box" style="text-align: center; color: red">
-                                            {% if reg_error %}
-                                            {{ reg_error }}
-                                            {% endif %}
-                                        </div>
+                                        <p style="line-height: 30px;color: #747474;">by Signing Up you Agree to our <a href="#">Terms of use</a> and <a href="#">Privacy policy</a>.</p>
+                                        <div id="reg-msg-box" style="text-align: center; color: red"></div>
                                     </form>
                                 </div>
                             </div>
