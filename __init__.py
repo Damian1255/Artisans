@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import shelve
-import User
+import User, Admin
 import logging
 import hashlib
 
@@ -35,8 +35,7 @@ def login():
 
             username = request.json['username']
             # hashes password for comparison
-            password = hashlib.md5(
-                (request.json['password'] + salt).encode()).hexdigest()
+            password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
 
             for key in user_list:
                 if user_list[key].get_username() == username and user_list[key].get_password() == password:
@@ -69,39 +68,50 @@ def register():
             user_list = db['Users']
         except:
             user_list = {}
-
+        try:
+            admin_list = db['Admins']
+        except:
+            admin_list = {}
+        
         first_name = request.json['first_name']
         last_name = request.json['last_name']
         username = request.json['username']
         email = request.json['email']
         # hash password
-        password = hashlib.md5(
-            (request.json['password'] + salt).encode()).hexdigest()
+        password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
 
-        # checks if username or email is already taken
+        # checks if username or email is already taken by a user
         available = True
         for key in user_list:
             if user_list[key].get_username() == username or user_list[key].get_email() == email:
+                available = False
+                break
+        # checks if username or email is already taken by a admin
+        for key in admin_list:
+            if admin_list[key].get_username() == username or admin_list[key].get_email() == email:
                 available = False
                 break
 
         if available == False:
             return jsonify({
                 'available': available,
-                'success': False
             })
+        
+        if request.json['isadmin']:
+            admin = Admin.Admin(username, first_name, last_name, password, email)
+            admin_list[admin.get_user_id] = admin
+            db['Admins'] = admin_list
+            print(f"Admin created successfully! Username: {admin.get_username()} Password: {admin.get_password()} Email: {admin.get_email()}")
         else:
             user = User.User(username, first_name, last_name, password, email)
             user_list[user.get_user_id] = user
             db['Users'] = user_list
-            db.close()
+            print(f"User created successfully! Username: {user.get_username()} Password: {user.get_password()} Email: {user.get_email()}")
 
-            print(
-                f"User created successfully! Username: {user.get_username()} Password: {user.get_password()} Email: {user.get_email()}")
-            return jsonify({
-                'available': available,
-                'success': True
-            })
+        db.close()
+        return jsonify({
+            'available': available,
+        })
 
     return render_template('login.html', show_reg=True)
 
@@ -130,6 +140,9 @@ def account():
 def admin():
     return render_template('admin/index.html')
 
+@app.route('/admin-sign-up')
+def admin_signin():
+    return render_template('admin/temp-sign-up.html')
 
 def get_user_list():
     try:

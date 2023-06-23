@@ -28,7 +28,7 @@ registerForm.addEventListener("submit", function (event) {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
 
-            if (response.available && response.success) {
+            if (response.available) {
                 registerForm.reset()
                 window.location.href = "/login";
             } else {
@@ -43,7 +43,8 @@ registerForm.addEventListener("submit", function (event) {
         last_name: last_name.value,
         email: email.value,
         username: username.value,
-        password: password.value
+        password: password.value,
+        isadmin: false
     }));
 });
 
