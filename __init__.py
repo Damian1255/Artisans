@@ -31,24 +31,43 @@ def login():
         try:
             db = shelve.open('storage.db', 'r')
             user_list = db['Users']
+            admin_list = db['Admins']
             db.close()
 
             username = request.json['username']
             # hashes password for comparison
             password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
 
+            # logs in admin if username and password matches
+            for key in admin_list:
+                if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
+                    print(f"Admin {admin_list[key].get_username()} logged in successfully!")
+
+                    # creates session
+                    session['user_id'] = admin_list[key].get_user_id()
+                    session['first_name'] = admin_list[key].get_first_name()
+                    session['last_name'] = admin_list[key].get_last_name()
+                    session['username'] = admin_list[key].get_username()
+                    session['logged_in'] = True
+                    session['isadmin'] = True
+
+                    return jsonify({'success': True})
+
+            # logs in user if username and password matches
             for key in user_list:
                 if user_list[key].get_username() == username and user_list[key].get_password() == password:
                     print(f"User {user_list[key].get_username()} logged in successfully!")
 
-                    # creates session
-                    session['user_id'] = user_list[key].get_user_id()
-                    session['first_name'] = user_list[key].get_first_name()
-                    session['last_name'] = user_list[key].get_last_name()
-                    session['username'] = user_list[key].get_username()
-                    session['logged_in'] = True
+                # creates session
+                session['user_id'] = user_list[key].get_user_id()
+                session['first_name'] = user_list[key].get_first_name()
+                session['last_name'] = user_list[key].get_last_name()
+                session['username'] = user_list[key].get_username()
+                session['logged_in'] = True
+                session['isadmin'] = False
 
-                    return jsonify({'success': True})
+                return jsonify({'success': True})
+            
             return jsonify({'success': False})
         except:
             print("Error in retrieving Users from storage.db.")
@@ -123,6 +142,7 @@ def logout():
     session.pop('first_name', None)
     session.pop('last_name', None)
     session.pop('username', None)
+    session.pop('isadmin', None)
     session['logged_in'] = False
 
     return redirect(url_for('index'))
@@ -136,9 +156,12 @@ def account():
         return redirect(url_for('login'))
 
 
-@app.route('/admin')
-def admin():
-    return render_template('admin/index.html')
+@app.route('/dashboard')
+def dashboard():
+    if session['logged_in'] == True and session['isadmin'] == True:
+        return render_template('admin/index.html')
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/admin-sign-up')
 def admin_signin():

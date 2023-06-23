@@ -69,6 +69,9 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         {% if session['logged_in'] %}
+                                            {% if session['isadmin'] %}
+                                                <li class="li"><a class="single-link" href="/dashboard">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></i></a></li>
+                                            {% endif %}
                                             <li class="li"><a class="single-link" href="/account"> My account</a></li>
                                             <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
                                             <li class="li"><a class="single-link" href="#">Returns</a></li>

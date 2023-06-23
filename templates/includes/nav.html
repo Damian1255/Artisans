@@ -129,6 +129,9 @@
                                     class="pe-7s-users"></i><span class="user-name">{{session['first_name']}}</span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if session['logged_in'] %}
+                                    {% if session['isadmin'] %}
+                                        <li><a class="dropdown-item" href="/dashboard">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></a></li>
+                                    {% endif %}
                                     <li><a class="dropdown-item" href="/account">My account</a></li>
                                     <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
