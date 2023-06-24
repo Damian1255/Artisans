@@ -38,10 +38,11 @@ def login():
             # hashes password for comparison
             password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
 
+            print(f"Username: {username}")
+            print(f"Password: {password}")
             # logs in admin if username and password matches
             for key in admin_list:
                 if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
-
                     print(f"Admin {admin_list[key].get_username()} logged in successfully!")
                     create_session(admin_list[key], True)
 
@@ -51,9 +52,9 @@ def login():
             for key in customer_list:
                 if customer_list[key].get_username() == username and customer_list[key].get_password() == password:
                     print(f"User {customer_list[key].get_username()} logged in successfully!")
+                    create_session(customer_list[key], False)
 
-                create_session(customer_list[key], False)
-                return jsonify({'success': True})
+                    return jsonify({'success': True})
             
             return jsonify({'success': False})
         except Exception:
@@ -131,7 +132,7 @@ def register():
 def update_user(id):
     if request.method == 'POST':
         try:
-            db = shelve.open('storage.db', 'r')
+            db = shelve.open('storage.db', 'c')
             customer_list = db['Customers']
             
             # retrieves user object from user list
@@ -142,7 +143,7 @@ def update_user(id):
             customer.set_last_name(request.json['last_name'])
             customer.set_email(request.json['email'])
             customer.set_password(hashlib.md5((request.json['password'] + salt).encode()).hexdigest())
-            customer.set_dob(request.json['dob'])
+            customer.set_birthdate(request.json['dob'])
 
             # updates user object in user list
             customer_list[id] = customer
@@ -150,8 +151,13 @@ def update_user(id):
             db.close()
 
             print(f"User {customer.get_username()} updated successfully!")
-        except:
+            return jsonify({'success': True})
+        except Exception as e:
+            print(e)
             print("Something went wrong.")
+            return jsonify({'success': False})
+
+    return redirect(url_for('account'))
 
 @app.route('/logout')
 def logout():

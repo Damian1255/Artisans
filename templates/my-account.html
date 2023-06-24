@@ -99,7 +99,8 @@
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="account_login_form">
-                                    <form action="/update-user/{{user.get_user_id()}}" method="post">
+                                    <form action="/update-user" method="post" id="update-form">
+                                        <input type="hidden" name="id" value="{{user.get_user_id()}}">
                                         <div class="row">
                                             <div class="default-form-box mb-20 col-md-6">
                                                 <label>First Name</label>
@@ -112,20 +113,21 @@
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Birthdate</label>
-                                            <input type="date" name="birthday" value="{{user.get_birthdate()}}">
+                                            <input type="date" name="dob" value="{{user.get_birthdate()}}">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Email</label>
-                                            <input type="text" name="email-name" value="{{user.get_email()}}">
+                                            <input type="text" name="email" value="{{user.get_email()}}">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Password</label>
-                                            <input type="password" name="user-password" value="{{user.get_first_name()}}">
+                                            <input type="password" name="password" value="{{user.get_first_name()}}">
                                         </div>
                                         </label>
                                         <div class="save_button mt-3">
                                             <button class="btn" type="submit">Save</button>
                                         </div>
+                                        <div id="msg-box"></div>
                                     </form>
                                 </div>
                             </div>
@@ -136,4 +138,5 @@
         </div>
     </div>
 </div>
+<script src="/static/js/account-form-validation.js"></script>
 {% endblock %}
