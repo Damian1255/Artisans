@@ -11,12 +11,24 @@ registerForm.addEventListener("submit", function (event) {
     var username = registerForm.querySelector("input[name='username']");
     var password = registerForm.querySelector("input[name='password']");
     var rePassword = registerForm.querySelector("input[name='re-password']");
+    var dob = registerForm.querySelector("input[name='dob']");
+    var gender = registerForm.querySelector("select[name='gender']");
 
+    // clear any highlighted elements
+    remove_highlight([password, rePassword, gender])
+
+    // validate gender
+    if (gender.value == "") {
+        highlight_elements_red([gender])
+        show_reg_error('Please select your gender.')
+        return
+    }
+
+    // validate password
     if (password.value != rePassword.value) {
-        // highlight password fields
-        highlight_elements_red([password, rePassword]);
-        show_reg_error("Passwords do not match.")
-        return;
+        highlight_elements_red([password, rePassword])
+        show_reg_error('Passwords do not match.')
+        return
     }
 
     // Ajax call to register user 
@@ -44,6 +56,8 @@ registerForm.addEventListener("submit", function (event) {
         email: email.value,
         username: username.value,
         password: password.value,
+        dob: dob.value,
+        gender: gender.value,
         isadmin: false
     }));
 });
@@ -93,5 +107,11 @@ function show_login_error(message) {
 function highlight_elements_red(element_arr) {
     element_arr.forEach(element => {
         element.style.borderColor = "red";
+    });
+}
+
+function remove_highlight(element_arr) {
+    element_arr.forEach(element => {
+        element.style.borderColor = "";
     });
 }

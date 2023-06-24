@@ -107,7 +107,7 @@ button:focus {
           box-shadow: none;
 }
 
-input {
+input, select {
   display: inline-block;
   line-height: 50px;
   height: 50px;
@@ -4672,7 +4672,7 @@ Pages - My Account
   padding: 80px;
   text-align: left;
 }
-.login-register-wrapper .login-form-container .login-register-form input {
+.login-register-wrapper .login-form-container .login-register-form input, select {
   background-color: transparent;
   border: 1px solid #ebebeb;
   color: #474747;
@@ -4682,7 +4682,7 @@ Pages - My Account
   width: 100%;
   outline: none;
 }
-.login-register-wrapper .login-form-container .login-register-form input:focus {
+.login-register-wrapper .login-form-container .login-register-form input:focus, select:focus {
   border-color: #eaaa85;
 }
 .login-register-wrapper .login-form-container .login-register-form .button-box .login-toggle-btn {

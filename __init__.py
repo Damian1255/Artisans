@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import shelve
-import User, Admin
+import User, Customer, Admin
 import logging
 import hashlib
 
@@ -30,7 +30,7 @@ def login():
     if request.method == 'POST':
         try:
             db = shelve.open('storage.db', 'r')
-            user_list = db['Users']
+            customer_list = db['Customers']
             admin_list = db['Admins']
             db.close()
 
@@ -41,38 +41,27 @@ def login():
             # logs in admin if username and password matches
             for key in admin_list:
                 if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
-                    print(f"Admin {admin_list[key].get_username()} logged in successfully!")
 
-                    # creates session
-                    session['user_id'] = admin_list[key].get_user_id()
-                    session['first_name'] = admin_list[key].get_first_name()
-                    session['last_name'] = admin_list[key].get_last_name()
-                    session['username'] = admin_list[key].get_username()
-                    session['logged_in'] = True
-                    session['isadmin'] = True
+                    print(f"Admin {admin_list[key].get_username()} logged in successfully!")
+                    create_session(admin_list[key], True)
 
                     return jsonify({'success': True})
 
             # logs in user if username and password matches
-            for key in user_list:
-                if user_list[key].get_username() == username and user_list[key].get_password() == password:
-                    print(f"User {user_list[key].get_username()} logged in successfully!")
+            for key in customer_list:
+                if customer_list[key].get_username() == username and customer_list[key].get_password() == password:
+                    print(f"User {customer_list[key].get_username()} logged in successfully!")
 
-                # creates session
-                session['user_id'] = user_list[key].get_user_id()
-                session['first_name'] = user_list[key].get_first_name()
-                session['last_name'] = user_list[key].get_last_name()
-                session['username'] = user_list[key].get_username()
-                session['logged_in'] = True
-                session['isadmin'] = False
-
+                create_session(customer_list[key], False)
                 return jsonify({'success': True})
             
             return jsonify({'success': False})
-        except:
-            print("Error in retrieving Users from storage.db.")
-
-    return render_template('login.html')
+        except Exception:
+            print("Something went wrong.")
+    elif session['logged_in'] == False:
+        return render_template('login.html')
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -84,9 +73,9 @@ def register():
         except:
             print("Error in retrieving storage.db.")
         try:
-            user_list = db['Users']
+            customer_list = db['Customers']
         except:
-            user_list = {}
+            customer_list = {}
         try:
             admin_list = db['Admins']
         except:
@@ -96,13 +85,15 @@ def register():
         last_name = request.json['last_name']
         username = request.json['username']
         email = request.json['email']
+        gender = request.json['gender']
+        dob = request.json['dob']
         # hash password
         password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
 
         # checks if username or email is already taken by a user
         available = True
-        for key in user_list:
-            if user_list[key].get_username() == username or user_list[key].get_email() == email:
+        for key in customer_list:
+            if customer_list[key].get_username() == username or customer_list[key].get_email() == email:
                 available = False
                 break
         # checks if username or email is already taken by a admin
@@ -118,22 +109,49 @@ def register():
         
         if request.json['isadmin']:
             admin = Admin.Admin(username, first_name, last_name, password, email)
-            admin_list[admin.get_user_id] = admin
+            admin_list[admin.get_user_id()] = admin
             db['Admins'] = admin_list
-            print(f"Admin created successfully! Username: {admin.get_username()} Password: {admin.get_password()} Email: {admin.get_email()}")
+            print(f"Admin {admin.get_username()} created successfully!")
         else:
-            user = User.User(username, first_name, last_name, password, email)
-            user_list[user.get_user_id] = user
-            db['Users'] = user_list
-            print(f"User created successfully! Username: {user.get_username()} Password: {user.get_password()} Email: {user.get_email()}")
+            customer = Customer.Customer(username, first_name, last_name, password, email, dob, gender)
+            customer_list[customer.get_user_id()] = customer
+            db['Customers'] = customer_list
+            print(f"Customer {customer.get_username()} created successfully!")
 
         db.close()
         return jsonify({
             'available': available,
         })
+    elif session['logged_in'] == False:
+        return render_template('login.html', show_reg=True)
+    else:
+        return redirect(url_for('index'))
+    
+@app.route('/update-user/<int:id>', methods=['GET', 'POST'])
+def update_user(id):
+    if request.method == 'POST':
+        try:
+            db = shelve.open('storage.db', 'r')
+            customer_list = db['Customers']
+            
+            # retrieves user object from user list
+            customer = customer_list[id]
 
-    return render_template('login.html', show_reg=True)
+            # updates user object
+            customer.set_first_name(request.json['first_name'])
+            customer.set_last_name(request.json['last_name'])
+            customer.set_email(request.json['email'])
+            customer.set_password(hashlib.md5((request.json['password'] + salt).encode()).hexdigest())
+            customer.set_dob(request.json['dob'])
 
+            # updates user object in user list
+            customer_list[id] = customer
+            db['Customers'] = customer_list
+            db.close()
+
+            print(f"User {customer.get_username()} updated successfully!")
+        except:
+            print("Something went wrong.")
 
 @app.route('/logout')
 def logout():
@@ -151,7 +169,20 @@ def logout():
 @app.route('/account')
 def account():
     if session['logged_in'] == True:
-        return render_template('my-account.html')
+        # retrieves user list from storage.db
+        try:
+            db = shelve.open('storage.db', 'r')
+            customer_list = db['Customers']
+            db.close()
+                
+            # retrieves user object from user list
+            for key in customer_list:
+                if customer_list[key].get_user_id() == session['user_id']:
+                    print(f"User {customer_list[key].get_username()} retrieved successfully!")
+                    return render_template('my-account.html', user=customer_list[key])
+        except:
+            print("Error in retrieving storage.db.")
+            return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
 
@@ -177,6 +208,14 @@ def get_user_list():
     except:
         user_list = {}
     return user_list
+
+def create_session(user, isadmin):
+    session['user_id'] = user.get_user_id()
+    session['first_name'] = user.get_first_name()
+    session['last_name'] = user.get_last_name()
+    session['username'] = user.get_username()
+    session['logged_in'] = True
+    session['isadmin'] = isadmin
 
 
 if __name__ == '__main__':
