@@ -16,6 +16,10 @@ app.logger.disabled = True
 
 @app.route('/')
 def index():
+    # creates session if it doesn't exist
+    if 'logged_in' not in session:
+        session['logged_in'] = False
+    
     return render_template('index.html')
 
 @app.route('/2')
