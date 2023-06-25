@@ -4,7 +4,7 @@ import User, Customer, Admin
 import logging
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 log = logging.getLogger('werkzeug')
 
 app.secret_key = 'nani'
@@ -14,51 +14,53 @@ salt = "wubba lubba dub dub"
 log.disabled = True
 app.logger.disabled = True
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/2')
 def index2():
     return render_template('index-2.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         try:
             db = shelve.open('storage.db', 'r')
-            customer_list = db['Customers']
-            admin_list = db['Admins']
-            db.close()
-
-            username = request.json['username']
-            # hashes password for comparison
-            password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
-
-            print(f"Username: {username}")
-            print(f"Password: {password}")
-            # logs in admin if username and password matches
-            for key in admin_list:
-                if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
-                    print(f"Admin {admin_list[key].get_username()} logged in successfully!")
-                    create_session(admin_list[key], True)
-
-                    return jsonify({'success': True})
-
-            # logs in user if username and password matches
-            for key in customer_list:
-                if customer_list[key].get_username() == username and customer_list[key].get_password() == password:
-                    print(f"User {customer_list[key].get_username()} logged in successfully!")
-                    create_session(customer_list[key], False)
-
-                    return jsonify({'success': True})
-            
-            return jsonify({'success': False})
         except Exception:
             print("Something went wrong.")
+        try:
+            customer_list = db['Customers']
+        except:
+            customer_list = {}
+        try:
+            admin_list = db['Admins']
+        except:
+            admin_list = {}
+
+        db.close()
+
+        username = request.json['username']
+        # hashes password for comparison
+        password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
+
+        # logs in admin if username and password matches
+        for key in admin_list:
+            if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
+                print(f"Admin {admin_list[key].get_username()} logged in successfully!")
+                create_session(admin_list[key], True)
+
+                return jsonify({'success': True})
+
+        # logs in user if username and password matches
+        for key in customer_list:
+            if customer_list[key].get_username() == username and customer_list[key].get_password() == password:
+                print(f"User {customer_list[key].get_username()} logged in successfully!")
+                create_session(customer_list[key], False)
+
+                return jsonify({'success': True})
+            
+        return jsonify({'success': False})
     elif session['logged_in'] == False:
         return render_template('login.html')
     else:
@@ -179,21 +181,26 @@ def account():
         try:
             db = shelve.open('storage.db', 'r')
             customer_list = db['Customers']
+            admin_list = db['Admins']
             db.close()
                 
             # retrieves user object from user list
-            for key in customer_list:
-                if customer_list[key].get_user_id() == session['user_id']:
-                    print(f"User {customer_list[key].get_username()} retrieved successfully!")
-                    return render_template('my-account.html', user=customer_list[key])
-        except:
-            print("Error in retrieving storage.db.")
+            if session['isadmin'] == True:
+                user = admin_list[session['user_id']]
+            else:
+                user = customer_list[session['user_id']]
+
+            print(f"{user.get_username()} information retrieved successfully!")
+            return render_template('my-account.html', user=user)
+        except Exception as e:
+            print(e)
+            print("An error occurred.")
             return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
 
 
-@app.route('/dashboard')
+@app.route('/admin/')
 def dashboard():
     if session['logged_in'] == True and session['isadmin'] == True:
         return render_template('admin/index.html')

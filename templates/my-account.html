@@ -30,10 +30,9 @@
                 <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
                     <ul role="tablist" class="nav flex-column dashboard-list">
                         <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
-                        <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                        <li><a href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
-                        <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Account details</a>
-                        </li>
+                        <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">My Orders</a></li>
+                        <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">My details</a></li>
+                        <li><a href="#address" data-bs-toggle="tab" class="nav-link">My addresses</a></li>
                         <li><a href="/logout" class="nav-link">logout</a></li>
                     </ul>
                 </div>
@@ -95,11 +94,11 @@
                         </address>
                     </div>
                     <div class="tab-pane fade" id="account-details">
-                        <h3>Account details </h3>
+                        <h3>Personal details</h3>
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="account_login_form">
-                                    <form action="/update-user" method="post" id="update-form">
+                                    <form action="#" method="post" id="update-form">
                                         <input type="hidden" name="id" value="{{user.get_user_id()}}">
                                         <div class="row">
                                             <div class="default-form-box mb-20 col-md-6">
@@ -111,19 +110,25 @@
                                                 <input type="text" name="last-name" value="{{user.get_last_name()}}">
                                             </div>
                                         </div>
-                                        <div class="default-form-box mb-20">
-                                            <label>Birthdate</label>
-                                            <input type="date" name="dob" value="{{user.get_birthdate()}}">
-                                        </div>
+                                        {% if not session['isadmin']%}
+                                            <div class="default-form-box mb-20">
+                                                <label>Birthdate</label>
+                                                <input type="date" name="dob" value="{{user.get_birthdate()}}">
+                                            </div>
+                                        {% endif %}
                                         <div class="default-form-box mb-20">
                                             <label>Email</label>
                                             <input type="text" name="email" value="{{user.get_email()}}">
                                         </div>
+                                        <h3>Account details</h3>
                                         <div class="default-form-box mb-20">
                                             <label>Password</label>
                                             <input type="password" name="password" value="{{user.get_first_name()}}">
                                         </div>
                                         </label>
+                                        <div class="edit_button mt-3">
+                                            <button class="btn" type="submit">Edit</button>
+                                        </div>
                                         <div class="save_button mt-3">
                                             <button class="btn" type="submit">Save</button>
                                         </div>

@@ -4626,6 +4626,22 @@ Pages - My Account
   color: #fff;
 }
 
+.edit_button button {
+  background-color: #3b3b3b;
+  border-color: #3b3b3b;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  width: 130px;
+  height: 45px;
+  line-height: 45px;
+}
+.edit_button button:hover {
+  border-color: #eaaa85;
+  background-color: #eaaa85;
+  color: #fff;
+}
+
 .login-register-wrapper .login-register-tab-list {
   display: -webkit-box;
   display: -ms-flexbox;
