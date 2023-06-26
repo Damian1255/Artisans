@@ -31,9 +31,7 @@
                     <ul role="tablist" class="nav flex-column dashboard-list">
                         <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
                         <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">My Orders</a></li>
-                        {% if not session['isadmin']%}
-                            <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">My details</a></li>
-                        {% endif %}
+                        <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">My details</a></li>
                         <li><a href="#address" data-bs-toggle="tab" class="nav-link">My addresses</a></li>
                         <li><a href="/logout" class="nav-link">logout</a></li>
                     </ul>
@@ -95,8 +93,8 @@
                             <span><strong>Country:</strong> USA</span>
                         </address>
                     </div>
-                    {% if not session['isadmin']%}
                     <div class="tab-pane fade" id="account-details">
+                        {% if not session['isadmin']%}
                         <h3>Personal details</h3>
                         <div class="login">
                             <div class="login_form_container">
@@ -104,42 +102,49 @@
                                     <form action="#" method="post" id="update-form">
                                         <input type="hidden" name="id" value="{{user.get_user_id()}}">
                                         <div class="row">
-                                            <div class="default-form-box mb-20 col-md-6">
+                                            <div class="default-form-box mb-20 col-md-6" id="first-name-container">
                                                 <label>First Name</label>
-                                                <input type="text" name="first-name" value="{{user.get_first_name()}}">
+                                                <p>{{user.get_first_name()}}</p>
                                             </div>
-                                            <div class="default-form-box mb-20 col-md-6">
+                                            <div class="default-form-box mb-20 col-md-6" id="last-name-container">
                                                 <label>Last Name</label>
-                                                <input type="text" name="last-name" value="{{user.get_last_name()}}">
+                                                <p>{{user.get_last_name()}}</p>
                                             </div>
                                         </div>
-                                        <div class="default-form-box mb-20">
-                                            <label>Birthdate</label>
-                                            <input type="date" name="dob" value="{{user.get_birthdate()}}">
-                                        </div>
-                                        <div class="default-form-box mb-20">
-                                            <label>Email</label>
-                                            <input type="text" name="email" value="{{user.get_email()}}">
+                                        <div class="row">
+                                            <div class="default-form-box mb-20 col-md-6" id="birthdate-container">
+                                                <label>Birthdate</label>
+                                                <p>{{user.get_birthdate()}}</p>
+                                            </div>
+                                            <div class="default-form-box mb-20 col-md-6" id="email-container">
+                                                <label>Email</label>
+                                                <p>{{user.get_email()}}</p>
+                                            </div>
                                         </div>
                                         <h3>Account details</h3>
-                                        <div class="default-form-box mb-20">
+                                        <div class="default-form-box mb-20" id="password-container">
                                             <label>Password</label>
-                                            <input type="password" name="password" value="{{user.get_first_name()}}">
+                                            <p>{{user.get_password()}}</p>
                                         </div>
                                         </label>
-                                        <div class="edit_button mt-3">
-                                            <button class="btn" type="submit">Edit</button>
-                                        </div>
-                                        <div class="save_button mt-3">
-                                            <button class="btn" type="submit">Save</button>
+                                        <div class="row">
+                                            <div class="edit_button mt-3 col-md-2">
+                                                <button class="btn" type="button" id="edit-button">Edit</button>
+                                            </div>
+                                            <div class="save_button mt-3 col-md-2" id="save-button-container">
+                                                
+                                            </div>
                                         </div>
                                         <div id="msg-box"></div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        {% else %}
+                        <h3>My Details</h3>
+                        <p>Edit your details in the <a href="/admin/">Admin Dashboard</a>.</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

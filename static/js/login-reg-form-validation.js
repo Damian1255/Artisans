@@ -40,7 +40,7 @@ registerForm.addEventListener("submit", function (event) {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
 
-            if (response.available) {
+            if (response.success) {
                 registerForm.reset()
                 window.location.href = "/login";
             } else {

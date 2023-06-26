@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import shelve
-import User, Customer, Admin
+import User, Customer, Admin, UserManager
 import logging
 import hashlib
 
@@ -13,6 +13,8 @@ salt = "wubba lubba dub dub"
 # disables flask logging
 log.disabled = True
 app.logger.disabled = True
+
+user_manager = UserManager.UserManager('storage.db')
 
 @app.route('/')
 def index():
@@ -29,42 +31,23 @@ def index2():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        try:
-            db = shelve.open('storage.db', 'r')
-        except Exception:
-            print("Something went wrong.")
-        try:
-            customer_list = db['Customers']
-        except:
-            customer_list = {}
-        try:
-            admin_list = db['Admins']
-        except:
-            admin_list = {}
-
-        db.close()
-
         username = request.json['username']
-        # hashes password for comparison
-        password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
+        password = request.json['password']
 
-        # logs in admin if username and password matches
-        for key in admin_list:
-            if admin_list[key].get_username() == username and admin_list[key].get_password() == password:
-                print(f"Admin {admin_list[key].get_username()} logged in successfully!")
-                create_session(admin_list[key], True)
+        # authenticates admin user
+        auth = user_manager.authenticate_admin(username, password)
+        if auth['success']:
+            create_session(auth['user'], True)
+            return jsonify({'success': True})
 
-                return jsonify({'success': True})
-
-        # logs in user if username and password matches
-        for key in customer_list:
-            if customer_list[key].get_username() == username and customer_list[key].get_password() == password:
-                print(f"User {customer_list[key].get_username()} logged in successfully!")
-                create_session(customer_list[key], False)
-
-                return jsonify({'success': True})
+        # authenticates customer user
+        auth = user_manager.authenticate_customer(username, password)
+        if auth['success']:
+            create_session(auth['user'], False)
+            return jsonify({'success': True})
             
         return jsonify({'success': False})
+    
     elif session['logged_in'] == False:
         return render_template('login.html')
     else:
@@ -73,62 +56,29 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        # retrieves user list from storage.db
-        try:
-            db = shelve.open('storage.db', 'c')
-        except:
-            print("Error in retrieving storage.db.")
-        try:
-            customer_list = db['Customers']
-        except:
-            customer_list = {}
-        try:
-            admin_list = db['Admins']
-        except:
-            admin_list = {}
-        
+    if request.method == 'POST':        
         first_name = request.json['first_name']
         last_name = request.json['last_name']
         username = request.json['username']
         email = request.json['email']
         gender = request.json['gender']
         dob = request.json['dob']
-        # hash password
-        password = hashlib.md5((request.json['password'] + salt).encode()).hexdigest()
+        password = request.json['password']
 
-        # checks if username or email is already taken by a user
-        available = True
-        for key in customer_list:
-            if customer_list[key].get_username() == username or customer_list[key].get_email() == email:
-                available = False
-                break
-        # checks if username or email is already taken by a admin
-        for key in admin_list:
-            if admin_list[key].get_username() == username or admin_list[key].get_email() == email:
-                available = False
-                break
-
-        if available == False:
-            return jsonify({
-                'available': available,
-            })
+        # check username or email is taken by a user or admin
+        if not user_manager.check_username_availability(username) or not user_manager.check_email_availability(email):
+            return jsonify({ 'success': False })
         
+        if not user_manager.check_admin_username_availability(username) or not user_manager.check_admin_email_availability(email):
+            return jsonify({ 'success': False })
+        
+        # registers user
         if request.json['isadmin']:
-            admin = Admin.Admin(username, first_name, last_name, password, email)
-            admin_list[admin.get_user_id()] = admin
-            db['Admins'] = admin_list
-            print(f"Admin {admin.get_username()} created successfully!")
+            user_manager.create_admin(username, first_name, last_name, password, email)
         else:
-            customer = Customer.Customer(username, first_name, last_name, password, email, dob, gender)
-            customer_list[customer.get_user_id()] = customer
-            db['Customers'] = customer_list
-            print(f"Customer {customer.get_username()} created successfully!")
+            user_manager.create_customer(username, first_name, last_name, password, email, dob, gender)
 
-        db.close()
-        return jsonify({
-            'available': available,
-        })
+        return jsonify({ 'success': True})
     elif session['logged_in'] == False:
         return render_template('login.html', show_reg=True)
     else:
@@ -137,32 +87,16 @@ def register():
 @app.route('/update-user/<int:id>', methods=['GET', 'POST'])
 def update_user(id):
     if request.method == 'POST':
-        try:
-            db = shelve.open('storage.db', 'c')
-            customer_list = db['Customers']
-            
-            # retrieves user object from user list
-            customer = customer_list[id]
+        first_name = request.json['first_name']
+        last_name = request.json['last_name']
+        email = request.json['email']
+        dob = request.json['dob']
+        password = request.json['password']
 
-            # updates user object
-            customer.set_first_name(request.json['first_name'])
-            customer.set_last_name(request.json['last_name'])
-            customer.set_email(request.json['email'])
-            customer.set_password(hashlib.md5((request.json['password'] + salt).encode()).hexdigest())
-            customer.set_birthdate(request.json['dob'])
-
-            # updates user object in user list
-            customer_list[id] = customer
-            db['Customers'] = customer_list
-            db.close()
-
-            print(f"User {customer.get_username()} updated successfully!")
+        if user_manager.update_customer(id, first_name, last_name, password, email, dob):
             return jsonify({'success': True})
-        except Exception as e:
-            print(e)
-            print("Something went wrong.")
-            return jsonify({'success': False})
 
+        return jsonify({'success': False})
     return redirect(url_for('account'))
 
 @app.route('/logout')
@@ -180,26 +114,13 @@ def logout():
 
 @app.route('/account')
 def account():
-    if session['logged_in'] == True:
-        # retrieves user list from storage.db
-        try:
-            db = shelve.open('storage.db', 'r')
-            customer_list = db['Customers']
-            admin_list = db['Admins']
-            db.close()
-                
-            # retrieves user object from user list
-            if session['isadmin'] == True:
-                user = admin_list[session['user_id']]
-            else:
-                user = customer_list[session['user_id']]
-
-            print(f"{user.get_username()} information retrieved successfully!")
-            return render_template('my-account.html', user=user)
-        except Exception as e:
-            print(e)
-            print("An error occurred.")
-            return redirect(url_for('index'))
+    if session['logged_in']:
+        if session['isadmin']:
+            user = user_manager.get_admin(session['user_id'])
+        else:
+            user = user_manager.get_customer(session['user_id'])
+            
+        return render_template('my-account.html', user=user)
     else:
         return redirect(url_for('login'))
 
@@ -214,17 +135,6 @@ def dashboard():
 @app.route('/admin-sign-up')
 def admin_signin():
     return render_template('admin/temp-sign-up.html')
-
-def get_user_list():
-    try:
-        db = shelve.open('storage.db', 'c')
-    except:
-        print("Error in retrieving storage.db.")
-    try:
-        user_list = db['Users']
-    except:
-        user_list = {}
-    return user_list
 
 def create_session(user, isadmin):
     session['user_id'] = user.get_user_id()
