@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-import shelve
 import User, Customer, Admin, UserManager
 import logging
-import hashlib
 
 app = Flask(__name__, static_url_path='/static')
 log = logging.getLogger('werkzeug')
@@ -64,21 +62,21 @@ def register():
         gender = request.json['gender']
         dob = request.json['dob']
         password = request.json['password']
-
-        # check username or email is taken by a user or admin
-        if not user_manager.check_username_availability(username) or not user_manager.check_email_availability(email):
-            return jsonify({ 'success': False })
-        
-        if not user_manager.check_admin_username_availability(username) or not user_manager.check_admin_email_availability(email):
-            return jsonify({ 'success': False })
         
         # registers user
         if request.json['isadmin']:
-            user_manager.create_admin(username, first_name, last_name, password, email)
+            if user_manager.admin_email_available(username) and user_manager.admin_email_available(email):
+                user_manager.create_admin(username, first_name, last_name, password, email)
+                return jsonify({ 'success': True })
+            else:
+                return jsonify({ 'success': False })
         else:
-            user_manager.create_customer(username, first_name, last_name, password, email, dob, gender)
+            if user_manager.username_available(username) and user_manager.email_available(email):
+                user_manager.create_customer(username, first_name, last_name, password, email, dob, gender)
+                return jsonify({ 'success': True })
+            else:
+                return jsonify({ 'success': False })
 
-        return jsonify({ 'success': True})
     elif session['logged_in'] == False:
         return render_template('login.html', show_reg=True)
     else:
@@ -119,7 +117,7 @@ def account():
             user = user_manager.get_admin(session['user_id'])
         else:
             user = user_manager.get_customer(session['user_id'])
-            
+
         return render_template('my-account.html', user=user)
     else:
         return redirect(url_for('login'))
@@ -132,7 +130,7 @@ def dashboard():
     else:
         return redirect(url_for('login'))
 
-@app.route('/admin-sign-up')
+@app.route('/admin/sign-up')
 def admin_signin():
     return render_template('admin/temp-sign-up.html')
 
