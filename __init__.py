@@ -11,12 +11,10 @@ app.secret_key = 'nani'
 log.disabled = True
 app.logger.disabled = True
 
-user_manager = UserManager.UserManager('storage.db')
+user_manager = UserManager.UserManager('storage/storage.db')
 
 @app.route('/')
 def index():
-    print(user_manager.get_admin_list())
-    print(user_manager.get_customer_list())
     # creates session if it doesn't exist
     if 'logged_in' not in session:
         session['logged_in'] = False
