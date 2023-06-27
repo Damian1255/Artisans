@@ -3,11 +3,10 @@ import User, Customer, Admin, UserManager
 import logging
 
 app = Flask(__name__, static_url_path='/static')
-log = logging.getLogger('werkzeug')
-
 app.secret_key = 'nani'
 
 # disables flask logging
+log = logging.getLogger('werkzeug')
 log.disabled = True
 app.logger.disabled = True
 
@@ -15,10 +14,6 @@ user_manager = UserManager.UserManager('storage/storage.db')
 
 @app.route('/')
 def index():
-    # creates session if it doesn't exist
-    if 'logged_in' not in session:
-        session['logged_in'] = False
-    
     return render_template('index.html')
 
 @app.route('/2')
@@ -44,12 +39,10 @@ def login():
             return jsonify({'success': True})
             
         return jsonify({'success': False})
-    
     elif session['logged_in'] == False:
         return render_template('login.html')
     else:
         return redirect(url_for('index'))
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -68,7 +61,6 @@ def register():
                 user_manager.create_admin(username, first_name, last_name, password, email)
                 return jsonify({ 'success': True })
             else:
-                print('register admin failed')
                 return jsonify({ 'success': False })
         else:
             if user_manager.username_available(username) and user_manager.email_available(email):
@@ -109,7 +101,6 @@ def logout():
 
     return redirect(url_for('index'))
 
-
 @app.route('/account')
 def account():
     if session['logged_in']:
@@ -121,7 +112,6 @@ def account():
         return render_template('my-account.html', user=user)
     else:
         return redirect(url_for('login'))
-
 
 @app.route('/admin/')
 def dashboard():
@@ -141,7 +131,6 @@ def create_session(user, isadmin):
     session['username'] = user.get_username()
     session['logged_in'] = True
     session['isadmin'] = isadmin
-
 
 if __name__ == '__main__':
     app.run(debug=True)
