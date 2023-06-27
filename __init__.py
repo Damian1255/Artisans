@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-import User, Customer, Admin, UserManager
+import UserManager
 import logging
 
 app = Flask(__name__, static_url_path='/static')
@@ -39,10 +39,13 @@ def login():
             return jsonify({'success': True})
             
         return jsonify({'success': False})
-    elif session['logged_in'] == False:
+    try:
+        if session['logged_in']:
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html')
+    except:
         return render_template('login.html')
-    else:
-        return redirect(url_for('index'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -68,11 +71,13 @@ def register():
                 return jsonify({ 'success': True })
             else:
                 return jsonify({ 'success': False })
-
-    elif session['logged_in'] == False:
+    try:
+        if session['logged_in']:
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', show_reg=True)
+    except:
         return render_template('login.html', show_reg=True)
-    else:
-        return redirect(url_for('index'))
     
 @app.route('/update-user/<int:id>', methods=['GET', 'POST'])
 def update_user(id):
@@ -89,6 +94,18 @@ def update_user(id):
         return jsonify({'success': False})
     return redirect(url_for('account'))
 
+@app.route('/account')
+def account():
+    try:
+        if session['logged_in'] and session['isadmin']:
+            user = user_manager.get_admin(session['user_id'])
+        else:
+            user = user_manager.get_customer(session['user_id'])
+
+        return render_template('my-account.html', user=user)
+    except:
+        return redirect(url_for('login'))
+    
 @app.route('/logout')
 def logout():
     # removes session
@@ -98,26 +115,17 @@ def logout():
     session.pop('username', None)
     session.pop('isadmin', None)
     session['logged_in'] = False
-
+    
     return redirect(url_for('index'))
-
-@app.route('/account')
-def account():
-    if session['logged_in']:
-        if session['isadmin']:
-            user = user_manager.get_admin(session['user_id'])
-        else:
-            user = user_manager.get_customer(session['user_id'])
-
-        return render_template('my-account.html', user=user)
-    else:
-        return redirect(url_for('login'))
 
 @app.route('/admin/')
 def dashboard():
-    if session['logged_in'] == True and session['isadmin'] == True:
-        return render_template('admin/index.html')
-    else:
+    try:
+        if session['logged_in'] and session['isadmin']:
+            return render_template('admin/index.html')
+        else:
+            return redirect(url_for('/'))
+    except:
         return redirect(url_for('login'))
 
 @app.route('/admin/sign-up')
