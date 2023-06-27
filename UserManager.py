@@ -106,6 +106,14 @@ class UserManager():
 
         return True
     
+    def get_customer_list(self):
+        print(f'Customer list successfully retrieved!')
+        return self.customer_list
+    
+    def get_admin_list(self):
+        print(f'Admin list successfully retrieved!')
+        return self.admin_list
+    
 
 
 
