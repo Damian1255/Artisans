@@ -7,12 +7,11 @@ salt = "wubba lubba dub dub"
 class UserManager():
     def __init__(self, db):
         self.db = shelve.open(db, 'c')
-
+        
         try:
             self.customer_list = self.db['Customers']
         except:
             self.customer_list = {}
-
         try:
             self.admin_list = self.db['Admins']
         except:
@@ -22,7 +21,7 @@ class UserManager():
         password = hashlib.md5((password + salt).encode()).hexdigest()
         for key in self.admin_list:
             if self.admin_list[key].get_username() == username and self.admin_list[key].get_password() == password:
-                print(f'Admin authenticated: {self.admin_list[key].get_username()}')
+                print(f'Admin {self.admin_list[key].get_username()} authenticated!')
                 return {'success': True, 'user': self.admin_list[key]}
             
         return {'success': False}
@@ -31,7 +30,7 @@ class UserManager():
         password = hashlib.md5((password + salt).encode()).hexdigest()
         for key in self.customer_list:
             if self.customer_list[key].get_username() == username and self.customer_list[key].get_password() == password:
-                print(f'Customer authenticated: {self.customer_list[key].get_username()}')
+                print(f'Customer {self.customer_list[key].get_username()} authenticated!')
                 return {'success': True, 'user': self.customer_list[key]}
             
         return {'success': False}
@@ -40,24 +39,28 @@ class UserManager():
         for key in self.customer_list:
             if self.customer_list[key].get_username() == username:
                 return False
+            
         return True
     
     def email_available(self, email):
         for key in self.customer_list:
             if self.customer_list[key].get_email() == email:
                 return False
+            
         return True
     
     def admin_username_available(self, username):
         for key in self.admin_list:
             if self.admin_list[key].get_username() == username:
                 return False
+            
         return True
     
     def admin_email_available(self, email):
         for key in self.admin_list:
             if self.admin_list[key].get_email() == email:
                 return False
+            
         return True
     
     def create_customer(self, username, first_name, last_name, password, email, dob, gender):
@@ -66,7 +69,8 @@ class UserManager():
         
         self.customer_list[customer.get_user_id()] = customer
         self.db['Customers'] = self.customer_list
-        print(f'New customer created: {customer.get_username()}')
+
+        print(f'New customer {customer.get_username()} created!')
 
     def create_admin(self, username, first_name, last_name, password, email):
         password = hashlib.md5((password + salt).encode()).hexdigest()
@@ -74,14 +78,17 @@ class UserManager():
 
         self.admin_list[admin.get_user_id()] = admin
         self.db['Admins'] = self.admin_list
-        print(f'New admin created: {admin.get_username()}')
+
+        print(f'New admin {admin.get_username()} created!')
 
     def get_customer(self, id):
-        print(f'Customer successfully retrieved: {self.customer_list[id].get_username()}')
+        print(f'Customer {self.customer_list[id].get_username()} successfully retrieved!')
+
         return self.customer_list[id]
     
     def get_admin(self, id):
-        print(f'Admin successfully retrieved: {self.admin_list[id].get_username()}')
+        print(f'Admin {self.admin_list[id].get_username()} successfully retrieved!')
+
         return self.admin_list[id]
     
     def update_customer(self, id, first_name, last_name, password, email, dob):
@@ -95,7 +102,8 @@ class UserManager():
 
         self.customer_list[id] = customer
         self.db['Customers'] = self.customer_list
-        print(f'Customer updated: {customer.get_username()}')
+        print(f'Customer {customer.get_username()} successfully updated!')
+
         return True
     
 

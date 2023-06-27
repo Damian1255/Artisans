@@ -65,10 +65,11 @@ def register():
         
         # registers user
         if request.json['isadmin']:
-            if user_manager.admin_email_available(username) and user_manager.admin_email_available(email):
+            if user_manager.admin_username_available(username) and user_manager.admin_email_available(email):
                 user_manager.create_admin(username, first_name, last_name, password, email)
                 return jsonify({ 'success': True })
             else:
+                print('register admin failed')
                 return jsonify({ 'success': False })
         else:
             if user_manager.username_available(username) and user_manager.email_available(email):
