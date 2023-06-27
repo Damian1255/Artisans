@@ -6,7 +6,6 @@ app = Flask(__name__, static_url_path='/static')
 log = logging.getLogger('werkzeug')
 
 app.secret_key = 'nani'
-salt = "wubba lubba dub dub"
 
 # disables flask logging
 log.disabled = True
