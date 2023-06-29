@@ -132,6 +132,11 @@ def dashboard():
 def admin_signin():
     return render_template('admin/temp-sign-up.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 def create_session(user, isadmin):
     session['user_id'] = user.get_user_id()
     session['first_name'] = user.get_first_name()
