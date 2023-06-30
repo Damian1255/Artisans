@@ -1,31 +1,35 @@
 import shelve
 
 class DbManager:
-    def __init__(self,):
-        self.path = 'storage/storage.db'
+    def __init__(self, db_file):
+        self.db_file = db_file
+        self.db = None
+
+    def open(self):
+        self.db = shelve.open(self.db_file)
+
+    def close(self):
+        self.db.close()
 
     def get_customer_list(self):
-        try:
-            db = shelve.open(self.path, 'c')
-        except:
-            print('Error opening database.')
-        try:
-            customer_list = db['Customers']
-        except:
-            customer_list = {}
-        
-        db.close()
+        self.open()
+        customer_list = self.db['Customers']
+        self.close()
         return customer_list
     
     def get_admin_list(self):
-        try:
-            db = shelve.open(self.path, 'c')
-        except:
-            print('Error opening database.')
-        try:
-            admin_list = db['Admins']
-        except:
-            admin_list = {}
-
-        db.close()
+        self.open()
+        admin_list = self.db['Admins']
+        self.close()
         return admin_list
+    
+    def update_customer_list(self, customer_list):
+        self.open()
+        self.db['Customers'] = customer_list
+        self.close()
+
+    def update_admin_list(self, admin_list):
+        self.open()
+        self.db['Admins'] = admin_list
+        self.close()
+    

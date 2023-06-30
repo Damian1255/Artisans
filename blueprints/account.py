@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from components import UserManager
 
 account_blueprint = Blueprint(name="account", import_name=__name__, url_prefix="/account/")
-user_manager = UserManager.UserManager('storage/storage.db')
+user_manager = UserManager.UserManager()
 
 @account_blueprint.route('/')
 def account():

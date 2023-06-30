@@ -18,8 +18,6 @@ log = logging.getLogger('werkzeug')
 log.disabled = True
 app.logger.disabled = True
 
-user_manager = UserManager.UserManager('storage/storage.db')
-
 @app.route('/')
 def index():
     return render_template('index.html')
