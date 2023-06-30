@@ -1,5 +1,6 @@
 import shelve
 import hashlib
+import random
 from classes import Customer, Admin
 from components import DbManager
 from config import config
@@ -77,9 +78,15 @@ class UserManager():
         customer = Customer.Customer(username, first_name, last_name, password, email, dob, gender)
         
         customer_list = db.get_customer_list()
-        customer_list[customer.get_user_id()] = customer
-        db.update_customer_list(customer_list)
 
+        customer_id = random.randint(1, 999999)
+        while customer_id in customer_list:
+            customer_id = random.randint(1, 999999)
+
+        customer.set_user_id(customer_id)
+        customer_list[customer_id] = customer
+
+        db.update_customer_list(customer_list)
         print(f'New customer {customer.get_username()} created!')
 
 
@@ -88,18 +95,30 @@ class UserManager():
         admin = Admin.Admin(username, first_name, last_name, password, email)
 
         admin_list = db.get_admin_list()
-        admin_list[admin.get_user_id()] = admin
-        db.update_admin_list(admin_list)
 
+        admin_id = random.randint(1, 999999)
+        while admin_id in admin_list:
+            admin_id = random.randint(1, 999999)
+        
+        admin.set_user_id(admin_id)
+        admin_list[admin_id] = admin
+
+        db.update_admin_list(admin_list)
         print(f'New admin {admin.get_username()} created!')
 
 
     def get_customer(self, id):
-        return db.get_customer_list()[id]
+        customer = db.get_customer_list()[id]
+
+        print(f'Customer {customer.get_username()} successfully retrieved!')
+        return customer
     
 
     def get_admin(self, id):
-        return db.get_admin_list()[id]
+        admin = db.get_admin_list()[id]
+        
+        print(f'Admin {admin.get_username()} successfully retrieved!')
+        return admin
     
 
     def update_customer(self, id, first_name, last_name, password, email, dob):
