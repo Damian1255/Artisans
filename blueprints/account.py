@@ -24,7 +24,6 @@ def login():
 
         # authenticates admin user
         auth = user_manager.authenticate_admin(username, password)
-        print(auth)
         if auth['success']:
             create_session(auth['user'], True)
             return jsonify({'success': True})

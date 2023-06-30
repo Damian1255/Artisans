@@ -4,12 +4,14 @@ import logging
 
 from blueprints.admin import admin_blueprint
 from blueprints.account import account_blueprint
+from blueprints.db import db_blueprint
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'nani'
 
 app.register_blueprint(admin_blueprint)
 app.register_blueprint(account_blueprint)
+app.register_blueprint(db_blueprint)
 
 # disables flask logging
 log = logging.getLogger('werkzeug')
