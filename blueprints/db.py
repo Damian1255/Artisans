@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, session, redirect, url_for
 from components import DbManager
 
 db_blueprint = Blueprint(name="db", import_name=__name__, url_prefix="/db/")
-db_manager = DbManager.DbManager('storage/storage.db')
+db_manager = DbManager.DbManager()
 
 @db_blueprint.route('/')
 def db():
