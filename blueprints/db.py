@@ -7,5 +7,6 @@ db_manager = DbManager.DbManager('storage/storage.db')
 @db_blueprint.route('/')
 def db():
     customer_list = db_manager.get_customer_list()
-    print(customer_list)
-    return render_template('dbmanager/db.html', customers=customer_list)
+    admin_list = db_manager.get_admin_list()
+
+    return render_template('dbmanager/db.html', customers=customer_list, admins=admin_list)
