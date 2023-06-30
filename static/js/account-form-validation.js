@@ -53,7 +53,7 @@ updateForm.addEventListener("submit", function (event) {
 
     // Ajax call to register user 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/update-user/' + id, true);
+    xhr.open('POST', '/account/update-user/' + id, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {

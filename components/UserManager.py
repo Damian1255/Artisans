@@ -1,13 +1,15 @@
 import shelve
 import hashlib
-import Customer, Admin
+from classes import Customer, Admin
 
 salt = "wubba lubba dub dub"
 
 class UserManager():
     def __init__(self, db):
-        self.db = shelve.open(db, 'c')
-        
+        try:
+            self.db = shelve.open(db, 'c')
+        except:
+            print('Error opening database.')
         try:
             self.customer_list = self.db['Customers']
         except:

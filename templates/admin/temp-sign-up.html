@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="/register" method="post" id="register">
+    <form action="/account/register" method="post" id="register">
         <h1>Temp Admin Sign Up</h1>
         <input type="text" name="first-name" placeholder="first name" required> <br>
         <input type="text" name="last-name" placeholder="last name" required> <br>
@@ -33,7 +33,7 @@
 
         // Ajax call to register user 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/register', true);
+        xhr.open('POST', '/account/register', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = function () {

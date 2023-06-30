@@ -37,7 +37,7 @@
                                         <ul class="d-block">
                                             <li class="title"><a href="#">Related Shop Pages</a></li>
                                             <li><a href="/account">Account Page</a></li>
-                                            <li><a href="/login">Login & Register Page</a></li>
+                                            <li><a href="/account/login">Login & Register Page</a></li>
                                             <li><a href="empty-cart.html">Empty Cart Page</a></li>
                                             <li><a href="thank-you-page.html">Thank You Page</a></li>
                                         </ul>
@@ -89,7 +89,7 @@
                                             <li><a href="compare.html">Compare Page</a></li>
                                             <li><a href="wishlist.html">Wishlist Page</a></li>
                                             <li><a href="/account">Account Page</a></li>
-                                            <li><a href="/login">Login & Register Page</a></li>
+                                            <li><a href="/account/login">Login & Register Page</a></li>
                                             <li><a href="empty-cart.html">Empty Cart Page</a></li>
                                         </ul>
                                         <ul class="d-flex align-items-center p-0 border-0 flex-column justify-content-center">
@@ -130,14 +130,14 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if session['logged_in'] %}
                                     {% if session['isadmin'] %}
-                                        <li><a class="dropdown-item" href="/admin">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></a></li>
+                                        <li><a class="dropdown-item" href="/admin/">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></a></li>
                                     {% endif %}
                                     <li><a class="dropdown-item" href="/account">My account</a></li>
                                     <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
-                                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                    <li><a class="dropdown-item" href="/account/logout">Logout</a></li>
                                 {% else %}
-                                    <li><a class="dropdown-item" href="/login">Login</a></li>
-                                    <li><a class="dropdown-item" href="/register">Register</a></li>
+                                    <li><a class="dropdown-item" href="/account/login">Login</a></li>
+                                    <li><a class="dropdown-item" href="/account/register">Register</a></li>
                                     <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                 {% endif %}
                             </ul>
@@ -300,7 +300,7 @@
                             <a href="#"><span class="menu-text">Related Shop Page</span></a>
                             <ul class="sub-menu">
                                 <li><a href="/account">Account Page</a></li>
-                                <li><a href="/login">Login & Register Page</a></li>
+                                <li><a href="/account/login">Login & Register Page</a></li>
                                 <li><a href="empty-cart.html">Empty Cart Page</a></li>
                                 <li><a href="thank-you-page.html">Thank You Page</a></li>
                             </ul>
@@ -349,7 +349,7 @@
                                 <li><a href="compare.html">Compare Page</a></li>
                                 <li><a href="wishlist.html">Wishlist Page</a></li>
                                 <li><a href="/account">Account Page</a></li>
-                                <li><a href="/login">Login & Register Page</a></li>
+                                <li><a href="/account/login">Login & Register Page</a></li>
                                 <li><a href="empty-cart.html">Empty Cart Page</a></li>
                             </ul>
                         </li>

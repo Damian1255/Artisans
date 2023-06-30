@@ -70,7 +70,7 @@
                                     <ul class="align-items-center">
                                         {% if session['logged_in'] %}
                                             {% if session['isadmin'] %}
-                                                <li class="li"><a class="single-link" href="/admin">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></i></a></li>
+                                                <li class="li"><a class="single-link" href="/admin/">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></i></a></li>
                                             {% endif %}
                                             <li class="li"><a class="single-link" href="/account"> My account</a></li>
                                             <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
@@ -78,8 +78,8 @@
                                             <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shipping</a></li>
                                             <li class="li"><a class="single-link" href="wishlist.html">Wishlist</a></li>
                                         {% else %}
-                                            <li class="li"><a class="single-link" href="/login">Login</a></li>
-                                            <li class="li"><a class="single-link" href="/register">Register</a></li>
+                                            <li class="li"><a class="single-link" href="/account/login">Login</a></li>
+                                            <li class="li"><a class="single-link" href="/account/register">Register</a></li>
                                             <li class="li"><a class="single-link" href="/admin">Employee Sign In</a></li>
                                             <li class="li"><a class="single-link" href="/checkout">Checkout</a></li>
                                         {% endif %}
@@ -141,7 +141,7 @@
                                         src="static/images/icons/payment.png" alt="payment-image"></a></div>
                         </div>
                         <div class="col-md-6 text-center text-md-start">
-                            <p class="copy-text"> © 2023 <strong>Mioca.</strong> Made With <i class="fa fa-heart"
+                            <p class="copy-text"> © 2023 <strong>Artisan's.</strong> Made With <i class="fa fa-heart"
                                     aria-hidden="true"></i> By <a class="company-name" href="https://hasthemes.com/">
                                     <strong> Joe Mama</strong></a>.</p>
                         </div>

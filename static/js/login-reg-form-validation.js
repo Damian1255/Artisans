@@ -33,7 +33,7 @@ registerForm.addEventListener("submit", function (event) {
 
     // Ajax call to register user 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/register', true);
+    xhr.open('POST', '/account/register', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {
@@ -42,7 +42,7 @@ registerForm.addEventListener("submit", function (event) {
 
             if (response.success) {
                 registerForm.reset()
-                window.location.href = "/login";
+                window.location.href = "/account/login";
             } else {
                 show_reg_error("Email or Username already exists.")
             }
@@ -71,7 +71,7 @@ loginForm.addEventListener("submit", function (event) {
 
     // Ajax call to login user 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/login', true);
+    xhr.open('POST', '/account/login', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {

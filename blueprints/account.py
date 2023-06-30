@@ -1,26 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-import UserManager
-import logging
+from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
+from components import UserManager
 
-app = Flask(__name__, static_url_path='/static')
-app.secret_key = 'nani'
-
-# disables flask logging
-log = logging.getLogger('werkzeug')
-log.disabled = True
-app.logger.disabled = True
-
+account_blueprint = Blueprint(name="account", import_name=__name__, url_prefix="/account/")
 user_manager = UserManager.UserManager('storage/storage.db')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@account_blueprint.route('/')
+def account():
+    try:
+        if session['logged_in'] and session['isadmin']:
+            user = user_manager.get_admin(session['user_id'])
+        else:
+            user = user_manager.get_customer(session['user_id'])
 
-@app.route('/2')
-def index2():
-    return render_template('index-2.html')
+        return render_template('my-account.html', user=user)
+    except:
+        return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@account_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.json['username']
@@ -28,6 +24,7 @@ def login():
 
         # authenticates admin user
         auth = user_manager.authenticate_admin(username, password)
+        print(auth)
         if auth['success']:
             create_session(auth['user'], True)
             return jsonify({'success': True})
@@ -46,8 +43,8 @@ def login():
             return render_template('login.html')
     except:
         return render_template('login.html')
-
-@app.route('/register', methods=['GET', 'POST'])
+    
+@account_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':        
         first_name = request.json['first_name']
@@ -79,7 +76,7 @@ def register():
     except:
         return render_template('login.html', show_reg=True)
     
-@app.route('/update-user/<int:id>', methods=['GET', 'POST'])
+@account_blueprint.route('/update-user/<int:id>', methods=['GET', 'POST'])
 def update_user(id):
     if request.method == 'POST':
         first_name = request.json['first_name']
@@ -93,20 +90,8 @@ def update_user(id):
 
         return jsonify({'success': False})
     return redirect(url_for('account'))
-
-@app.route('/account')
-def account():
-    try:
-        if session['logged_in'] and session['isadmin']:
-            user = user_manager.get_admin(session['user_id'])
-        else:
-            user = user_manager.get_customer(session['user_id'])
-
-        return render_template('my-account.html', user=user)
-    except:
-        return redirect(url_for('login'))
     
-@app.route('/logout')
+@account_blueprint.route('/logout')
 def logout():
     # removes session
     session.pop('user_id', None)
@@ -117,26 +102,7 @@ def logout():
     session['logged_in'] = False
     
     return redirect(url_for('index'))
-
-@app.route('/admin/')
-def dashboard():
-    try:
-        if session['logged_in'] and session['isadmin']:
-            return render_template('admin/index.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('login'))
-
-@app.route('/admin/sign-up')
-def admin_signin():
-    return render_template('admin/temp-sign-up.html')
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-
+    
 def create_session(user, isadmin):
     session['user_id'] = user.get_user_id()
     session['first_name'] = user.get_first_name()
@@ -144,6 +110,3 @@ def create_session(user, isadmin):
     session['username'] = user.get_username()
     session['logged_in'] = True
     session['isadmin'] = isadmin
-
-if __name__ == '__main__':
-    app.run(debug=True)
