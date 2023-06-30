@@ -2,13 +2,12 @@ import shelve
 import hashlib
 from classes import Customer, Admin
 from components import DbManager
+from config import config
 
-salt = "wubba lubba dub dub"
-db = DbManager.DbManager('storage/storage.db')
+salt = config.HASH_SALT
+db = DbManager.DbManager()
 
 class UserManager():
-
-
     def authenticate_admin(self, username, password):
         password = hashlib.md5((password + salt).encode()).hexdigest()
         admin_list = db.get_admin_list()
@@ -129,8 +128,3 @@ class UserManager():
         print(f'Admin list successfully retrieved!')
         return db.get_admin_list()
     
-
-
-
-    
-

@@ -1,13 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from components import UserManager
-import logging
+import logging, os
 
 from blueprints.admin import admin_blueprint
 from blueprints.account import account_blueprint
 from blueprints.db import db_blueprint
 
 app = Flask(__name__, static_url_path='/static')
-app.secret_key = 'nani'
+app.config.from_pyfile('config/config.py')
 
 app.register_blueprint(admin_blueprint)
 app.register_blueprint(account_blueprint)

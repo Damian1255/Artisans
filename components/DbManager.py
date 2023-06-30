@@ -1,8 +1,9 @@
 import shelve
+from config import config
 
 class DbManager:
-    def __init__(self, db_file):
-        self.db_file = db_file
+    def __init__(self):
+        self.db_file = config.DB_PATH
         self.db = None
 
     def open(self):
