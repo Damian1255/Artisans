@@ -19,6 +19,7 @@ def delete_admin(id):
     user_manager.delete_admin(id)
     return jsonify({'success': True})
 
+
 @db_blueprint.route('/delete/customer/<int:id>', methods=['GET', 'POST'])
 def delete_customer(id):
     user_manager.delete_customer(id)

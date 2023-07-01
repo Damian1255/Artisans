@@ -665,8 +665,33 @@
                         </div>
                     </div>
                 </div>
-
         </div>
     </div>
     <!--end page wrapper -->
+{% endblock %}
+{% block js %}
+<!-- Bootstrap JS -->
+<script src="{{ url_for('static', filename='admin/js/bootstrap.bundle.min.js') }}"></script>
+
+<!--plugins-->
+<script src="{{ url_for('static', filename='admin/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/chartjs/js/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/sparkline-charts/jquery.sparkline.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/jquery-knob/excanvas.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/plugins/jquery-knob/jquery.knob.js') }}"></script>
+
+<!--app JS-->
+<script src="{{ url_for('static', filename='admin/js/app.js') }}"></script>
+<script>
+$(function () {
+    $(".knob").knob();
+});
+</script>
+<script src="{{ url_for('static', filename='admin/js/index.js') }}"></script>
 {% endblock %}

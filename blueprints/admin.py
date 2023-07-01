@@ -12,6 +12,10 @@ def index():
     except:
         return redirect(url_for('account.login'))
     
+@admin_blueprint.route('/ecommerce')
+def ecommerce():
+    return render_template('admin/dashboard-eCommerce.html')
+    
 
 @admin_blueprint.route('/sign-up')
 def admin_signin():
