@@ -1,4 +1,3 @@
-import shelve
 import hashlib
 import random
 from classes import Customer, Admin
