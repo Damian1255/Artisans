@@ -9,7 +9,7 @@
         <div class="swiper-wrapper">
             <!-- Single slider item -->
             <div class="hero-slide-item slider-height swiper-slide d-flex bg-color1"
-                data-bg-image="static/images/slider-image/slider-bg-1.jpg">
+                data-bg-image="{{ url_for('static', filename='artisan/images/slider-image/slider-bg-1.jpg') }}">
                 <div class="container align-self-center">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 align-self-center sm-center-view">
@@ -27,7 +27,7 @@
                             class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center position-relative">
                             <div class="show-case">
                                 <div class="hero-slide-image">
-                                    <img src="static/images/slider-image/slider-1.png" alt="" />
+                                    <img src="{{ url_for('static', filename='artisan/images/slider-image/slider-1.png') }}" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
             </div>
             <!-- Single slider item -->
             <div class="hero-slide-item slider-height swiper-slide d-flex bg-color1"
-                data-bg-image="static/images/slider-image/slider-bg-1.jpg">
+                data-bg-image="{{ url_for('static', filename='artisan/images/slider-image/slider-bg-1.jpg') }}">
                 <div class="container align-self-center">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 align-self-center sm-center-view">
@@ -54,7 +54,7 @@
                             class="col-xl-6 col-lg-6 col-md-6 col-sm-6 d-flex justify-content-center position-relative">
                             <div class="show-case">
                                 <div class="hero-slide-image">
-                                    <img src="static/images/slider-image/slider-2.png" alt="" />
+                                    <img src="{{ url_for('static', filename='artisan/images/slider-image/slider-2.png') }}" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
         <div class="row">
             <div class="single-col">
                 <div class="single-banner">
-                    <img src="static/images/banner/1.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/1.jpg') }}" alt="">
                     <div class="banner-content">
                         <span class="category">Best Seller</span>
                         <span class="title">Flower Vase <br>
@@ -92,7 +92,7 @@
             </div>
             <div class="single-col center-col">
                 <div class="single-banner">
-                    <img src="static/images/banner/2.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/2.jpg') }}" alt="">
                     <div class="banner-content">
                         <span class="category">Best Seller</span>
                         <span class="title">Wool Silk Dress <br>
@@ -104,7 +104,7 @@
             </div>
             <div class="single-col">
                 <div class="single-banner">
-                    <img src="static/images/banner/3.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/3.jpg') }}" alt="">
                     <div class="banner-content">
                         <span class="category">Best Seller</span>
                         <span class="title">Pen Holder<br>
@@ -135,32 +135,32 @@
                 <div class="tab-slider swiper-container slider-nav-style-1 small-nav">
                     <ul class="product-tab-nav nav swiper-wrapper ">
                         <li class="nav-item swiper-slide"><a class="nav-link active" data-bs-toggle="tab"
-                                href="#tab-jewelry"> <img src="static/images/icons/jewelry-icon.png"
+                                href="#tab-jewelry"> <img src="{{ url_for('static', filename='artisan/images/icons/jewelry-icon.png') }}"
                                     alt=""><span>Jewelry</span></a>
                         </li>
 
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-pottery"> <img src="static/images/icons/pottery-icon.png"
+                                href="#tab-pottery"> <img src="{{ url_for('static', filename='artisan/images/icons/pottery-icon.png') }}"
                                     alt=""><span>Pottery</span></a>
                         </li>
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-fabric"> <img src="static/images/icons/fabric-icon.png"
+                                href="#tab-fabric"> <img src="{{ url_for('static', filename='artisan/images/icons/fabric-icon.png') }}"
                                     alt=""><span>Fabric</span></a>
                         </li>
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-paintings"> <img src="static/images/icons/paintings-icon.png"
+                                href="#tab-paintings"> <img src="{{ url_for('static', filename='artisan/images/icons/paintings-icon.png') }}"
                                     alt=""><span>Paintings</span></a>
                         </li>
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-sculptures"> <img src="static/images/icons/sculptures-icon.png"
+                                href="#tab-sculptures"> <img src="{{ url_for('static', filename='artisan/images/icons/sculptures-icon.png') }}"
                                     alt=""><span>Sculptures</span></a>
                         </li>
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-wooden"> <img src="static/images/icons/wooden-icon.png"
+                                href="#tab-wooden"> <img src="{{ url_for('static', filename='artisan/images/icons/wooden-icon.png') }}"
                                     alt=""><span>Wooden</span></a>
                         </li>
                         <li class="nav-item swiper-slide"><a class="nav-link" data-bs-toggle="tab"
-                                href="#tab-pottery"> <img src="static/images/icons/pottery-icon.png"
+                                href="#tab-pottery"> <img src="{{ url_for('static', filename='artisan/images/icons/pottery-icon.png') }}"
                                     alt=""><span>Pottery</span></a>
                         </li>
                     </ul>
@@ -188,8 +188,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -228,8 +228,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -271,8 +271,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -311,8 +311,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -353,8 +353,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -392,8 +392,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -433,8 +433,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -475,8 +475,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -522,8 +522,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -562,8 +562,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -605,8 +605,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -645,8 +645,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -687,8 +687,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -726,8 +726,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -767,8 +767,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -809,8 +809,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -856,8 +856,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -896,8 +896,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -939,8 +939,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -979,8 +979,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1021,8 +1021,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1060,8 +1060,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1101,8 +1101,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1143,8 +1143,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1190,8 +1190,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1230,8 +1230,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1273,8 +1273,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1313,8 +1313,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1355,8 +1355,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1394,8 +1394,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1435,8 +1435,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1477,8 +1477,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1524,8 +1524,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1564,8 +1564,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1607,8 +1607,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1647,8 +1647,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1689,8 +1689,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1728,8 +1728,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1769,8 +1769,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1811,8 +1811,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1858,8 +1858,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/1.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/1.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1898,8 +1898,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/2.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/2.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1941,8 +1941,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/3.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/3.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -1981,8 +1981,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/4.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/5.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/4.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/5.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -2023,8 +2023,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/6.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/6.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -2062,8 +2062,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/7.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/7.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -2103,8 +2103,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/8.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/8.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/8.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -2145,8 +2145,8 @@
                                 <div class="product">
                                     <div class="thumb">
                                         <a href="single-product.html" class="image">
-                                            <img src="static/images/product-image/9.jpg" alt="Product" />
-                                            <img class="hover-image" src="static/images/product-image/10.jpg"
+                                            <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                            <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                 alt="Product" />
                                         </a>
                                         <span class="badges">
@@ -2199,7 +2199,7 @@
                 <!-- single item -->
                 <div class="single-feature">
                     <div class="feature-icon">
-                        <img src="static/images/icons/1.png" alt="">
+                        <img src="{{ url_for('static', filename='artisan/images/icons/1.png') }}" alt="">
                     </div>
                     <div class="feature-content">
                         <h4 class="title">Free Shipping</h4>
@@ -2211,7 +2211,7 @@
             <div class="single-feture-col ">
                 <div class="single-feature">
                     <div class="feature-icon">
-                        <img src="static/images/icons/2.png" alt="">
+                        <img src="{{ url_for('static', filename='artisan/images/icons/2.png') }}" alt="">
                     </div>
                     <div class="feature-content">
                         <h4 class="title">Card Payments</h4>
@@ -2223,7 +2223,7 @@
             <div class="single-feture-col">
                 <div class="single-feature">
                     <div class="feature-icon">
-                        <img src="static/images/icons/3.png" alt="">
+                        <img src="{{ url_for('static', filename='artisan/images/icons/3.png') }}" alt="">
                     </div>
                     <div class="feature-content">
                         <h4 class="title">Easy Returns</h4>
@@ -2244,7 +2244,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="deal-inner deal-bg position-relative ptb-80px"
-                    data-bg-image="static/images/deal-img/deal-bg.jpg">
+                    data-bg-image="{{ url_for('static', filename='artisan/images/deal-img/deal-bg.jpg') }}">
                     <div class="deal-wrapper">
                         <h3 class="title">Handmade Pen Holder <br>
                             & Offer Sale -20% </h3>
@@ -2255,7 +2255,7 @@
                         <a href="single-product-variable.html" class="btn btn-lg btn-primary">Add To Cart</a>
                     </div>
                     <div class="deal-image">
-                        <img class="img-fluid" src="static/images/deal-img/woman.png" alt="">
+                        <img class="img-fluid" src="{{ url_for('static', filename='artisan/images/deal-img/woman.png') }}" alt="">
                         <div class="discount">
                             <h3>-20%</h3>
                         </div>
@@ -2314,8 +2314,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/9.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/9.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2354,8 +2354,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/10.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/10.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2397,8 +2397,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/11.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/11.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2437,8 +2437,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/12.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/1.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/12.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2480,8 +2480,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/6.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/6.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2519,8 +2519,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/7.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/7.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2574,8 +2574,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/9.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/9.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2614,8 +2614,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/10.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/10.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2657,8 +2657,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/11.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/11.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2697,8 +2697,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/12.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/1.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/12.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2740,8 +2740,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/6.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/6.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2779,8 +2779,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/7.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/7.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2834,8 +2834,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/9.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/9.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2874,8 +2874,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/10.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/10.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2917,8 +2917,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/11.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/11.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -2957,8 +2957,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/12.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/1.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/12.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3000,8 +3000,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/6.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/6.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3039,8 +3039,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/7.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/7.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3094,8 +3094,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/9.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/9.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/9.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3134,8 +3134,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/10.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/10.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/10.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3177,8 +3177,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/11.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/11.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/11.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3217,8 +3217,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/12.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/1.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/12.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3260,8 +3260,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/6.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/6.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/6.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3299,8 +3299,8 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="static/images/product-image/7.jpg" alt="Product" />
-                                                <img class="hover-image" src="static/images/product-image/7.jpg"
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}" alt="Product" />
+                                                <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/7.jpg') }}"
                                                     alt="Product" />
                                             </a>
                                             <span class="badges">
@@ -3358,7 +3358,7 @@
         <div class="row m-0">
             <div class="col-md-6 p-0">
                 <div class="single-banner nth-child-1">
-                    <img src="static/images/banner/4.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/4.jpg') }}" alt="">
                     <div class="banner-content nth-child-1">
                         <span class="category">Best Seller</span>
                         <span class="title">Handmade Pot <br>
@@ -3370,7 +3370,7 @@
             </div>
             <div class="col-md-6 p-0 ">
                 <div class="single-banner nth-child-2 mb-lm-30px mt-lm-30px">
-                    <img src="static/images/banner/5.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/5.jpg') }}" alt="">
                     <div class="banner-content nth-child-2">
                         <span class="category">Best Seller</span>
                         <span class="title">Wool Silk Pod <br>
@@ -3380,7 +3380,7 @@
                     </div>
                 </div>
                 <div class="single-banner nth-child-3">
-                    <img src="static/images/banner/6.jpg" alt="">
+                    <img src="{{ url_for('static', filename='artisan/images/banner/6.jpg') }}" alt="">
                     <div class="banner-content nth-child-3">
                         <span class="category">Best Seller</span>
                         <span class="title">Handmade Plate <br>
@@ -3416,7 +3416,7 @@
             <div class="col-lg-4 col-md-6 mb-md-30px mb-lm-30px">
                 <div class="single-blog">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="static/images/blog-image/1.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="{{ url_for('static', filename='artisan/images/blog-image/1.jpg') }}"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">
@@ -3435,7 +3435,7 @@
             <div class="col-lg-4 col-md-6 mb-md-30px mb-lm-30px">
                 <div class="single-blog ">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="static/images/blog-image/2.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="{{ url_for('static', filename='artisan/images/blog-image/2.jpg') }}"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">
@@ -3455,7 +3455,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="single-blog">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="static/images/blog-image/3.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="{{ url_for('static', filename='artisan/images/blog-image/3.jpg') }}"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">
