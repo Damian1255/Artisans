@@ -108,14 +108,12 @@ class UserManager():
 
     def get_customer(self, id):
         customer = db.get_customer_list()[id]
-
         print(f'Customer {customer.get_username()} successfully retrieved!')
         return customer
     
 
     def get_admin(self, id):
         admin = db.get_admin_list()[id]
-        
         print(f'Admin {admin.get_username()} successfully retrieved!')
         return admin
     
@@ -133,7 +131,6 @@ class UserManager():
         customer_list[id] = customer
         db.update_customer_list(customer_list)
         print(f'Customer {customer.get_username()} successfully updated!')
-
         return True
     
 
@@ -145,4 +142,16 @@ class UserManager():
     def get_admin_list(self):
         print(f'Admin list successfully retrieved!')
         return db.get_admin_list()
+    
+    def delete_customer(self, id):
+        customer_list = db.get_customer_list()
+        del customer_list[id]
+        db.update_customer_list(customer_list)
+        print(f'Customer {id} successfully deleted!')
+
+    def delete_admin(self, id):
+        admin_list = db.get_admin_list()
+        del admin_list[id]
+        db.update_admin_list(admin_list)
+        print(f'Admin {id} successfully deleted!')
     
