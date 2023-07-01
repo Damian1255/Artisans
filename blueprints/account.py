@@ -35,6 +35,7 @@ def login():
             return jsonify({'success': True})
             
         return jsonify({'success': False})
+    
     try:
         if session['logged_in']:
             return redirect(url_for('index'))
@@ -67,6 +68,7 @@ def register():
                 return jsonify({ 'success': True })
             else:
                 return jsonify({ 'success': False })
+            
     try:
         if session['logged_in']:
             return redirect(url_for('index'))
