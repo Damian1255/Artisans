@@ -1,5 +1,5 @@
 import shelve
-from config import config
+from configuration import config
 
 class DbManager:
     def __init__(self):

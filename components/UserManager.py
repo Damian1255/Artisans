@@ -2,7 +2,7 @@ import hashlib
 import random
 from classes import Customer, Admin
 from components import DbManager
-from config import config
+from configuration import config
 
 salt = config.HASH_SALT
 db = DbManager.DbManager()
