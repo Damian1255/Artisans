@@ -20,15 +20,15 @@ app.logger.disabled = True
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('artisan/index.html')
 
 @app.route('/2')
 def index2():
-    return render_template('index-2.html')
+    return render_template('artisan/index-2.html')
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('artisan/about.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

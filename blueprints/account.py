@@ -12,7 +12,7 @@ def account():
         else:
             user = user_manager.get_customer(session['user_id'])
 
-        return render_template('my-account.html', user=user)
+        return render_template('artisan/my-account.html', user=user)
     except:
         return redirect(url_for('login'))
 
@@ -39,9 +39,9 @@ def login():
         if session['logged_in']:
             return redirect(url_for('index'))
         else:
-            return render_template('login.html')
+            return render_template('artisan/login.html')
     except:
-        return render_template('login.html')
+        return render_template('artisan/login.html')
     
 @account_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -71,9 +71,9 @@ def register():
         if session['logged_in']:
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', show_reg=True)
+            return render_template('artisan/login.html', show_reg=True)
     except:
-        return render_template('login.html', show_reg=True)
+        return render_template('artisan/login.html', show_reg=True)
     
 @account_blueprint.route('/update-user/<int:id>', methods=['GET', 'POST'])
 def update_user(id):
