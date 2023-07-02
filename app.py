@@ -30,5 +30,10 @@ def index2():
 def about():
     return render_template('artisan/about.html')
 
+@app.route('/customer-support')
+def customer_support():
+    return render_template('artisan/customer-support.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
+
