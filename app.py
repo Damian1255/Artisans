@@ -34,6 +34,10 @@ def about():
 def customer_support():
     return render_template('artisan/customer-support.html')
 
+@app.route('/cart')
+def cart():
+    return render_template('artisan/cart.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 
