@@ -18,5 +18,10 @@ def ecommerce():
     
 
 @admin_blueprint.route('/sign-up')
-def admin_signin():
+def admin_signup():
+    return render_template('admin/temp-sign-up.html')
+
+
+@admin_blueprint.route('/product-sign-up')
+def new_product():
     return render_template('admin/temp-sign-up.html')

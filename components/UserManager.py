@@ -143,11 +143,13 @@ class UserManager():
         print(f'Admin list successfully retrieved!')
         return db.get_admin_list()
     
+
     def delete_customer(self, id):
         customer_list = db.get_customer_list()
         del customer_list[id]
         db.update_customer_list(customer_list)
         print(f'Customer {id} successfully deleted!')
+
 
     def delete_admin(self, id):
         admin_list = db.get_admin_list()
