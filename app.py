@@ -5,10 +5,8 @@ from blueprints.admin import admin_blueprint
 from blueprints.account import account_blueprint
 from blueprints.db import db_blueprint
 
-
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('configuration/config.py')
-
 app.register_blueprint(admin_blueprint)
 app.register_blueprint(account_blueprint)
 app.register_blueprint(db_blueprint)
@@ -37,6 +35,7 @@ def customer_support():
 @app.route('/cart')
 def cart():
     return render_template('artisan/cart.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
