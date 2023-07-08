@@ -1,5 +1,5 @@
 class Product:
-    def __init__(self, id, title, price, quantity, image, description, category, tag, rating, reviews):
+    def __init__(self, id, title, price, quantity, image, description, category, tag):
         self.__id = id
         self.__title = title
         self.__price = price
@@ -8,8 +8,8 @@ class Product:
         self.__description = description
         self.__category = category
         self.__tag = tag
-        self.__rating = rating
-        self.__reviews = reviews
+        self.__rating = 0
+        self.__reviews = []
 
     def get_id(self):
         return self.__id
@@ -71,8 +71,3 @@ class Product:
     def set_reviews(self, reviews):
         self.__reviews = reviews
         
-
-    
-    
-
-

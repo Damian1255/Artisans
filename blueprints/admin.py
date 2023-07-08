@@ -2,8 +2,10 @@ from flask import Blueprint, render_template, session, redirect, url_for, jsonif
 import os
 from configuration import config
 from werkzeug.utils import secure_filename
+from components import ProductManager
 
 admin_blueprint = Blueprint(name="admin", import_name=__name__, url_prefix="/admin/")
+product_manager = ProductManager.ProductManager()
 
 @admin_blueprint.route("/")
 def index():
@@ -28,20 +30,26 @@ def admin_signup():
 @admin_blueprint.route('/product/new', methods=['GET', 'POST'])
 def new_product():
     if request.method == 'POST':
-        # check if the post request has the file part
-        if 'images' not in request.files:
-            print('No images part')
-            return redirect(request.url)
-        
-        file = request.files['images']
 
-        if file.filename == '':
-            print('No selected images')
-            return redirect(request.url)
-        
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(config.UPLOAD_FOLDER, filename))
+        # save images to static/uploads
+        img_urls = []
+        for image in request.files.getlist('images'):
+            if image and allowed_file(image.filename):
+                imagename = secure_filename(image.filename)
+                image.save(os.path.join(config.UPLOAD_FOLDER, imagename))
+                img_urls.append(imagename)
+            
+            # todo: add error handling for invalid file types
+
+        title = request.form['title']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        description = request.form['description']
+        category = request.form['category']
+        tag = request.form['tag']
+        image = img_urls
+
+        product_manager.add_product(title, price, quantity, image, description, category, tag)
 
     return render_template('admin/product-temp.html')
 

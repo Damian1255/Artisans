@@ -118,7 +118,35 @@
 
     <div id="Products" class="tabcontent">
         <h3>Products</h3>
-        <p>Products in the database.</p>
+        <p>{{ products|length }} Products in the database.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Tag</th>
+                    <th>image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in products %}
+                <tr>
+                    <td>{{ products[key].get_id() }}</td>
+                    <td>{{ products[key].get_name() }}</td>
+                    <td>{{ products[key].get_description() }}</td>
+                    <td>{{ products[key].get_price() }}</td>
+                    <td>{{ products[key].get_category() }}</td>
+                    <td>{{ products[key].get_tag() }}</td>
+                    {% for image in products[key].get_image() %}
+                    <td><img src="{{url_for('static', filename='artisan/images/product-image/' )}}{{image}}" alt="image" width="30px"></td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <script>
