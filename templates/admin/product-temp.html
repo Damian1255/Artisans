@@ -25,32 +25,31 @@
     var productForm = document.getElementById("newProduct");
     var msg = document.getElementById("msg");
 
-    productForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var images = document.querySelector('input[type="file"]').files;
-        console.log(images)
+    // productForm.addEventListener("submit", function (event) {
+    //     event.preventDefault();
+    //     var images = document.querySelector('input[type="file"]').files;
 
-        // Ajax call to register user 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/admin/product/new', true);
-        xhr.setRequestHeader('Content-Type', 'image/jpg');
+    //     // Ajax call to register user 
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('POST', '/admin/product/new', true);
+    //     xhr.setRequestHeader('Content-Type', 'image/jpg');
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    productForm.reset()
-                    msg.innerHTML = "Image uploaded successfully."
-                } else {
-                    msg.innerHTML = "Image failed to upload."
-                }
-            } else {
-                alert('An Internal error occurred.');
-            }
-        };
-        xhr.send(JSON.stringify({
-            images: images
-        }));
-    });
+    //     xhr.onload = function () {
+    //         if (xhr.status === 200) {
+    //             var response = JSON.parse(xhr.responseText);
+    //             if (response.success) {
+    //                 productForm.reset()
+    //                 msg.innerHTML = "Image uploaded successfully."
+    //             } else {
+    //                 msg.innerHTML = "Image failed to upload."
+    //             }
+    //         } else {
+    //             alert('An Internal error occurred.');
+    //         }
+    //     };
+    //     xhr.send(JSON.stringify({
+    //         images: images
+    //     }));
+    // });
 </script>
 </html>

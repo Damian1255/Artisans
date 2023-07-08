@@ -28,9 +28,6 @@ def admin_signup():
 @admin_blueprint.route('/product/new', methods=['GET', 'POST'])
 def new_product():
     if request.method == 'POST':
-        images = request.json['images']
-        print(images.files)
-
         # check if the post request has the file part
         if 'images' not in request.files:
             print('No images part')

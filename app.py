@@ -36,7 +36,5 @@ def customer_support():
 def cart():
     return render_template('artisan/cart.html')
 
-
 if __name__ == '__main__':
     app.run(debug=True)
-
