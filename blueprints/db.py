@@ -29,5 +29,5 @@ def delete_customer(id):
 
 @db_blueprint.route('/delete/product/<int:id>', methods=['GET', 'POST'])
 def delete_product(id):
-    user_manager.delete_customer(id)
+    product_manager.delete_product(id)
     return jsonify({'success': True})

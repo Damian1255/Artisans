@@ -18,7 +18,7 @@ class ProductManager():
         db.update_product_list(product_list)
         print(f'New product added: {name}')
 
-    def remove_product(self, id):
+    def delete_product(self, id):
         product_list = db.get_product_list()
         del product_list[id]
         db.update_product_list(product_list)
@@ -28,7 +28,12 @@ class ProductManager():
         return db.get_product_list()
 
     def get_product(self, id):
-        return db.get_product(id)
+        product_list = db.get_product_list()
+        try:
+            return product_list[id]
+        except:
+            print(f'Product {id} does not exist!')
+            return False
 
     def get_product_list_by_category(self, category):
         product_list = db.get_product_list()
