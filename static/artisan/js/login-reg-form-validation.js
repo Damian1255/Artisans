@@ -115,3 +115,5 @@ function remove_highlight(element_arr) {
         element.style.borderColor = "";
     });
 }
+
+// window modal

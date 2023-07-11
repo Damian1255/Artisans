@@ -87,7 +87,12 @@
                                         <input type="password" name="re-password" placeholder="Confirm Password"
                                             required />
                                         <div class="button-box">
-                                            <button type="submit"><span>Register</span></button>
+                                            <button type="submit" onclick="window.dialog.showModal();""><span>Register</span></button>
+                                            <dialog id="dialog">
+                                                <h2>Hello.</h2>
+                                                <p>We're so happy you're here. We found artisan. because we wanted to create a trustworthy and inspiring place for you to find everything you need</p>
+                                                <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+                                            </dialog>
                                         </div>
                                         <p style="line-height: 30px;color: #747474;">by Signing Up you Agree to our <a
                                                 href="#">Terms of use</a> and <a href="#">Privacy policy</a>.</p>

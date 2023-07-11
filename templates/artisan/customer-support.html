@@ -483,9 +483,143 @@
         };
     }
 
-    // Attach form submission event listener
-    var form = document.getElementById('supportForm');
-    form.addEventListener('submit', submitForm);
-</script>
+<div class="white-space"></div> <!-- Add a div for whitespace -->
+
+<div class="support-form-container"> <!-- Add a container for the Support Form section -->
+    <h2 class="support-form-heading">Support Form</h2>
+    <div class="support-form-content">
+        <div class="form-container">
+            <form id="support-form" action="" method="POST">
+                <div class="form-field">
+                    <label for="salutation">Salutation</label>
+                    <select id="salutation" name="salutation" required>
+                        <option value="">Choose</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Dr">Dr</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
+                </div>
+                <div class="form-field">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
+                </div>
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-field">
+                    <label for="country-code">Country Code</label>
+                    <select id="country-code" name="country-code" required>
+                        <option value="">Choose</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+61">+61 (Australia)</option>
+                        <!-- Add more country codes as needed -->
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="phone-number">Phone Number</label>
+                    <input type="tel" id="phone-number" name="phone-number" placeholder="Phone Number" required>
+                </div>
+                <div class="form-field">
+                    <label for="message-subject">Message Subject</label>
+                    <input type="text" id="message-subject" name="message-subject" placeholder="Message Subject" required>
+                </div>
+                <div class="form-field">
+                    <label for="leave-message">Leave a Message for Us</label>
+                    <textarea id="leave-message" name="leave-message" placeholder="Leave a Message" rows="4" required></textarea>
+                </div>
+                <div class="form-field">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="submission-acknowledgment">
+                <p>Thank you for your message!</p>
+                <p>We will get in touch with you within 3-5 business days.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .white-space {
+        height: 40px; /* Adjust the height as desired */
+        background-color: #f1f1f1;
+    }
+    
+    .support-form-container {
+        background-color: #f1f1f1;
+        margin-top: 20px;
+        padding: 20px;
+    }
+    
+    .support-form-heading {
+        text-align: center;
+    }
+    
+    .support-form-content {
+        margin-top: 20px;
+    }
+    
+    #support-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form-field {
+        width: 300px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .form-field label {
+        display: block;
+    }
+    
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    .form-field textarea {
+        height: 100px;
+    }
+    
+    .form-field button {
+        padding: 8px 20px;
+        background-color: #dad7cd;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .form-field button:hover {
+        background-color: #45a049;
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 4px;
+    }
+    
+    .submission-acknowledgment {
+        margin-top: 20px;
+        font-style: italic;
+    }
+</style>
+
+
 
 {% endblock %}

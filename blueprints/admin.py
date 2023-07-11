@@ -27,6 +27,11 @@ def admin_signup():
     return render_template('admin/temp-sign-up.html')
 
 
+@admin_blueprint.route('/product-sign-up')
+def new_product():
+    return render_template('admin/temp-sign-up.html')
+
+
 @admin_blueprint.route('/product/new', methods=['GET', 'POST'])
 def new_product():
     if request.method == 'POST':
