@@ -50,7 +50,19 @@ class DbManager:
             self.db['Products'] = product_list
 
         self.close()
-        return product_list
+        return product_list\
+        
+    def get_cart_list(self):
+        self.open()
+        try:
+            cart_list = self.db['Cart']
+        except KeyError:
+            cart_list = {}
+            print('No cart found in database.')
+            self.db['Cart'] = cart_list
+
+        self.close()
+        return cart_list
     
     def update_customer_list(self, customer_list):
         self.open()
@@ -65,5 +77,10 @@ class DbManager:
     def update_product_list(self, product_list):
         self.open()
         self.db['Products'] = product_list
+        self.close()
+
+    def update_cart_list(self, cart_list):
+        self.open()
+        self.db['Cart'] = cart_list
         self.close()
     
