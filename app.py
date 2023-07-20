@@ -6,6 +6,7 @@ from blueprints.admin import admin_blueprint
 from blueprints.account import account_blueprint
 from blueprints.db import db_blueprint
 from blueprints.product import product_bp
+from blueprints.cart import cart_bp
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('configuration/config.py')
@@ -13,6 +14,7 @@ app.register_blueprint(admin_blueprint)
 app.register_blueprint(account_blueprint)
 app.register_blueprint(db_blueprint)
 app.register_blueprint(product_bp)
+app.register_blueprint(cart_bp)
 
 # disables flask logging
 log = logging.getLogger('werkzeug')
@@ -37,9 +39,6 @@ def about():
 def customer_support():
     return render_template('artisan/customer-support.html')
 
-@app.route('/cart')
-def cart():
-    return render_template('artisan/cart.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

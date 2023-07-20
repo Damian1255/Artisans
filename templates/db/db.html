@@ -52,6 +52,7 @@
         <button class="tablinks" onclick="openTab(event, 'Customers')">Customers</button>
         <button class="tablinks" onclick="openTab(event, 'Admins')">Admins</button>
         <button class="tablinks" onclick="openTab(event, 'Products')">Products</button>
+        <button class="tablinks" onclick="openTab(event, 'Cart')">Cart Items</button>
     </div>
 
     <div id="Customers" class="tabcontent">
@@ -153,6 +154,33 @@
         </table>
     </div>
 
+    <div id="Cart" class="tabcontent">
+        <h3>Cart Item</h3>
+        <p>{{ cart_items|length }} Cart Items in the database.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>Product ID</th>
+                    <th>Customer ID</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in cart_items %}
+                <tr>
+                    <td>{{ cart_items[key].get_cart_id() }}</td>
+                    <td>{{ cart_items[key].get_product_id() }}</td>
+                    <td>{{ cart_items[key].get_customer_id() }}</td>
+                    <td>{{ cart_items[key].get_quantity() }}</td>
+                    <td><input type="submit" value="Delete" onclick="deleteCart({{ cart_items[key].get_cart_id() }})"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     <script>
         document.getElementsByClassName("tablinks")[0].click();
 
@@ -226,6 +254,32 @@
             // Ajax call to delete customer
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'delete/product/' + id, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.success) {
+                        alert('Record deleted successfully.');
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete record.');
+                    }
+                } else {
+                    alert('An Internal error occurred.');
+                }
+            };
+
+            xhr.send(JSON.stringify({
+                id : id
+            }));
+        }
+
+        function deleteCart(id) {
+            // Ajax call to delete cart
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'delete/cart/' + id, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.onload = function () {
