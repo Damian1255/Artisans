@@ -10,6 +10,9 @@ cart_manager = CartManager.CartManager()
 
 @cart_bp.route('/')
 def cart_page():
+    if 'user_id' not in session:
+        return redirect(url_for('account.login'))
+    
     return render_template('artisan/cart.html', cart=cart_manager.get_cart(session['user_id']))
 
 @cart_bp.route('/add/', methods=['GET', 'POST'])
