@@ -24,7 +24,7 @@
 <!-- Cart Area Start -->
 <div class="cart-main-area pt-100px pb-100px">
     <div class="container">
-        <h3 class="cart-page-title">Your cart items</h3>
+        <h3 class="cart-page-title">Your cart items ({{cart|length}})</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
@@ -34,7 +34,7 @@
                                 <tr>
                                     <th>Image</th>
                                     <th>Product Name</th>
-                                    <th>Until Price</th>
+                                    <th>Unit Price</th>
                                     <th>Qty</th>
                                     <th>Subtotal</th>
                                     <th>Action</th>
@@ -44,19 +44,21 @@
                                 {% for item in cart %}
                                 <tr>
                                     <td class="product-thumbnail">
-                                        <a href="#"><img class="img-responsive ml-15px"
+                                        <a href="/product/{{item[0].get_id()}}"><img class="img-responsive ml-15px"
                                             src="{{ url_for('static', filename='artisan/images/product-image/')}}{{item[0].get_image()[0]}}" alt="" /></a>
                                     </td>
-                                    <td class="product-name"><a href="#">{{item[0].get_name()}}</a></td>
+                                    <td class="product-name"><a href="/product/{{item[0].get_id()}}">{{item[0].get_name()}}</a></td>
                                     <td class="product-price-cart"><span class="amount">${{item[0].get_price()}}</span></td>
                                     <td class="product-quantity">
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{item[1].get_quantity()}}" />
+                                            <div class="dec qtybutton" onclick="updateCart({{item[1].get_cart_id()}}, -1)">-</div>
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" id="quantity-{{item[1].get_cart_id()}}" value="{{item[1].get_quantity()}}" max="{{item[0].get_quantity()}}"/>
+                                            <div class="inc qtybutton" onclick="updateCart({{item[1].get_cart_id()}}, 1)">+</div>
                                         </div>
                                     </td>
-                                    <td class="product-subtotal">$70.00</td>
+                                    <td class="product-subtotal">${{item[0].get_price() * item[1].get_quantity()}}</td>
                                     <td class="product-remove">
-                                        <a href="#"><i class="fa fa-times"></i></a>
+                                        <a onclick="deleteItemFromCart({{item[1].get_cart_id()}})"><i class="fa fa-times"></i></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -69,43 +71,25 @@
                                 <div class="cart-shiping-update">
                                     <a href="#">Continue Shopping</a>
                                 </div>
-                                <div class="cart-clear">
-                                    <button>Update Shopping Cart</button>
-                                    <a href="#">Clear Shopping Cart</a>
+                                <div class="cart-shiping-update">
+                                    <a onclick="clearCart()">Clear Shopping Cart</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-lm-30px">
-                        <div class="discount-code-wrapper">
-                            <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gray">Use Coupon Code</h4>
-                            </div>
-                            <div class="discount-code">
-                                <p>Enter your coupon code if you have one.</p>
-                                <form>
-                                    <input type="text" required="" name="name" />
-                                    <button class="cart-btn-2" type="submit">Apply Coupon</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 mt-md-30px">
+                    <div class="col-lg-12 col-md-12 mt-md-30px">
                         <div class="grand-totall">
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
-                            <h5>Total products <span>$260.00</span></h5>
-                            <div class="total-shipping">
-                                <h5>Total shipping</h5>
-                                <ul>
-                                    <li><input type="checkbox" /> Standard <span>$20.00</span></li>
-                                    <li><input type="checkbox" /> Express <span>$30.00</span></li>
-                                </ul>
-                            </div>
-                            <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                            {% for item in cart %}
+                            <h5>{{item[0].get_name()}} (x{{item[1].get_quantity()}}) <span>${{item[0].get_price() * item[1].get_quantity()}}</span></h5>
+                            <input type="hidden" id="product-{{item[1].get_cart_id()}}" value="{{item[0].get_id()}}">
+                            {% endfor %}
+                            <div class="title-wrap"></div>
+                            <h4 class="grand-totall-title">Grand Total <span>${{grand_total}}</span></h4>
                             <a href="checkout.html">Proceed to Checkout</a>
                         </div>
                     </div>
@@ -114,5 +98,6 @@
         </div>
     </div>
 </div>
+<script src="{{ url_for('static', filename='artisan/js/cart.js') }}"></script>
 <!-- Cart Area End -->
 {% endblock %}

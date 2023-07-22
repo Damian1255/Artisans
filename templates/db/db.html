@@ -130,7 +130,6 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Category</th>
-                    <th>Tag</th>
                     <th>image</th>
                     <th></th>
                 </tr>
@@ -143,7 +142,6 @@
                     <td>{{ products[key].get_description() }}</td>
                     <td>{{ products[key].get_price() }}</td>
                     <td>{{ products[key].get_category() }}</td>
-                    <td>{{ products[key].get_tag() }}</td>
                     {% for image in products[key].get_image() %}
                     <td><img src="{{url_for('static', filename='artisan/images/product-image/' )}}{{image}}" alt="image" width="30px"></td>
                     {% endfor %}
@@ -210,7 +208,7 @@
 
                     if (response.success) {
                         alert('Record deleted successfully.');
-                        window.location.reload();
+                        location.reload();
                     } else {
                         alert('Failed to delete record.');
                     }
@@ -236,7 +234,7 @@
 
                     if (response.success) {
                         alert('Record deleted successfully.');
-                        window.location.reload();
+                        location.reload();
                     } else {
                         alert('Failed to delete record.');
                     }
@@ -262,7 +260,7 @@
 
                     if (response.success) {
                         alert('Record deleted successfully.');
-                        window.location.reload();
+                        location.reload();
                     } else {
                         alert('Failed to delete record.');
                     }
@@ -288,7 +286,7 @@
 
                     if (response.success) {
                         alert('Record deleted successfully.');
-                        window.location.reload();
+                        location.reload();
                     } else {
                         alert('Failed to delete record.');
                     }

@@ -45,10 +45,9 @@ def new_product():
         quantity = request.form['quantity']
         description = request.form['description']
         category = request.form['category']
-        tag = request.form['tag']
         image = img_urls
 
-        product_manager.add_product(title, price, quantity, image, description, category, tag)
+        product_manager.add_product(title, price, quantity, image, description, category)
 
     return render_template('admin/product-temp.html')
 

@@ -219,8 +219,7 @@
                                             <span class="new">${{products[key].get_price()}}</span>
                                         </span>
                                     </div>
-                                    <button title="Add To Cart" class=" add-to-cart">Add
-                                        To Cart</button>
+                                    <button title="Add To Cart" class=" add-to-cart" onclick="addCart({{products[key].get_id()}})">Add To Cart</button>
                                 </div>
                             </div>
                             {% endfor %}
@@ -3517,5 +3516,32 @@
         </div>
     </div>
 </div>
+<script>
+    function addCart(id) {
+        // Ajax call to add product to cart
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/cart/add/', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    alert("Product added to cart successfully!")
+                } else {
+                    alert("Product add to cart failed.")
+                }
+            } else {
+                alert('An Internal error occurred.');
+            }
+        };
+        
+        xhr.send(JSON.stringify({
+            product_id : id,
+            quantity : 1
+        }));
+    }
+
+</script>
 <!--  Blog area End -->
 {% endblock %}

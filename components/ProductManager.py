@@ -5,14 +5,14 @@ from components import DbManager
 db = DbManager.DbManager()
 
 class ProductManager():
-    def add_product(self, name, price, quantity, image, description, category, tag):
+    def add_product(self, name, price, quantity, image, description, category):
         product_list = db.get_product_list()
 
         product_id = random.randint(1, 999999)
         while product_id in product_list:
             product_id = random.randint(1, 999999)
         
-        product = Product.Product(product_id, name, price, quantity, image, description, category, tag)
+        product = Product.Product(product_id, name, float(price), int(quantity), image, description, category)
 
         product_list[product_id] = product
         db.update_product_list(product_list)

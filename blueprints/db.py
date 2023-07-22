@@ -17,21 +17,21 @@ def index():
 
     return render_template('db/db.html', customers=customer_list, admins=admin_list, products=product_list, cart_items=cart_list)
 
-
 @db_blueprint.route('/delete/admin/<int:id>', methods=['GET', 'POST'])
 def delete_admin(id):
     user_manager.delete_admin(id)
     return jsonify({'success': True})
 
-
 @db_blueprint.route('/delete/customer/<int:id>', methods=['GET', 'POST'])
 def delete_customer(id):
     user_manager.delete_customer(id)
+    cart_manager.delete_items_by_customer(id)
     return jsonify({'success': True})
 
 @db_blueprint.route('/delete/product/<int:id>', methods=['GET', 'POST'])
 def delete_product(id):
     product_manager.delete_product(id)
+    cart_manager.delete_items_by_product(id)
     return jsonify({'success': True})
 
 @db_blueprint.route('/delete/cart/<int:id>', methods=['GET', 'POST'])

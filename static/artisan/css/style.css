@@ -3591,7 +3591,7 @@ body.offcanvas-open {
 .cart-main-area .table-content table tbody > tr td {
   color: #474747;
   font-size: 16px;
-  padding: 30px 0;
+  padding: 10px 0;
   text-align: center;
 }
 .cart-main-area .table-content table tbody > tr td.product-thumbnail {
@@ -3877,7 +3877,7 @@ body.offcanvas-open {
 
 .grand-totall h5 {
   font-size: 16px;
-  margin: 36px 0 27px;
+  margin: 20px 0 20px;
   font-weight: 400;
 }
 .grand-totall h5 span {
@@ -3924,7 +3924,7 @@ body.offcanvas-open {
   color: #eaaa85;
   font-size: 20px;
   font-weight: 500;
-  margin: 0 0 25px;
+  margin: 60px 0 40px;
 }
 .grand-totall .grand-totall-title span {
   float: right;
