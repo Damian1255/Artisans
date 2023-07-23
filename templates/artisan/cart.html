@@ -85,12 +85,12 @@
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
                             {% for item in cart %}
-                            <h5>{{item[0].get_name()}} (x{{item[1].get_quantity()}}) <span>${{item[0].get_price() * item[1].get_quantity()}}</span></h5>
+                            <h5>{{item[0].get_name()}} X {{item[1].get_quantity()}} <span>${{item[0].get_price() * item[1].get_quantity()}}</span></h5>
                             <input type="hidden" id="product-{{item[1].get_cart_id()}}" value="{{item[0].get_id()}}">
                             {% endfor %}
                             <div class="title-wrap"></div>
                             <h4 class="grand-totall-title">Grand Total <span>${{grand_total}}</span></h4>
-                            <a href="checkout.html">Proceed to Checkout</a>
+                            <a href="/cart/checkout">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>

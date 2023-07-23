@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
-from components import UserManager
+from components import UserManager, CartManager
 
 account_blueprint = Blueprint(name="account", import_name=__name__, url_prefix="/account/")
 user_manager = UserManager.UserManager()
+cart_manager = CartManager.CartManager()
 
 @account_blueprint.route('/')
 def account():
@@ -14,7 +15,7 @@ def account():
 
         return render_template('artisan/my-account.html', user=user)
     except:
-        return redirect(url_for('login'))
+        return redirect(url_for('account.login'))
 
 @account_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -103,6 +104,15 @@ def logout():
     session['logged_in'] = False
     
     return redirect(url_for('index'))
+
+@account_blueprint.route('/delete', methods=['POST', 'GET'])
+def delete_user():
+    customer_id = int(request.form['customer_id'])
+    if user_manager.delete_customer(customer_id):
+        cart_manager.delete_items_by_customer(customer_id)
+        return redirect(url_for('account.logout'))
+
+    return redirect(url_for('account.account'))
     
 def create_session(user, isadmin):
     session['user_id'] = user.get_user_id()

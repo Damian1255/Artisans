@@ -12,46 +12,10 @@
                         <ul>
                             <li class="dropdown"><a href="#">Home <i class="fa fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="/">Home 1</a></li>
-                                    <li><a href="/2">Home 2</a></li>
+                                    <li><a href="/">Home</a></li>
                                 </ul>
                             </li>
                             <li><a href="/about">About</a></li>
-                            <li class="dropdown position-static"><a href="about.html">Pages <i class="fa fa-angle-down"></i></a>
-                                <ul class="mega-menu d-block">
-                                    <li class="d-flex">
-                                        <ul class="d-block">
-                                            <li class="title"><a href="#">Inner Pages</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
-                                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                            <li><a href="faq.html">Faq Page</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon Page</a></li>
-                                            <li><a href="/customer-support">Customer Support Page</a></li>
-                                        </ul>
-                                        <ul class="d-block">
-                                            <li class="title"><a href="#">Other Shop Pages</a></li>
-                                            <li><a href="cart.html">Cart Page</a></li>
-                                            <li><a href="checkout.html">Checkout Page</a></li>
-                                            <li><a href="compare.html">Compare Page</a></li>
-                                            <li><a href="wishlist.html">Wishlist Page</a></li>
-                                        </ul>
-                                        <ul class="d-block">
-                                            <li class="title"><a href="#">Related Shop Pages</a></li>
-                                            <li><a href="/account">Account Page</a></li>
-                                            <li><a href="/account/login">Login & Register Page</a></li>
-                                            <li><a href="empty-cart.html">Empty Cart Page</a></li>
-                                            <li><a href="thank-you-page.html">Thank You Page</a></li>
-                                        </ul>
-                                        <ul class="d-flex align-items-center p-0 border-0 flex-column justify-content-center">
-                                            <li>
-                                                <a class="p-0" href="shop-left-sidebar.html"><img
-                                                        class="img-responsive w-100"
-                                                        src="{{ url_for('static', filename='artisan/images/banner/menu-banner-1.jpg') }}" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
                             <li class="dropdown position-static"><a href="#">Shop <i class="fa fa-angle-down"></i></a>
                                 <ul class="mega-menu d-block">
                                     <li class="d-flex">
@@ -65,8 +29,7 @@
                                             </li>
                                             <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
                                             </li>
-                                            <li><a href="cart.html">Cart Page</a></li>
-                                            <li><a href="checkout.html">Checkout Page</a></li>
+                                            <li><a href="/cart/cart">Cart Page</a></li>
                                         </ul>
                                         <ul class="d-block">
                                             <li class="title"><a href="#">product Details Page</a></li>
@@ -103,16 +66,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown "><a href="#">Blog <i class="fa fa-angle-down"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="blog-grid.html">Blog Grid Page</a></li>
-                                    <li><a href="blog-grid-left-sidebar.html">Grid Left Sidebar</a></li>
-                                    <li><a href="blog-grid-right-sidebar.html">Grid Right Sidebar</a></li>
-                                    <li><a href="blog-single.html">Blog Single Page</a></li>
-                                    <li><a href="blog-single-left-sidebar.html">Single Left Sidebar</a></li>
-                                    <li><a href="blog-single-right-sidebar.html">Single Right Sidbar</a>
-                                </ul>
-                            </li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
@@ -134,12 +87,10 @@
                                         <li><a class="dropdown-item" href="/admin/">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></a></li>
                                     {% endif %}
                                     <li><a class="dropdown-item" href="/account">My account</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                     <li><a class="dropdown-item" href="/account/logout">Logout</a></li>
                                 {% else %}
                                     <li><a class="dropdown-item" href="/account/login">Login</a></li>
                                     <li><a class="dropdown-item" href="/account/register">Register</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -254,7 +205,7 @@
         <div class="foot">
             <div class="buttons mt-30px">
                 <a href="/cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
+                <a href="/cart/checkout" class="btn btn-outline-dark current-btn">checkout</a>
             </div>
         </div>
     </div>
@@ -275,39 +226,9 @@
                         <li><a href="index-2.html"><span class="menu-text">Home 2</span></a></li>
                     </ul>
                 </li>
-                <li><a href="about.html">About</a></li>
                 <li>
-                    <a href="#"><span class="menu-text">Pages</span></a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a href="#"><span class="menu-text">Inner Pages</span></a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">404 Page</a></li>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="faq.html">Faq Page</a></li>
-                                <li><a href="coming-soon.html">Coming Soon Page</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><span class="menu-text"> Other Shop Pages</span></a>
-                            <ul class="sub-menu">
-                                <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Checkout Page</a></li>
-                                <li><a href="compare.html">Compare Page</a></li>
-                                <li><a href="wishlist.html">Wishlist Page</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><span class="menu-text">Related Shop Page</span></a>
-                            <ul class="sub-menu">
-                                <li><a href="/account">Account Page</a></li>
-                                <li><a href="/account/login">Login & Register Page</a></li>
-                                <li><a href="empty-cart.html">Empty Cart Page</a></li>
-                                <li><a href="thank-you-page.html">Thank You Page</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                    <a href="about.html">About</a></li>
+                <li>
                 <li><a href="#"><span class="menu-text">Shop</span></a>
                     <ul class="sub-menu">
                         <li>
@@ -322,7 +243,6 @@
                                 <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
                                 </li>
                                 <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Checkout Page</a></li>
                             </ul>
                         </li>
                         <li>
@@ -354,16 +274,6 @@
                                 <li><a href="empty-cart.html">Empty Cart Page</a></li>
                             </ul>
                         </li>
-                    </ul>
-                </li>
-                <li><a href="#"><span class="menu-text">Blog</span></a>
-                    <ul class="sub-menu">
-                        <li><a href="blog-grid.html">Blog Grid Page</a></li>
-                        <li><a href="blog-grid-left-sidebar.html">Grid Left Sidebar</a></li>
-                        <li><a href="blog-grid-right-sidebar.html">Grid Right Sidebar</a></li>
-                        <li><a href="blog-single.html">Blog Single Page</a></li>
-                        <li><a href="blog-single-left-sidebar.html">Single Left Sidebar</a></li>
-                        <li><a href="blog-single-right-sidebar.html">Single Right Sidbar</a>
                     </ul>
                 </li>
                 <li><a href="contact.html">Contact Us</a></li>

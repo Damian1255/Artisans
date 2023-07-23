@@ -47,7 +47,7 @@ def new_product():
         category = request.form['category']
         image = img_urls
 
-        product_manager.add_product(title, price, quantity, image, description, category)
+        product_manager.add_product(12345, title, price, quantity, image, description, category)
 
     return render_template('admin/product-temp.html')
 

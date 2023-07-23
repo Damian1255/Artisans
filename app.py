@@ -27,10 +27,6 @@ product_manager = ProductManager.ProductManager()
 def index():
     return render_template('artisan/index.html', products=product_manager.get_product_list())
 
-@app.route('/2')
-def index2():
-    return render_template('artisan/index-2.html')
-
 @app.route('/about')
 def about():
     return render_template('artisan/about.html')

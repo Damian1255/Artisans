@@ -145,15 +145,23 @@ class UserManager():
     
 
     def delete_customer(self, id):
-        customer_list = db.get_customer_list()
-        del customer_list[id]
-        db.update_customer_list(customer_list)
-        print(f'Customer {id} successfully deleted!')
+        try:
+            customer_list = db.get_customer_list()
+            del customer_list[id]
+            db.update_customer_list(customer_list)
+            print(f'Customer {id} successfully deleted!')
+            return True
+        except:
+            return False
 
 
     def delete_admin(self, id):
-        admin_list = db.get_admin_list()
-        del admin_list[id]
-        db.update_admin_list(admin_list)
-        print(f'Admin {id} successfully deleted!')
+        try:
+            admin_list = db.get_admin_list()
+            del admin_list[id]
+            db.update_admin_list(admin_list)
+            print(f'Admin {id} successfully deleted!')
+            return True
+        except:
+            return False
     

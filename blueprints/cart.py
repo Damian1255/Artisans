@@ -8,6 +8,7 @@ user_manager = UserManager.UserManager()
 product_manager = ProductManager.ProductManager()
 cart_manager = CartManager.CartManager()
 
+
 @cart_bp.route('/')
 def cart_page():
     if 'user_id' not in session:
@@ -21,6 +22,7 @@ def cart_page():
     
     return render_template('artisan/cart.html', cart=cart, grand_total=grand_total)
 
+
 @cart_bp.route('/add/', methods=['GET', 'POST'])
 def add_item():
     if 'user_id' in session and request.method == 'POST':
@@ -33,6 +35,7 @@ def add_item():
         
     return jsonify({'success': False})
 
+
 @cart_bp.route('/delete/item/', methods=['GET', 'POST'])
 def delete_item():
     if 'user_id' in session:
@@ -43,6 +46,7 @@ def delete_item():
 
     return jsonify({'success': False})
 
+
 @cart_bp.route('/clear/', methods=['GET', 'POST'])
 def clear_cart():
     if 'user_id' in session:
@@ -51,6 +55,7 @@ def clear_cart():
         return jsonify({'success': True})
 
     return jsonify({'success': False})
+
 
 @cart_bp.route('/update/', methods=['GET', 'POST'])
 def update_cart():
@@ -62,3 +67,15 @@ def update_cart():
         return jsonify({'success': True})
     
     return jsonify({'success': False})
+
+
+@cart_bp.route('/checkout/', methods=['GET', 'POST'])
+def checkout():
+    if 'user_id' not in session:
+        return redirect(url_for('account.login'))
+    
+    customer = user_manager.get_customer(session['user_id'])
+    cart = cart_manager.get_cart(session['user_id'])
+    grand_total = sum([item[0].get_price() * item[1].get_quantity() for item in cart])
+
+    return render_template('artisan/checkout.html', customer=customer, cart=cart, grand_total=grand_total)

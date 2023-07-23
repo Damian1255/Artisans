@@ -1,7 +1,8 @@
 class Product:
-    def __init__(self, id, title, price, quantity, image, description, category):
+    def __init__(self, id, customer_id, title, price, quantity, image, description, category):
         self.__id = id
         self.__title = title
+        self.__customer_id = customer_id
         self.__price = price
         self.__quantity = quantity
         self.__image = image
@@ -12,6 +13,9 @@ class Product:
 
     def get_id(self):
         return self.__id
+    
+    def get_customer_id(self):
+        return self.__customer_id
     
     def get_name(self):
         return self.__title
@@ -39,6 +43,9 @@ class Product:
     
     def set_id(self, id):
         self.__id = id
+
+    def set_customer_id(self, customer_id):
+        self.__customer_id = customer_id
 
     def set_name(self, name):
         self.__title = name
