@@ -60,7 +60,6 @@ registerForm.addEventListener("submit", function (event) {
         password: password.value,
         dob: dob.value,
         gender: gender.value,
-        isadmin: false
     }));
 });
 
