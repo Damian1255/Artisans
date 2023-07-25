@@ -13,8 +13,8 @@ class ProductManager():
             product_id = random.randint(1, 999999)
         
         product = Product.Product(product_id, customer_id, name, float(price), int(quantity), image, description, category)
-
         product_list[product_id] = product
+        
         db.update_product_list(product_list)
         print(f'New product added: {name}')
 
@@ -34,40 +34,11 @@ class ProductManager():
         except:
             print(f'Product {id} does not exist!')
             return False
-
-    def get_product_list_by_category(self, category):
+        
+    def search_product(self, query):
         product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_category() == category]
-
-    def get_product_list_by_tag(self, tag):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_tag() == tag]
-
-    def get_product_list_by_category_and_tag(self, category, tag):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_category() == category and product_list[key].get_tag() == tag]
-
-    def get_product_list_by_search(self, search):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if search.lower() in product_list[key].get_name().lower()]
-
-    def get_product_list_by_category_and_search(self, category, search):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_category() == category and search.lower() in product_list[key].get_name().lower()]
-
-    def get_product_list_by_tag_and_search(self, tag, search):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_tag() == tag and search.lower() in product_list[key].get_name().lower()]
-
-    def get_product_list_by_category_and_tag_and_search(self, category, tag, search):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_category() == category and product_list[key].get_tag() == tag and search.lower() in product_list[key].get_name().lower()]
-
-    def get_product_list_by_price_range(self, min, max):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_price() >= min and product_list[key].get_price() <= max]
-
-    def get_product_list_by_category_and_price_range(self, category, min, max):
-        product_list = db.get_product_list()
-        return [product_list[key] for key in product_list if product_list[key].get_category() == category and product_list[key].get_price() >= min and product_list[key].get_price() <= max]
-    
+        results = {}
+        for product in product_list.values():
+            if query.lower() in product.get_name().lower():
+                results[product.get_id()] = product
+        return results

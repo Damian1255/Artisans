@@ -4851,6 +4851,7 @@ a.dialog-btn {
   text-transform: uppercase;
   width: 100%;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 a.dialog-btn:hover {
   background-color: #000000;

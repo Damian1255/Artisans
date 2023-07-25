@@ -53,6 +53,7 @@
         <button class="tablinks" onclick="openTab(event, 'Admins')">Admins</button>
         <button class="tablinks" onclick="openTab(event, 'Products')">Products</button>
         <button class="tablinks" onclick="openTab(event, 'Cart')">Cart Items</button>
+        <button class="tablinks" onclick="openTab(event, 'Tickets')">Support Tickets</button>
     </div>
 
     <div id="Customers" class="tabcontent">
@@ -81,7 +82,7 @@
                     <td>{{ customers[key].get_gender() }}</td>
                     <td>{{ customers[key].get_username() }}</td>
                     <td>{{ customers[key].get_password() }}</td>
-                    <td><input type="submit" value="Delete" onclick="deleteCustomer({{ customers[key].get_user_id() }})"></td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/customer/', {{ customers[key].get_user_id() }})"></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -112,7 +113,7 @@
                     <td>{{ admins[key].get_email() }}</td>
                     <td>{{ admins[key].get_username() }}</td>
                     <td>{{ admins[key].get_password() }}</td>
-                    <td><input type="submit" value="Delete" onclick="deleteAdmin({{ admins[key].get_user_id() }})"></td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/admin/', {{ admins[key].get_user_id() }})"></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -147,7 +148,7 @@
                     {% for image in products[key].get_image() %}
                     <td><img src="{{url_for('static', filename='artisan/images/product-image/' )}}{{image}}" alt="image" width="30px"></td>
                     {% endfor %}
-                    <td><input type="submit" value="Delete" onclick="deleteProduct({{ products[key].get_id() }})"></td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/product/', {{ products[key].get_id() }})"></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -174,7 +175,36 @@
                     <td>{{ cart_items[key].get_product_id() }}</td>
                     <td>{{ cart_items[key].get_customer_id() }}</td>
                     <td>{{ cart_items[key].get_quantity() }}</td>
-                    <td><input type="submit" value="Delete" onclick="deleteCart({{ cart_items[key].get_cart_id() }})"></td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/cart/', {{ cart_items[key].get_cart_id() }})"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Tickets" class="tabcontent">
+        <h3>Support Tickets</h3>
+        <p>{{ support_tickets|length }} Support Tickets in the database.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in support_tickets %}
+                <tr>
+                    <td>{{ support_tickets[key].get_ticket_id() }}</td>
+                    <td>{{ support_tickets[key].get_first_name() }}</td>
+                    <td>{{ support_tickets[key].get_last_name() }}</td>
+                    <td>{{ support_tickets[key].get_subject() }}</td>
+                    <td>{{ support_tickets[key].get_message() }}</td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/ticket/', {{ support_tickets[key].get_ticket_id() }})"></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -198,88 +228,10 @@
             evt.currentTarget.className += " active";
         }
 
-        function deleteAdmin(id) {
-            // Ajax call to delete admin
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'delete/admin/' + id, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.success) {
-                        alert('Record deleted successfully.');
-                        location.reload();
-                    } else {
-                        alert('Failed to delete record.');
-                    }
-                } else {
-                    alert('An Internal error occurred.');
-                }
-            };
-
-            xhr.send(JSON.stringify({
-                id : id
-            }));
-        }
-
-        function deleteCustomer(id) {
-            // Ajax call to delete customer
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'delete/customer/' + id, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.success) {
-                        alert('Record deleted successfully.');
-                        location.reload();
-                    } else {
-                        alert('Failed to delete record.');
-                    }
-                } else {
-                    alert('An Internal error occurred.');
-                }
-            };
-
-            xhr.send(JSON.stringify({
-                id : id
-            }));
-        }
-
-        function deleteProduct(id) {
-            // Ajax call to delete customer
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'delete/product/' + id, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.success) {
-                        alert('Record deleted successfully.');
-                        location.reload();
-                    } else {
-                        alert('Failed to delete record.');
-                    }
-                } else {
-                    alert('An Internal error occurred.');
-                }
-            };
-
-            xhr.send(JSON.stringify({
-                id : id
-            }));
-        }
-
-        function deleteCart(id) {
+        function deleteItem(url, id) {
             // Ajax call to delete cart
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'delete/cart/' + id, true);
+            xhr.open('POST', url + id, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.onload = function () {

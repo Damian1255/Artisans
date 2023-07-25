@@ -422,36 +422,41 @@
             </div>
             <div class="default-form-box mb-20">
                 <label for="leave-message">Message</label>
-                <textarea id="leave-message" name="leave-message" placeholder="Leave a Message for Us" rows="4" required>
-                </textarea>
+                <textarea id="leave-message" name="leave-message" placeholder="Leave a Message for Us" rows="4" required></textarea>
             </div>
             <div class="edit_button mt-3 col-md-2">
                 <button type="submit">Submit</button>
             </div>
         </form>
-        <div class="submission-acknowledgment">
-            <p>Thank you for your message!</p>
-            <p>We will get in touch with you within 3-5 business days.</p>
-        </div>
     </div>
 </div>
-
+<dialog id="ticketDialog">
+    <h2>We got your message!</h2>
+    <p>Thank you for contacting us.<br>We will get in touch with you within 3-5 business days.</p>
+    <a onclick="document.getElementById('ticketDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" onclick="document.getElementById('ticketDialog').close();">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>
 
 <!-- Form Submissions -->
 <script>
+    supportForm = document.getElementById('support-form');
+    ticketDialog = document.getElementById('ticketDialog');
     // Function to handle form submission
-    function submitForm(event) {
+    
+    supportForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
 
         // Get form values
         var salutation = document.getElementById('salutation').value;
-        var firstName = document.getElementById('firstName').value;
-        var lastName = document.getElementById('lastName').value;
+        var firstName = document.getElementById('first-name').value;
+        var lastName = document.getElementById('last-name').value;
         var email = document.getElementById('email').value;
-        var countryCode = document.getElementById('countryCode').value;
-        var phoneNumber = document.getElementById('phoneNumber').value;
-        var messageSubject = document.getElementById('messageSubject').value;
-        var message = document.getElementById('message').value;
+        var countryCode = document.getElementById('country-code').value;
+        var phoneNumber = document.getElementById('phone-number').value;
+        var messageSubject = document.getElementById('message-subject').value;
+        var message = document.getElementById('leave-message').value;
 
         // Send form data to the server
         var formData = {
@@ -467,7 +472,7 @@
 
         // Perform an AJAX request to send the form data to the server
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/db'); // Replace '/submit-form' with the appropriate server endpoint URL
+        xhr.open('POST', '/support/submit/ticket'); // Replace '/submit-form' with the appropriate server endpoint URL
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(formData));
 
@@ -475,151 +480,13 @@
         xhr.onload = function () {
             if (xhr.status === 200) {
                 // Show success message or perform any necessary actions
-                console.log('Form submitted successfully!');
+                supportForm.reset();
+                ticketDialog.showModal();
             } else {
                 // Show error message or handle any server errors
-                console.log('Form submission failed!');
+                alert('An error occurred while submitting the form. Please try again later.');
             }
         };
-    }
-
-<div class="white-space"></div> <!-- Add a div for whitespace -->
-
-<div class="support-form-container"> <!-- Add a container for the Support Form section -->
-    <h2 class="support-form-heading">Support Form</h2>
-    <div class="support-form-content">
-        <div class="form-container">
-            <form id="support-form" action="" method="POST">
-                <div class="form-field">
-                    <label for="salutation">Salutation</label>
-                    <select id="salutation" name="salutation" required>
-                        <option value="">Choose</option>
-                        <option value="Mr">Mr</option>
-                        <option value="Mrs">Mrs</option>
-                        <option value="Ms">Ms</option>
-                        <option value="Dr">Dr</option>
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
-                </div>
-                <div class="form-field">
-                    <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
-                </div>
-                <div class="form-field">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-field">
-                    <label for="country-code">Country Code</label>
-                    <select id="country-code" name="country-code" required>
-                        <option value="">Choose</option>
-                        <option value="+1">+1 (USA)</option>
-                        <option value="+44">+44 (UK)</option>
-                        <option value="+61">+61 (Australia)</option>
-                        <!-- Add more country codes as needed -->
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label for="phone-number">Phone Number</label>
-                    <input type="tel" id="phone-number" name="phone-number" placeholder="Phone Number" required>
-                </div>
-                <div class="form-field">
-                    <label for="message-subject">Message Subject</label>
-                    <input type="text" id="message-subject" name="message-subject" placeholder="Message Subject" required>
-                </div>
-                <div class="form-field">
-                    <label for="leave-message">Leave a Message for Us</label>
-                    <textarea id="leave-message" name="leave-message" placeholder="Leave a Message" rows="4" required></textarea>
-                </div>
-                <div class="form-field">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-            <div class="submission-acknowledgment">
-                <p>Thank you for your message!</p>
-                <p>We will get in touch with you within 3-5 business days.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .white-space {
-        height: 40px; /* Adjust the height as desired */
-        background-color: #f1f1f1;
-    }
-    
-    .support-form-container {
-        background-color: #f1f1f1;
-        margin-top: 20px;
-        padding: 20px;
-    }
-    
-    .support-form-heading {
-        text-align: center;
-    }
-    
-    .support-form-content {
-        margin-top: 20px;
-    }
-    
-    #support-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .form-field {
-        width: 300px;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-    
-    .form-field label {
-        display: block;
-    }
-    
-    .form-field input,
-    .form-field select,
-    .form-field textarea {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    
-    .form-field textarea {
-        height: 100px;
-    }
-    
-    .form-field button {
-        padding: 8px 20px;
-        background-color: #dad7cd;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    .form-field button:hover {
-        background-color: #45a049;
-    }
-
-    .form-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 4px;
-    }
-    
-    .submission-acknowledgment {
-        margin-top: 20px;
-        font-style: italic;
-    }
-</style>
-
-
-
+    });
+</script>
 {% endblock %}

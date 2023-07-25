@@ -7,6 +7,7 @@ from blueprints.account import account_blueprint
 from blueprints.db import db_blueprint
 from blueprints.product import product_bp
 from blueprints.cart import cart_bp
+from blueprints.support import support_bp
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('configuration/config.py')
@@ -15,6 +16,7 @@ app.register_blueprint(account_blueprint)
 app.register_blueprint(db_blueprint)
 app.register_blueprint(product_bp)
 app.register_blueprint(cart_bp)
+app.register_blueprint(support_bp)
 
 # disables flask logging
 log = logging.getLogger('werkzeug')
@@ -30,10 +32,6 @@ def index():
 @app.route('/about')
 def about():
     return render_template('artisan/about.html')
-
-@app.route('/customer-support')
-def customer_support():
-    return render_template('artisan/customer-support.html')
 
 @app.errorhandler(404)
 def page_not_found(e):

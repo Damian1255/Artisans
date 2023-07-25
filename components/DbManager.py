@@ -64,6 +64,18 @@ class DbManager:
         self.close()
         return cart_list
     
+    def get_support_ticket_list(self):
+        self.open()
+        try:
+            support_list = self.db['Support_Tickets']
+        except KeyError:
+            support_list = {}
+            print('No Support Tickets found in database.')
+            self.db['Support_Tickets'] = support_list
+
+        self.close()
+        return support_list
+    
     def update_customer_list(self, customer_list):
         self.open()
         self.db['Customers'] = customer_list
@@ -82,5 +94,10 @@ class DbManager:
     def update_cart_list(self, cart_list):
         self.open()
         self.db['Cart'] = cart_list
+        self.close()
+
+    def update_support_ticket_list(self, support_list):
+        self.open()
+        self.db['Support_Tickets'] = support_list
         self.close()
     

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, url_for, jsonify
+from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request
 from components import DbManager, UserManager, ProductManager
 
 product_bp = Blueprint(name="product_bp", import_name=__name__, url_prefix="/product/")
@@ -19,4 +19,15 @@ def product_page(id):
         return render_template('artisan/single-product-tabstyle-2.html', product=product_manager.get_product(id))
     else:
         return render_template('artisan/404.html'), 404
-    
+
+
+@product_bp.route('/search/' , methods=['GET', 'POST'] , endpoint='search')
+def product_search():
+    try:
+        query = request.args.get('query')
+        results = product_manager.search_product(query)
+
+        return render_template('artisan/shop-left-sidebar.html', products=results)
+    except:
+        return render_template('artisan/404.html'), 404
+
