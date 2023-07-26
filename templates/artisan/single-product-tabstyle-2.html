@@ -35,7 +35,7 @@
                     <h2>{{product.get_name()}}</h2>
                     <div class="pricing-meta">
                         <ul class="d-flex">
-                            <li class="new-price">{{product.get_price()}}</li>
+                            <li class="new-price">${{product.get_price()}}</li>
                             <li class="old-price"><del>$30.90</del></li>
                         </ul>
                     </div>
@@ -259,6 +259,13 @@
     </div>
 </div>
 <!-- product details description area end -->
-
+<dialog id="cartDialog">
+    <h2>Please Log In.</h2>
+    <p>You need to be logged in to add this item to your cart.</p>
+    <a onclick="document.getElementById('cartDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" href="/account/login">
+        <i class="fa fa-arrow-left"> </i> Proceed to log in
+    </a>
+</dialog>
 <script src="{{ url_for('static', filename='artisan/js/product-cart.js') }}"></script>
 {% endblock %}

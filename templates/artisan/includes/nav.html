@@ -102,7 +102,7 @@
                         <a href="#offcanvas-cart"
                             class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="pe-7s-shopbag"></i>
-                            <span class="header-action-num">01</span>
+                            <span class="header-action-num">{{ cart | length }}</span>
                             <!-- <span class="cart-amount">€30.00</span> -->
                         </a>
                         <a href="#offcanvas-mobile-menu"
@@ -167,39 +167,22 @@
 <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
     <div class="inner">
         <div class="head">
-            <span class="title">Cart</span>
+            <span class="title">Cart ({{cart | length}})</span>
             <button class="offcanvas-close">×</button>
         </div>
         
         <div class="body customScroll">
-            <ul class="minicart-product-list">
+            <ul class="minicart-product-list" id="mini-cart">
+                {% for item in cart %}
                 <li>
-                    <a href="single-product.html" class="image"><img src="{{ url_for('static', filename='artisan/images/product-image/1.jpg') }}"
+                    <a href="single-product.html" class="image"><img src="{{ url_for('static', filename='artisan/images/product-image/') }}{{item[0].get_image()[0]}}"
                             alt="Cart product Image"></a>
                     <div class="content">
-                        <a href="single-product.html" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
+                        <a href="single-product.html" class="title">{{item[0].get_name()}} (x{{item[1].get_quantity()}})</a>
+                        <span class="quantity-price"><span class="amount">${{item[1].get_quantity() * item[0].get_price()}}</span></span>
                     </div>
                 </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="{{ url_for('static', filename='artisan/images/product-image/2.jpg') }}"
-                            alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="{{ url_for('static', filename='artisan/images/product-image/3.jpg') }}"
-                            alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="foot">

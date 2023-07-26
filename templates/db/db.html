@@ -47,12 +47,13 @@
     <h2>Database Manager</h2>
     <p>Click on the buttons to view database content.</p>
     <a href="/admin/register">Add new admin</a>
-    <a href="/admin/product/new">Add new product</a>
+    <a href="/admin/artworks/new">Add new product</a>
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Customers')">Customers</button>
         <button class="tablinks" onclick="openTab(event, 'Admins')">Admins</button>
         <button class="tablinks" onclick="openTab(event, 'Products')">Products</button>
         <button class="tablinks" onclick="openTab(event, 'Cart')">Cart Items</button>
+        <button class="tablinks" onclick="openTab(event, 'Orders')">Orders</button>
         <button class="tablinks" onclick="openTab(event, 'Tickets')">Support Tickets</button>
     </div>
 
@@ -177,6 +178,36 @@
                     <td>{{ cart_items[key].get_quantity() }}</td>
                     <td><input type="submit" value="Delete" onclick="deleteItem('delete/cart/', {{ cart_items[key].get_cart_id() }})"></td>
                 </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Orders" class="tabcontent">
+        <h3>Orders</h3>
+        <p>{{ orders|length }} Orders in the database.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Order Total</th>
+                    <th>Order Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in orders %}
+                <tr>
+                    <td>{{ orders[key].get_order_id() }}</td>
+                    <td>{{ orders[key].get_customer_id() }}</td>
+                    <td>{{ orders[key].get_product_id() }}</td>
+                    <td>{{ orders[key].get_order_quantity() }}</td>
+                    <td>{{ orders[key].get_order_total() }}</td>
+                    <td>{{ orders[key].get_order_date() }}</td>
+                    <td><input type="submit" value="Delete" onclick="deleteItem('delete/order/', {{ orders[key].get_order_id() }})"></td>
                 {% endfor %}
             </tbody>
         </table>

@@ -59,7 +59,7 @@ def register():
     return render_template('admin/temp-sign-up.html')
         
 
-@admin_blueprint.route('/product/new', methods=['GET', 'POST'])
+@admin_blueprint.route('/artworks/new', methods=['GET', 'POST'])
 def new_product():
     if request.method == 'POST':
         # save images to static/uploads

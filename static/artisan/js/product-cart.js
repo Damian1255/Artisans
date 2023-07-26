@@ -12,18 +12,21 @@ addcartbtn.addEventListener("click", function (event) {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             if (response.success) {
-                alert("Product added to cart successfully!")
+                var offcanvasCart = document.querySelector('.header-action-btn-cart');
+                var cartlist = document.getElementById('mini-cart');
+                cartlist.innerHTML = response.offcanvas_cart
+                offcanvasCart.click();
             } else {
-                alert("Product add to cart failed.")
+                document.getElementById("cartDialog").showModal();
             }
         } else {
             alert('An Internal error occurred.');
         }
     };
-    
+
     xhr.send(JSON.stringify({
-        product_id : product_id.value,
-        quantity : quantity.value
+        product_id: product_id.value,
+        quantity: quantity.value
     }));
 });
 

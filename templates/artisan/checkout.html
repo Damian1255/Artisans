@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
-                <div class="your-order-area">
+                <form method="post" action="/cart/checkout" class="your-order-area">
                     <h3>Your order</h3>
                     <div class="your-order-wrap gray-bg-4">
                         <div class="your-order-product-info">
@@ -112,10 +112,10 @@
                         </div>
                     </div>
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="#">Place Order</a>
+                        <input type="submit" class="checkout-btn" value="Place Order">
                     </div>
                     <p style="text-align: center; margin-top: 5px;">A confirmation email will be sent to your email.</p>
-                </div>
+                </form>
             </div>
         </div>
     </div>
