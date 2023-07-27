@@ -1,0 +1,72 @@
+<dialog id="stockDialog">
+    <h2>Insufficient Quantity</h2>
+    <p>The quantity you requested is not available.</p>
+    <a onclick="document.getElementById('stockDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" onclick="document.getElementById('stockDialog').close();">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>
+
+<dialog id="loginCartDialog">
+    <h2>Please Log In</h2>
+    <p>You need to be logged in to add this item to your cart.</p>
+    <a onclick="document.getElementById('loginCartDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" href="/account/login">
+        <i class="fa fa-arrow-left"> </i> Proceed to log in
+    </a>
+</dialog>
+
+<dialog id="loginDialog">
+    <h2>Welcome to Artisans.</h2>
+    <p>We're so excited to see you! </p>
+    <a href="/" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" href="/">
+        <i class="fa fa-arrow-left"> </i> Go to shops
+    </a>
+</dialog>
+
+<dialog id="regDialog">
+    <h2>Welcome to Artisans.</h2>
+    <p>We found Artisas because we wanted to create a trustworthy and inspiring place for you to find everything you need. We're so happy you're here.</p>
+    <a href="/account/login" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" href="/account/login">
+        <i class="fa fa-arrow-left"> </i> Proceed to log in
+    </a>
+</dialog>
+
+<dialog id="clearCartDialog">
+    <h2>Clear Your Cart?</h2>
+    <p>Do you want to remove all items from your cart?</p>
+    <a onclick="document.getElementById('clearCartDialog').close();" aria-label="close" class="x">❌</a>
+    <button type="button" class="dialog-btn-danger" onclick="clearCart()">
+        <i class="fa fa-arrow-left"> </i> Clear Cart
+    </button>
+</dialog>
+
+<dialog id="deleteAccountDialog">
+    <form method="post" action="/account/delete">
+        <h3>Remove Account?</h3>
+        <p> Are you sure you want to remove your account? This action cannot be undone.</p>
+        <a onclick="document.getElementById('deleteAccountDialog').close();" aria-label="close" class="x">❌</a>
+        <input type="hidden" name="customer_id" value="{{session['user_id']}}">
+        <button type="submit" class="dialog-btn-danger"><i class="fa fa-arrow-left"> </i> Remove Account</button>
+    </form>
+</dialog>
+
+<dialog id="PasswordUpdateDialog">
+    <h2>Password Updated</h2>
+    <p>Your password has been updated successfully.</p>
+    <a onclick="document.getElementById('PasswordUpdateDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" onclick="document.getElementById('PasswordUpdateDialog').close();">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>
+
+<dialog id="UserUpdateDialog">
+    <h2>Information Updated</h2>
+    <p>Your information has been updated successfully.</p>
+    <a onclick="document.getElementById('UserUpdateDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" onclick="document.getElementById('UserUpdateDialog').close();">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>

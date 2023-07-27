@@ -11,21 +11,13 @@ cart_manager = CartManager.CartManager()
 
 @product_bp.route('/')
 def index():
-    if 'user_id' in session:
-        cart = cart_manager.get_cart(session['user_id'])
-    else:
-        cart = []
-    return render_template('artisan/shop-left-sidebar.html', products=product_manager.get_product_list(), cart=cart)
+    return render_template('artisan/shop-left-sidebar.html', products=product_manager.get_product_list())
 
 
 @product_bp.route('/<int:id>')
 def product_page(id):
     if product_manager.get_product(id):
-        if 'user_id' in session:
-            cart = cart_manager.get_cart(session['user_id'])
-        else:
-            cart = []
-        return render_template('artisan/single-product-tabstyle-2.html', product=product_manager.get_product(id), cart=cart)
+        return render_template('artisan/single-product-tabstyle-2.html', product=product_manager.get_product(id))
     else:
         return render_template('artisan/404.html'), 404
 
@@ -36,12 +28,7 @@ def product_search():
         query = request.args.get('query')
         results = product_manager.search_product(query)
 
-        if 'user_id' in session:
-            cart = cart_manager.get_cart(session['user_id'])
-        else:
-            cart = []
-
-        return render_template('artisan/shop-left-sidebar.html', products=results, cart=cart)
+        return render_template('artisan/shop-left-sidebar.html', products=results)
     except:
         return render_template('artisan/404.html'), 404
 

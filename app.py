@@ -28,27 +28,24 @@ cart_manager = CartManager.CartManager()
 
 @app.route('/')
 def index():
-    if 'user_id' in session:
-        cart = cart_manager.get_cart(session['user_id'])
-    else:
-        cart = []
-    return render_template('artisan/index.html', products=product_manager.get_product_list(), cart=cart)
+    return render_template('artisan/index.html', products=product_manager.get_product_list())
 
 @app.route('/about')
 def about():
-    if 'user_id' in session:
-        cart = cart_manager.get_cart(session['user_id'])
-    else:
-        cart = []
-    return render_template('artisan/about.html', cart=cart)
+    return render_template('artisan/about.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
-    if 'user_id' in session:
-        cart = cart_manager.get_cart(session['user_id'])
-    else:
-        cart = []
-    return render_template('artisan/404.html', cart=cart), 404
+    return render_template('artisan/404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
+    # Initialize session
+    if 'user_id' not in session:
+        session['user_id'] = None
+        session['first_name'] = None
+        session['last_name'] = None
+        session['username'] = None
+        session['cart'] = None
+        session['logged_in'] = True

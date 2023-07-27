@@ -11,9 +11,8 @@ def account():
     try:
         if session['logged_in']:
             user = user_manager.get_customer(session['user_id'])
-            cart = cart_manager.get_cart(session['user_id'])
 
-        return render_template('artisan/my-account.html', user=user, cart=cart)
+        return render_template('artisan/my-account.html', user=user)
     except:
         return redirect(url_for('account.login'))
 
@@ -71,12 +70,28 @@ def update_user(id):
         last_name = request.json['last_name']
         email = request.json['email']
         dob = request.json['dob']
-        password = request.json['password']
 
-        if user_manager.update_customer(id, first_name, last_name, password, email, dob):
+        if user_manager.update_customer(id, first_name, last_name, email, dob):
             return jsonify({'success': True})
 
         return jsonify({'success': False})
+    return redirect(url_for('account'))
+
+@account_blueprint.route('/password/update', methods=['GET', 'POST'])
+def update_password():
+    if request.method == 'POST':
+        user_id = int(request.json['user_id'])
+        current_password = request.json['current_password']
+        new_password = request.json['new_password']
+
+        # authenticates customer user
+        auth = user_manager.authenticate_customer(session['username'], current_password)
+        if auth['success']:
+            if user_manager.update_password(user_id, new_password):
+                return jsonify({'success': True})
+            
+        return jsonify({'success': False})
+
     return redirect(url_for('account'))
     
 @account_blueprint.route('/logout')
@@ -86,6 +101,7 @@ def logout():
     session.pop('first_name', None)
     session.pop('last_name', None)
     session.pop('username', None)
+    session.pop('cart', None)
     session['logged_in'] = False
     
     return redirect(url_for('index'))
@@ -107,4 +123,5 @@ def create_session(user):
     session['first_name'] = user.get_first_name()
     session['last_name'] = user.get_last_name()
     session['username'] = user.get_username()
+    session['cart'] = cart_manager.get_cart_html(session['user_id'])
     session['logged_in'] = True

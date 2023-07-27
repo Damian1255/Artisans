@@ -1,7 +1,5 @@
 var registerForm = document.getElementById("register");
 var loginForm = document.getElementById("login");
-var regDialog = document.getElementById("regDialog");
-var loginDialog = document.getElementById("loginDialog");
 
 // validate register form
 registerForm.addEventListener("submit", function (event) {
@@ -44,7 +42,7 @@ registerForm.addEventListener("submit", function (event) {
 
             if (response.success) {
                 registerForm.reset()
-                regDialog.showModal()
+                document.getElementById("regDialog").showModal()
             } else {
                 show_reg_error("Email or Username already exists.")
             }
@@ -80,7 +78,7 @@ loginForm.addEventListener("submit", function (event) {
             var response = JSON.parse(xhr.responseText);
 
             if (response.success) {
-                loginDialog.showModal()
+                document.getElementById("loginDialog").showModal()
             } else {
                 show_login_error("Invalid username or password.")
                 highlight_elements_red([username, password]);

@@ -1,5 +1,3 @@
-var deleteItem = document.getElementsByClassName("delete-item");
-
 function deleteItemFromCart(product_id) {
     // Ajax call to add product to cart
     var xhr = new XMLHttpRequest();
@@ -10,7 +8,6 @@ function deleteItemFromCart(product_id) {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             if (response.success) {
-                //alert("Product removed from cart successfully!");
                 location.reload();
             } else {
                 alert("Product removal from cart failed.")
@@ -35,7 +32,6 @@ function clearCart() {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             if (response.success) {
-                //alert("Cart cleared successfully!");
                 location.reload();
             } else {
                 alert("Cart clear failed.")
@@ -51,7 +47,6 @@ function clearCart() {
 function updateCart(cart_id, newquantity) {
     quantityPicker = document.getElementById("quantity-" + cart_id)
     quantity_value = parseInt(quantityPicker.value) + newquantity;
-    console.log(quantity_value);
 
     if (quantity_value >= 1 && quantity_value <= quantityPicker.max) {
         // Ajax call to add product to cart
@@ -63,8 +58,7 @@ function updateCart(cart_id, newquantity) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response.success) {
-                    //alert("Cart updated successfully!");
-                    location.reload();
+                    getCart();
                 } else {
                     alert("Cart update failed.")
                 }

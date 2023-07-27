@@ -103,23 +103,6 @@
     </div>
 </div>
 
-<dialog id="loginDialog">
-    <h2>Welcome to Artisans.</h2>
-    <p>We're so excited to see you! </p>
-    <a href="/" aria-label="close" class="x">❌</a>
-    <a class="dialog-btn" href="/">
-        <i class="fa fa-arrow-left"> </i> Go to shops
-    </a>
-</dialog>
-<dialog id="regDialog">
-    <h2>Welcome to Artisans.</h2>
-    <p>We found Artisas because we wanted to create a trustworthy and inspiring place for you to find everything you need. We're so happy you're here.</p>
-    <a href="/account/login" aria-label="close" class="x">❌</a>
-    <a class="dialog-btn" href="/account/login">
-        <i class="fa fa-arrow-left"> </i> Proceed to log in
-    </a>
-</dialog>
-
 <script src="{{ url_for('static', filename='artisan/js/login-reg-form-validation.js') }}"></script>
 {% if show_reg %}
 <script>

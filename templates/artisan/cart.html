@@ -24,7 +24,7 @@
 <!-- Cart Area Start -->
 <div class="cart-main-area pt-100px pb-100px">
     <div class="container">
-        <h3 class="cart-page-title">Your cart items ({{cart|length}})</h3>
+        <h3 class="cart-page-title" id="cart-page-title">Your cart items (0)</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
@@ -40,28 +40,8 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {% for item in cart %}
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <a href="/artworks/{{item[0].get_id()}}"><img class="img-responsive ml-15px"
-                                            src="{{ url_for('static', filename='artisan/images/product-image/')}}{{item[0].get_image()[0]}}" alt="" /></a>
-                                    </td>
-                                    <td class="product-name"><a href="/artworks/{{item[0].get_id()}}">{{item[0].get_name()}}</a></td>
-                                    <td class="product-price-cart"><span class="amount">${{item[0].get_price()}}</span></td>
-                                    <td class="product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <div class="dec qtybutton" onclick="updateCart({{item[1].get_cart_id()}}, -1)">-</div>
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" id="quantity-{{item[1].get_cart_id()}}" value="{{item[1].get_quantity()}}" max="{{item[0].get_quantity()}}"/>
-                                            <div class="inc qtybutton" onclick="updateCart({{item[1].get_cart_id()}}, 1)">+</div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">${{item[0].get_price() * item[1].get_quantity()}}</td>
-                                    <td class="product-remove">
-                                        <a onclick="deleteItemFromCart({{item[1].get_cart_id()}})"><i class="fa fa-times"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
+                            <tbody id="item-display">
+                                
                             </tbody>
                         </table>
                     </div>
@@ -72,7 +52,7 @@
                                     <a href="#">Continue Shopping</a>
                                 </div>
                                 <div class="cart-shiping-update">
-                                    <a onclick="clearCart()">Clear Shopping Cart</a>
+                                    <a onclick="document.getElementById('clearCartDialog').showModal();">Clear Shopping Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -84,13 +64,9 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
-                            {% for item in cart %}
-                            <h5>{{item[0].get_name()}} X {{item[1].get_quantity()}} <span>${{item[0].get_price() * item[1].get_quantity()}}</span></h5>
-                            <input type="hidden" id="product-{{item[1].get_cart_id()}}" value="{{item[0].get_id()}}">
-                            {% endfor %}
-                            <div class="title-wrap"></div>
-                            <h4 class="grand-totall-title">Grand Total <span>${{grand_total}}</span></h4>
-                            <a href="/cart/checkout">Proceed to Checkout</a>
+                            <div id="grand-total">
+
+                            </div>
                         </div>
                     </div>
                 </div>

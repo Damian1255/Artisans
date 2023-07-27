@@ -10,19 +10,26 @@ cart_manager = CartManager.CartManager()
 order_manager = OrderManager.OrderManager()
 
 
-@cart_bp.route('/')
+@cart_bp.route('/', methods=['GET', 'POST'])
 def cart_page():
     if 'user_id' not in session:
         return redirect(url_for('account.login'))
+    
+    if request.method == 'POST':
+        cart_display = session['cart']
 
-    cart = cart_manager.get_cart(session['user_id'])
-    grand_total = sum([item[0].get_price() * item[1].get_quantity()
-                      for item in cart])
-
-    if len(cart) == 0:
-        return render_template('artisan/empty-cart.html', cart=cart, grand_total=grand_total, empty=True)
-
-    return render_template('artisan/cart.html', cart=cart, grand_total=grand_total)
+        return jsonify({'success': True,
+                        'cart_display': cart_display[0],
+                        'total_display': cart_display[1],
+                        'offcanvas_cart': cart_display[2],
+                        'cart_count': cart_display[3]
+                        })
+    else:
+        cart = cart_manager.get_cart(session['user_id'])
+        if len(cart) == 0:
+            return render_template('artisan/empty-cart.html')
+        
+        return render_template('artisan/cart.html')
 
 
 @cart_bp.route('/add/', methods=['GET', 'POST'])
@@ -31,24 +38,14 @@ def add_item():
         product_id = int(request.json['product_id'])
         quantity = int(request.json['quantity'])
 
-        if product_manager.get_product(product_id):
-            cart_manager.add_to_cart(session['user_id'], product_id, quantity)
-            cart = cart_manager.get_cart(session['user_id'])
+        if cart_manager.add_to_cart(session['user_id'], product_id, quantity):
+            # Update cart session
+            session['cart'] = cart_manager.get_cart_html(session['user_id'])
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'insuf_stock': True})
 
-            offcanvas_cart = ""
-            for item in cart:
-                offcanvas_cart += f"""<li>
-                    <a href="single-product.html" class="image"><img src="{ url_for('static', filename='artisan/images/product-image/') }{item[0].get_image()[0]}"
-                            alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">{item[0].get_name()} (x{item[1].get_quantity()})</a>
-                        <span class="quantity-price"><span class="amount">${item[1].get_quantity() * item[0].get_price()}</span></span>
-                    </div>
-                </li>"""
-
-            return jsonify({'success': True, 'offcanvas_cart': offcanvas_cart})
-
-    return jsonify({'success': False})
+    return jsonify({'success': False, 'login_required': True})
 
 
 @cart_bp.route('/delete/item/', methods=['GET', 'POST'])
@@ -56,6 +53,9 @@ def delete_item():
     if 'user_id' in session:
         product_id = int(request.json['product_id'])
         cart_manager.delete_item(product_id)
+
+        # Update cart session
+        session['cart'] = cart_manager.get_cart_html(session['user_id'])
 
         return jsonify({'success': True})
 
@@ -66,6 +66,10 @@ def delete_item():
 def clear_cart():
     if 'user_id' in session:
         cart_manager.delete_items_by_customer(session['user_id'])
+
+        # Update cart session
+        session['cart'] = cart_manager.get_cart_html(session['user_id'])
+
         return jsonify({'success': True})
 
     return jsonify({'success': False})
@@ -77,6 +81,9 @@ def update_cart():
         cart_id = int(request.json['cart_id'])
         quantity = int(request.json['quantity'])
         cart_manager.update_cart(cart_id, quantity)
+
+        # Update cart session
+        session['cart'] = cart_manager.get_cart_html(session['user_id'])
 
         return jsonify({'success': True})
 
@@ -92,9 +99,21 @@ def checkout():
             product = item[0]
             quantity = item[1].get_quantity()
             order_total = product.get_price() * quantity
-            order_manager.new_order(session['user_id'], product.get_id(), quantity, order_total)
+            order_manager.new_order(
+                session['user_id'], product.get_id(), quantity, order_total)
 
+        # Update Product quantity
+        for item in cart:
+            product = item[0]
+            quantity = item[1].get_quantity()
+            product_manager.update_product_quantity(product.get_id(), product.get_quantity() - quantity)
+
+        # Clear cart
         cart_manager.delete_items_by_customer(session['user_id'])
+
+        # Update cart session
+        session['cart'] = cart_manager.get_cart_html(session['user_id'])
+
         return render_template('artisan/thank-you-page.html')
     else:
         if 'user_id' not in session:
@@ -102,7 +121,6 @@ def checkout():
 
         customer = user_manager.get_customer(session['user_id'])
         cart = cart_manager.get_cart(session['user_id'])
-        grand_total = sum(
-            [item[0].get_price() * item[1].get_quantity() for item in cart])
+        grand_total = sum([item[0].get_price() * item[1].get_quantity() for item in cart])
 
         return render_template('artisan/checkout.html', customer=customer, cart=cart, grand_total=grand_total)

@@ -36,7 +36,7 @@
                     <div class="pricing-meta">
                         <ul class="d-flex">
                             <li class="new-price">${{product.get_price()}}</li>
-                            <li class="old-price"><del>$30.90</del></li>
+                            <!-- <li class="old-price"><del>$30.90</del></li> -->
                         </ul>
                     </div>
                     <div class="pro-details-rating-wrap">
@@ -55,13 +55,12 @@
                     <p class="mt-30px mb-0">{{product.get_description()}}</p>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" id="quantity-value" type="text" name="qtybutton" value="1" />
+                            <div class="dec qtybutton2">-</div>
+                            <input class="cart-plus-minus-box" id="quantity-value" type="text" name="qtybutton" value="1" max="{{product.get_quantity()}}"/>
+                            <div class="inc qtybutton2">+</div>
                         </div>
                         <div class="pro-details-cart">
-                            <button class="add-cart" id="add-cart-btn"> Add To Cart</button>
-                        </div>
-                        <div class="pro-details-cart">
-                            <button class="add-cart buy-button"> Buy It Now</button>
+                            <button class="add-cart buy-button" id="add-cart-btn"> Add To Cart</button>
                         </div>
                         <div class="pro-details-compare-wishlist pro-details-wishlist ">
                             <a href="wishlist.html"><i class="pe-7s-like"></i></a>
@@ -117,34 +116,14 @@
     <div class="container">
         <div class="description-review-wrapper">
             <div class="description-review-topbar nav">
-                <a data-bs-toggle="tab" href="#des-details2">Information</a>
                 <a class="active" data-bs-toggle="tab" href="#des-details1">Description</a>
                 <a data-bs-toggle="tab" href="#des-details3">Reviews (02)</a>
             </div>
             <div class="tab-content description-review-bottom">
-                <div id="des-details2" class="tab-pane">
-                    <div class="product-anotherinfo-wrapper text-start">
-                        <ul>
-                            <li><span>Weight</span> 400 g</li>
-                            <li><span>Dimensions</span>10 x 10 x 15 cm</li>
-                            <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                            <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
-                        </ul>
-                    </div>
-                </div>
                 <div id="des-details1" class="tab-pane active">
                     <div class="product-description-wrapper">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed
-                            utlo perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt.
+                            {{product.get_description()}}
                         </p>
                     </div>
                 </div>
@@ -259,13 +238,5 @@
     </div>
 </div>
 <!-- product details description area end -->
-<dialog id="cartDialog">
-    <h2>Please Log In.</h2>
-    <p>You need to be logged in to add this item to your cart.</p>
-    <a onclick="document.getElementById('cartDialog').close();" aria-label="close" class="x">❌</a>
-    <a class="dialog-btn" href="/account/login">
-        <i class="fa fa-arrow-left"> </i> Proceed to log in
-    </a>
-</dialog>
 <script src="{{ url_for('static', filename='artisan/js/product-cart.js') }}"></script>
 {% endblock %}

@@ -45,7 +45,9 @@
 
     <!-- Content Area Start-->
     {% block content %}
+        
     {% endblock %}
+    {% include 'artisan/includes/dialogs.html' %}
     <!-- Content Area End-->
 
     <!-- Footer Area Start -->
@@ -74,5 +76,6 @@
 
     <!-- Main Js -->
     <script src="{{ url_for('static', filename='artisan/js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='artisan/js/offcanvas-cart.js') }}"></script>
 </body>
 </html>

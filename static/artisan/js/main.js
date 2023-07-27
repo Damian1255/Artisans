@@ -389,6 +389,28 @@
         $button.parent().find("input").val(newVal);
     });
 
+    $(".qtybutton2").on("click", function() {
+        var $button = $(this);
+        var oldValue = $button.parent().find("input").val();
+        var max = $button.parent().find("input").attr('max');
+        
+        if ($button.text() == "+") {
+            if (parseFloat(oldValue) < max) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                newVal = max;
+            }
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find("input").val(newVal);
+    });
+
 
     /*------------------------------
             Single Product Slider

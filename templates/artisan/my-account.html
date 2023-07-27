@@ -35,7 +35,8 @@
                         <li><a href="#account-delete" data-bs-toggle="tab" class="nav-link">My Account</a></li>
                         <li>
                             <a href="/account/logout" class="nav-link">
-                                logout<i class="pe-7s-upload" style="font-size: 25px;font-weight: bold;float: right;"></i>
+                                logout<i class="pe-7s-upload"
+                                    style="font-size: 25px;font-weight: bold;float: right;"></i>
                             </a>
                         </li>
                     </ul>
@@ -84,22 +85,28 @@
                     </div>
                     <div class="tab-pane" id="account-delete">
                         <h4>Manage my Account</h4>
-                        <h6 class="billing-address">Request removal of account</h6>
-                        <p>Here you can request removal of your account and all associated data from Artisans.</p>
-                        <!-- button -->
-                        <button type="button" class="btn btn-danger" style="padding: 15px;" onclick="window.dialog.showModal();">Request removal</button>
-                        <dialog id="dialog">
-                            <form method="post" action="/account/delete">
-                                <h3>Remove Account?</h3>
-                                <p> Are you sure you want to remove your account? This action cannot be undone.</p>
-                                <a onclick="window.dialog.close();" aria-label="close" class="x">❌</a>
-                                <input type="hidden" name="customer_id" value="{{user.get_user_id()}}">
-                                <input type="submit" class="btn btn-danger" value="Remove Account" style="border-radius: 0px; margin-bottom: 20px;">
-                            </form>
-                        </dialog>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h6 class="billing-address">Update Password</h6>
+                                <p>Update your current password.</p>
+                                <button type="button" class="btn btn-dark" style="padding: 15px; margin-bottom: 40px;"
+                                    onclick="document.getElementById('AccountUpdateDialog').showModal();">
+                                    Update Password
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h6 class="billing-address">Request removal of account</h6>
+                                <p>Request removal of your account and all associated data from Artisans.</p>
+                                <button type="button" class="btn btn-danger" style="padding: 15px;"
+                                    onclick="document.getElementById('deleteAccountDialog').showModal();">
+                                    Request Removal
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="account-details">
-                        {% if not session['isadmin']%}
                         <h3>Personal details</h3>
                         <div class="login">
                             <div class="login_form_container">
@@ -126,18 +133,12 @@
                                                 <p>{{user.get_email()}}</p>
                                             </div>
                                         </div>
-                                        <h3>Account details</h3>
-                                        <div class="default-form-box mb-20" id="password-container">
-                                            <label>Password</label>
-                                            <p>{{user.get_password()}}</p>
-                                        </div>
-                                        </label>
                                         <div class="row">
                                             <div class="edit_button mt-3 col-md-2">
                                                 <button class="btn" type="button" id="edit-button">Edit</button>
                                             </div>
                                             <div class="save_button mt-3 col-md-2" id="save-button-container">
-                                                
+
                                             </div>
                                         </div>
                                         <div id="msg-box"></div>
@@ -145,15 +146,28 @@
                                 </div>
                             </div>
                         </div>
-                        {% else %}
-                        <h3>My Details</h3>
-                        <p>Edit your details in the <a href="/admin/">Admin Dashboard</a>.</p>
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<dialog id="AccountUpdateDialog">
+    <form method="post" action="/account/password/update" id="password-update-form">
+        <h3>Update Password</h3>
+
+        <p style="margin-bottom: 5px;">Enter current password.</p>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="current_password" placeholder="Current Password" required>
+        <p style="margin-bottom: 5px; margin-top: 10px;">Enter new password.</p>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="new_password" placeholder="New Password" required>
+        <p style="margin-bottom: 5px; margin-top: 10px;">Confirm new password.</p>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="confirm_password" placeholder="Confirm Password" required>
+        <div id="msg" style="text-align: center; color: red"></div>
+
+        <a onclick="document.getElementById('AccountUpdateDialog').close();" aria-label="close" class="x">❌</a>
+        <input type="hidden" name="pwd_customer_id" value="{{user.get_user_id()}}">
+        <button style="margin-top: 20px;" type="submit" class="dialog-btn"><i class="fa fa-arrow-left"> </i> Update</button>
+    </form>
+</dialog>
 <script src="{{ url_for('static', filename='artisan/js/account-form-validation.js') }}"></script>
 {% endblock %}

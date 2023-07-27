@@ -2904,6 +2904,20 @@ body.offcanvas-open {
   transition: all 0.3s ease 0s;
   width: 30px;
 }
+.product-details-content .pro-details-quality .cart-plus-minus .qtybutton2 {
+  color: #fff;
+  cursor: pointer;
+  float: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  width: 30px;
+}
 .product-details-content .pro-details-quality .cart-plus-minus input.cart-plus-minus-box {
   background: transparent none repeat scroll 0 0;
   border: medium none;
@@ -2924,6 +2938,18 @@ body.offcanvas-open {
   top: 0;
 }
 .product-details-content .pro-details-quality .cart-plus-minus .dec.qtybutton {
+  height: 50px;
+  left: 0;
+  padding-top: 14px;
+  top: 0;
+}
+.product-details-content .pro-details-quality .cart-plus-minus .inc.qtybutton2 {
+  height: 50px;
+  padding-top: 14px;
+  right: 0;
+  top: 0;
+}
+.product-details-content .pro-details-quality .cart-plus-minus .dec.qtybutton2 {
   height: 50px;
   left: 0;
   padding-top: 14px;
@@ -4502,7 +4528,12 @@ Pages - My Account
   color: #eaaa85;
   font-weight: 500;
 }
-
+.account_login_form .default-form-box p {
+  font-weight: 500;
+}
+.account_login_form .default-form-box label {
+  margin-bottom: 0px;
+}
 .input-radio span {
   font-weight: 500;
   padding-right: 10px;
@@ -4573,7 +4604,7 @@ Pages - My Account
   margin-bottom: 10px;
   display: block;
 }
-.default-form-box input {
+.default-form-box input, #AccountUpdateDialog input {
   display: block;
   width: 100%;
   height: 45px;
@@ -4586,7 +4617,7 @@ Pages - My Account
   border: 1px solid #e2e2e2;
   line-height: 45px;
 }
-.default-form-box input:focus {
+.default-form-box input:focus, #AccountUpdateDialog input:focus {
   border-color: #eaaa85;
 }
 
@@ -4859,7 +4890,7 @@ dialog button:hover {
   display: inline-block;
 }
 
-a.dialog-btn {
+.dialog-btn {
   padding: 15px 25px;
   display: inline-block;
   background: #eaaa85;
@@ -4875,14 +4906,15 @@ a.dialog-btn {
   margin-bottom: 20px;
   cursor: pointer;
 }
-a.dialog-btn:hover {
+.dialog-btn:hover {
   background-color: #000000;
+  color: #fff;
 }
-a.dialog-btn:hover i {
+.dialog-btn:hover i {
   -webkit-transform: translate(-5px, 0px);
           transform: translate(-5px, 0px);
 }
-a.dialog-btn i {
+.dialog-btn i {
   font-size: 14px !important;
   color: #fff;
   padding-right: 8px;
@@ -4890,7 +4922,37 @@ a.dialog-btn i {
   transition: 0.3s;
   display: inline-block;
 }
-
+.dialog-btn-danger {
+  padding: 15px 25px;
+  display: inline-block;
+  background: #dc3545;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 30px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  text-transform: uppercase;
+  width: 100%;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.dialog-btn-danger:hover {
+  background-color: #000000;
+}
+.dialog-btn-danger:hover i {
+  -webkit-transform: translate(-5px, 0px);
+          transform: translate(-5px, 0px);
+}
+.dialog-btn-danger i {
+  font-size: 14px !important;
+  color: #fff;
+  padding-right: 8px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  display: inline-block;
+}
 .privacy_policy_main_area .privacy_content {
   margin-bottom: 22px;
 }
