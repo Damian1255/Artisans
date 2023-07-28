@@ -64,7 +64,7 @@ def new_product():
     if request.method == 'POST':
         # save images to static/uploads
         img_urls = []
-        for image in request.files.getlist('images'):
+        for image in request.files.getlist('product_images'):
             if image and allowed_file(image.filename):
                 imagename = secure_filename(image.filename)
                 image.save(os.path.join(config.UPLOAD_FOLDER, imagename))

@@ -1,6 +1,6 @@
 'Customers', (22016, 1492)
 'Admins', (512, 271)
-'Products', (20992, 480)
-'Cart', (12288, 5)
+'Products', (27648, 1402)
+'Cart', (12288, 158)
 'Support_Tickets', (17408, 651)
 'Orders', (18432, 356)

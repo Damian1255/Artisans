@@ -17,6 +17,7 @@ class ProductManager():
         
         db.update_product_list(product_list)
         print(f'New product added: {name}')
+        return { 'success': True, 'product_id': product_id}
 
     def delete_product(self, id):
         product_list = db.get_product_list()
@@ -34,6 +35,30 @@ class ProductManager():
         except:
             print(f'Product {id} does not exist!')
             return False
+        
+    def get_products_by_customer(self, customer_id):
+        product_list = db.get_product_list()
+        customer_products = []
+
+        for product in product_list.values():
+            if int(product.get_customer_id()) == customer_id:
+                customer_products.append(product)
+                
+        return customer_products
+    
+    def delete_products_by_customer(self, customer_id):
+        product_list = db.get_product_list()
+        delete_list = []
+
+        for product_id in product_list:
+            product = product_list[product_id]
+            if product.get_customer_id() == customer_id:
+                delete_list.append(product_id)
+
+        for product_id in delete_list:
+            del product_list[product_id]
+        db.update_product_list(product_list)
+        print(f'Products by customer {customer_id} successfully deleted!')
         
     def update_product_quantity(self, product_id, quantity):
         product_list = db.get_product_list()

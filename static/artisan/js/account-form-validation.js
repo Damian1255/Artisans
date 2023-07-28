@@ -142,3 +142,57 @@ function remove_highlight(element_arr) {
         element.style.borderColor = "";
     });
 }
+
+newProductForm = document.getElementById("newProduct");
+newProductForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var customer_id = newProductForm.querySelector("input[name='customer_id']").value;
+    var product_title = newProductForm.querySelector("input[name='product_title']");
+    var product_price = newProductForm.querySelector("input[name='product_price']");
+    var product_quantity = newProductForm.querySelector("input[name='product_quantity']");
+    var product_description = newProductForm.querySelector("textarea[name='product_description']");
+    var product_image = newProductForm.querySelector("input[name='product_image']");
+    var product_category = newProductForm.querySelector("select[name='product_category']");
+
+    const formData = new FormData(newProductForm);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/artworks/new', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                preview.innerHTML = '';
+                newProductForm.reset();
+                document.getElementById('newArtworkDialog').close();
+
+                model = document.getElementById('NewProductDialog')
+                document.getElementById('dialog-btn').setAttribute('href', '/artworks/' + response.product_id);
+                model.showModal();
+            } else {
+                alert("Product addition failed.");
+            }
+        } else {
+            alert('An Internal error occurred.');
+        }
+    };
+    xhr.send(formData);
+});
+
+const input = document.querySelector('input[name="product_images"]');
+const preview = document.getElementById('image-preview');
+
+  input.addEventListener('change', () => {
+    preview.innerHTML = '';
+    const files = input.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        const img = document.createElement('img');
+        img.src = reader.result;
+        preview.appendChild(img);
+      });
+      reader.readAsDataURL(file);
+    }
+  });

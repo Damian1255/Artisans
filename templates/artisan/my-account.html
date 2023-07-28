@@ -29,7 +29,7 @@
                 <!-- Nav tabs -->
                 <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
                     <ul role="tablist" class="nav flex-column dashboard-list">
-                        <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
+                        <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">My Artworks</a></li>
                         <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">My Orders</a></li>
                         <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">My details</a></li>
                         <li><a href="#account-delete" data-bs-toggle="tab" class="nav-link">My Account</a></li>
@@ -46,10 +46,61 @@
                 <!-- Tab panes -->
                 <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
                     <div class="tab-pane fade show active" id="dashboard">
-                        <h4>Dashboard </h4>
-                        <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent
-                                orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a
-                                href="#">Edit your password and account details.</a></p>
+                        <h4>Artworks</h4>
+                        <p>Create new or and manage your artworks.</p>
+                        <button class="btn-dark" onclick="document.getElementById('newArtworkDialog').showModal();">Create New Artwork</button>
+                        <div class="artwork-container">
+                            <div class="row">
+                                {% for artwork in user_artworks %}
+                                <div class="col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                                    <!-- Single Prodect -->
+                                    <div class="product">
+                                        <div class="thumb">
+                                            <a href="/artworks/{{artwork.get_id()}}" class="image">
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork.get_image()[0]}}"
+                                                    alt="Product" />
+                                                <img class="hover-image"
+                                                    src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork.get_image()[0]}}"
+                                                    alt="Product" />
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="title"><a
+                                                    href="/artworks/{{artwork.get_id()}}">{{artwork.get_name()}}</a>
+                                            </h5>
+                                            <span class="price">
+                                                <span class="new">Quantity: {{artwork.get_quantity()}}</span>
+                                            </span>
+                                        </div>
+                                        <a href="" class="add-to-cart">Edit</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <dialog id="newArtworkDialog">
+                            <form action="" method="post" id="newProduct" enctype="multipart/form-data">
+                                <h1>New Artwork</h1>
+                                <p>Upload your artwork.</p>
+                                <div id="image-preview"></div>
+                                <input type="file" name="product_images" placeholder="Product image" accept=".png, .jpg" required multiple style="margin-bottom: 20px;">
+                                <input type="text" name="product_title" placeholder="Title" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" name="product_price" placeholder="$ Price" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" name="product_quantity" placeholder="Quantity" required>
+                                    </div>
+                                </div>
+                                <input type="text" name="product_category" placeholder="Category" required>
+                                <input type="hidden" name="customer_id" value="{{user.get_user_id()}}">
+                                <input type="text" name="product_description" placeholder="Description" required>
+                                <button type="submit" class="dialog-btn"><i class="fa fa-arrow-left"> </i> Create Artwork</button>
+                                <a onclick="document.getElementById('newArtworkDialog').close();" aria-label="close" class="x">❌</a>
+                                <p id="msg"></p>
+                            </form>
+                        </dialog>
                     </div>
                     <div class="tab-pane fade" id="orders">
                         <h4>Orders</h4>
@@ -57,28 +108,35 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Order</th>
+                                        <th>Order ID</th>
                                         <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Item</th>
                                         <th>Total</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for order in orders %}
                                     <tr>
-                                        <td>1</td>
-                                        <td>May 10, 2018</td>
-                                        <td><span class="success">Completed</span></td>
-                                        <td>$25.00 for 1 item </td>
-                                        <td><a href="cart.html" class="view">view</a></td>
+                                        <td>{{order[0].get_order_id()}}</td>
+                                        <td>{{order[0].get_order_date()}}</td>
+                                        <td>{{order[1].get_name()}} (x{{order[0].get_order_quantity()}})</td>
+                                        <td>${{order[0].get_order_total()}}</td>
+                                        <td>
+                                            <a onclick="document.getElementById('ViewProductDialog-{{order[0].get_order_id()}}').showModal();" class="view" style="cursor: pointer;">
+                                                view/Download
+                                            </a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>May 10, 2018</td>
-                                        <td>Processing</td>
-                                        <td>$17.00 for 1 item </td>
-                                        <td><a href="cart.html" class="view">view</a></td>
-                                    </tr>
+                                    <dialog id="ViewProductDialog-{{order[0].get_order_id()}}">
+                                        <h2>{{order[1].get_name()}}</h2>
+                                        <img src="{{ url_for('static', filename='artisan/images/product-image/')}}{{order[1].get_image()[0]}}" alt="{{order[1].get_name()}}" width="100%">
+                                        <a onclick="document.getElementById('ViewProductDialog-{{order[0].get_order_id()}}').close();" aria-label="close" class="x">❌</a>
+                                        <a href="{{ url_for('static', filename='artisan/images/product-image/')}}{{order[1].get_image()[0]}}" download="{{order[1].get_name()}}" class="dialog-btn" id="dialog-btn">
+                                            <i class="fa fa-arrow-down"> </i> Download
+                                        </a>
+                                    </dialog>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

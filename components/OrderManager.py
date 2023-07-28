@@ -30,25 +30,28 @@ class OrderManager():
     def get_order_list(self):
         return db.get_order_list()
     
-    def get_order_list_by_customer(self, customer_id):
+    def get_orders_by_customer(self, customer_id):
         order_list = db.get_order_list()
         customer_orders = []
+
         for order in order_list:
             if order_list[order].get_customer_id() == customer_id:
                 customer_orders.append(order_list[order])
         return customer_orders
     
-    def get_order_list_by_product(self, product_id):
+    def get_orders_by_product(self, product_id):
         order_list = db.get_order_list()
         product_orders = []
+
         for order in order_list:
             if order_list[order].get_product_id() == product_id:
                 product_orders.append(order_list[order])
         return product_orders
     
-    def get_order_list_by_date(self, order_date):
+    def get_orders_by_date(self, order_date):
         order_list = db.get_order_list()
         date_orders = []
+
         for order in order_list:
             if order_list[order].get_order_date() == order_date:
                 date_orders.append(order_list[order])
@@ -75,9 +78,9 @@ class OrderManager():
 
         for order_id in delete_list:
             del order_list[order_id]
-            print(f'Order {order_id} successfully deleted!')
 
         db.update_order_list(order_list)
+        print(f'Orders by customer {customer_id} successfully deleted!')
     
     def delete_orders_by_product(self, product_id):
         order_list = db.get_order_list()
@@ -90,8 +93,8 @@ class OrderManager():
 
         for order_id in delete_list:
             del order_list[order_id]
-            print(f'Order {order_id} successfully deleted!')
 
         db.update_order_list(order_list)
+        print(f'Orders by product {product_id} successfully deleted!')
     
     

@@ -60,9 +60,9 @@ class CartManager():
 
         for cart_id in delete_list:
             del cart_list[cart_id]
-            print(f'Cart item {cart_id} successfully deleted!')
 
         db.update_cart_list(cart_list)
+        print(f'Cart items by customer {customer_id} successfully deleted!')
 
     def delete_items_by_product(self, product_id):
         cart_list = db.get_cart_list()
@@ -75,9 +75,9 @@ class CartManager():
 
         for cart_id in delete_list:
             del cart_list[cart_id]
-            print(f'Cart item {cart_id} successfully deleted!')
 
         db.update_cart_list(cart_list)
+        print(f'Cart items by product {product_id} successfully deleted!')
 
     def get_cart(self, customer_id):
         cart_list = db.get_cart_list()
