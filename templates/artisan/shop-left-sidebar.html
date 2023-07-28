@@ -1,5 +1,5 @@
 {% extends "artisan/base.html" %}
-{% block title %}Artisan's - Login & Register{% endblock %}
+{% block title %}Artisan's - Artworks{% endblock %}
 
 {% block content %}
 <!-- breadcrumb-area start -->
@@ -7,11 +7,11 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-12 text-center">
-                <h2 class="breadcrumb-title">Shop</h2>
+                <h2 class="breadcrumb-title">Artworks</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Shop</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Artworks</li>
                 </ul>
                 <!-- breadcrumb-list end -->
             </div>
@@ -24,13 +24,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
-                <div class="sidebar-widget-image">
+                <h3>Artworks ({{products|length}})</h3>
+                <!-- <div class="sidebar-widget-image">
                     <a href="#" class="single-banner">
-                        <img src="assets/images/banner/12.jpg" alt="">
+                        <img src="{{ url_for('static', filename='artisan/images/banner/12.jpg')}}" alt="">
                     </a>
-                </div>
+                </div> -->
                 <!-- Shop Top Area Start -->
                 <div class="desktop-tab">
+                    <h6>View as:</h6>
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side End -->
                         <div class="shop-tab nav">
@@ -41,42 +43,6 @@
                                 <i class="fa fa-list" aria-hidden="true"></i>
                             </a>
                         </div>
-                        <!-- Right Side Start -->
-                        <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Sort By:</p>
-                            </div>
-                            <div class="shop-select">
-                                <select class="shop-sort">
-                                    <option data-display="Default">Default</option>
-                                    <option value="1"> Name, A to Z</option>
-                                    <option value="2"> Name, Z to A</option>
-                                    <option value="3"> Price, low to high</option>
-                                    <option value="4"> Price, high to low</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <!-- Right Side End -->
-                        <!-- Right Side Start -->
-                        <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Show:</p>
-                            </div>
-                            <div class="shop-select show">
-                                <select class="shop-sort">
-                                    <option data-display="12">12</option>
-                                    <option value="1"> 12</option>
-                                    <option value="2"> 10</option>
-                                    <option value="3"> 25</option>
-                                    <option value="4"> 20</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <!-- Right Side End -->
-                        <!-- Left Side start -->
-                        <p class="compare-product">Product Compare <span>(0) </span></p>
                     </div>
                 </div>
                 <!-- Shop Top Area End -->
@@ -155,9 +121,6 @@
                                                         <img class="hover-image" src="{{ url_for('static', filename='artisan/images/product-image/')}}{{products[key].get_image()[0]}}"
                                                             alt="Product" />
                                                     </a>
-                                                    <span class="badges">
-                                                        <span class="new">New</span>
-                                                    </span>
                                                     <div class="actions">
                                                         <a href="wishlist.html" class="action wishlist"
                                                             title="Wishlist"><i class="pe-7s-like"></i></a>
@@ -200,22 +163,19 @@
                                                             <img class="hover-image"
                                                             src="{{ url_for('static', filename='artisan/images/product-image/')}}{{products[key].get_image()[0]}}" alt="Product" />
                                                         </a>
-                                                        <span class="badges">
-                                                            <span class="new">New</span>
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-7 col-lg-7 col-xl-8">
                                                 <div class="content-desc-wrap">
                                                     <div class="content">
+                                                        <h5 class="title"><a href="/artworks/{{products[key].get_id()}}">{{products[key].get_name()}}</a></h5>
                                                         <span class="ratings">
                                                             <span class="rating-wrap">
                                                                 <span class="star" style="width: 100%"></span>
                                                             </span>
                                                             <span class="rating-num d-none">( 5 Review )</span>
                                                         </span>
-                                                        <h5 class="title"><a href="/artworks/{{products[key].get_id()}}">{{products[key].get_name()}}</a></h5>
                                                         <p>{{products[key].get_description()}}</p>
                                                     </div>
                                                     <div class="box-inner">
@@ -267,43 +227,6 @@
                         </div>
                     </div>
                     <!-- Sidebar single item -->
-                    <div class="sidebar-widget">
-                        <h4 class="sidebar-title">Color</h4>
-                        <div class="sidebar-widget-color">
-                            <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                        <span>(65)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Gold <span>(14)</span>
-                                    </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Golden <span>(21)</span>
-                                    </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> White <span>(16)</span>
-                                    </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Black <span>(12)</span>
-                                    </a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Sidebar single item -->
-                    <div class="sidebar-widget">
-                        <h4 class="sidebar-title">Size</h4>
-                        <div class="sidebar-widget-size">
-                            <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                        <span>(6)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> S <span>(12)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> M <span>(21)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> L <span>(16)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> XL <span>(22)</span> </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Sidebar single item -->
-                    <!-- Sidebar single item -->
                     <div class="sidebar-widget mt-8">
                         <h4 class="sidebar-title">Price Filter</h4>
                         <div class="price-filter">
@@ -319,20 +242,6 @@
                         <a href="#" class="single-banner">
                             <img src="assets/images/banner/11.jpg" alt="">
                         </a>
-                    </div>
-                    <!-- Sidebar single item -->
-                    <div class="sidebar-widget tag m-0">
-                        <h4 class="sidebar-title">Tags</h4>
-                        <div class="sidebar-widget-tag">
-                            <ul>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Organic</a></li>
-                                <li><a href="#">Old Fashion</a></li>
-                                <li><a href="#">Men</a></li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Dress</a></li>
-                            </ul>
-                        </div>
                     </div>
                     <!-- Sidebar single item -->
                 </div>

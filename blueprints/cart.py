@@ -118,9 +118,12 @@ def checkout():
     else:
         if 'user_id' not in session:
             return redirect(url_for('account.login'))
-
-        customer = user_manager.get_customer(session['user_id'])
+        
         cart = cart_manager.get_cart(session['user_id'])
+        if len(cart) == 0:
+            return redirect(url_for('index'))
+        
+        customer = user_manager.get_customer(session['user_id'])
         grand_total = sum([item[0].get_price() * item[1].get_quantity() for item in cart])
 
         return render_template('artisan/checkout.html', customer=customer, cart=cart, grand_total=grand_total)

@@ -31,23 +31,23 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label style="margin-bottom: 0px;">First Name</label>
-                                <p><strong>{{customer.get_first_name()}}</strong></p>
+                                <p>{{customer.get_first_name()}}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label style="margin-bottom: 0px;">Last Name</label>
-                                <p><strong>{{customer.get_last_name()}}</strong></p>
+                                <p>{{customer.get_last_name()}}</p>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="billing-info mb-4">
                                 <label style="margin-bottom: 0px;">Email Address</label>
-                                <p><strong>{{customer.get_email()}}</strong></p>
+                                <p>{{customer.get_email()}}</p>
                             </div>
                         </div>
                     </div>
-                    <h3 style="margin-top: 20px; margin-bottom: 15px;">Payment Details</h3>
+                    <h3 style="margin-top: 10px; margin-bottom: 15px;">Payment Details</h3>
                     <h6>Accepted Payment Methods</h6>
                     <div class="payment-mth"><a href="#"><img class="img img-fluid"
                         src="{{ url_for('static', filename='artisan/images/icons/payment.png') }}" alt="payment-image"></a>
@@ -56,17 +56,17 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="billing-info mb-4">
                                 <label>Name on Card</label>
-                                <input type="text" value="{{customer.get_first_name()}} {{customer.get_last_name()}}" placeholder="John Doe" required/>
+                                <input type="text" value="" placeholder="John Doe" id="card-name" required/>
                             </div>
                             <div class="billing-info mb-4">
                                 <label>Card Number</label>
-                                <input type="number" placeholder="1234 1234 1234 1234" required/>
+                                <input type="number" placeholder="1234 1234 1234 1234" id="card-number" required/>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label>Expiry Date</label>
-                                <input type="date" id="expiry-date" required/>
+                                <input type="date" id="expiry-date" id="card-date" required/>
                                 <script>
                                     const today = new Date().toISOString().split('T')[0];
                                     document.getElementById('expiry-date').setAttribute('min', today);
@@ -76,14 +76,14 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label>CVC</label>
-                                <input type="number" placeholder="123" max="999" required/>
+                                <input type="number" placeholder="123" max="999" id="card-cvc" required/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
-                <form method="post" action="/cart/checkout" class="your-order-area">
+                <form method="post" action="/cart/checkout" class="your-order-area" id="checkout-form">
                     <h3>Your order</h3>
                     <div class="your-order-wrap gray-bg-4">
                         <div class="your-order-product-info">
@@ -97,7 +97,7 @@
                                 <ul>
                                     {% for item in cart %}
                                     <li>
-                                        <span class="order-middle-left">{{item[0].get_name()}} X {{item[1].get_quantity()}}</span> <span
+                                        <span class="order-middle-left">{{item[0].get_name()}} (x{{item[1].get_quantity()}})</span> <span
                                         class="order-price">${{item[0].get_price() * item[1].get_quantity()}}</span>
                                     </li>
                                     {% endfor %}
@@ -110,15 +110,66 @@
                                 </ul>
                             </div>
                         </div>
+                        <p style="text-align: center; margin-top: 5px;">A confirmation email will be sent to your email.</p>
                     </div>
                     <div class="Place-order mt-25">
-                        <input type="submit" class="checkout-btn" value="Place Order">
+                        <input type="submit" class="checkout-btn" value="Place Order - ${{grand_total}}">
                     </div>
-                    <p style="text-align: center; margin-top: 5px;">A confirmation email will be sent to your email.</p>
+                    <p style="margin-top: 10px;color: red;" id="msg-box"></p>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+checkoutForm = document.getElementById('checkout-form');
+
+checkoutForm.addEventListener('submit', function (e) {
+    event.preventDefault();
+    var cardName = document.getElementById('card-name');
+    var cardNumber = document.getElementById('card-number');
+    var cardCVC = document.getElementById('card-cvc');
+    var valid = true;
+
+    remove_highlight([cardName, cardNumber, cardCVC]);
+
+    if (cardName.value == "") {
+        highlight_elements_red([cardName]);
+        valid = false;
+    }
+    if (cardNumber.value == "") {
+        highlight_elements_red([cardNumber]);
+        valid = false;
+    }
+    if (cardCVC.value == "") {
+        highlight_elements_red([cardCVC]);
+        valid = false;
+    }
+    if (valid) {
+        remove_highlight([cardName, cardNumber, cardCVC]);
+        checkoutForm.submit();
+    } else {
+        show_error("Please fill in all the required fields.");
+    }
+});
+
+function show_error(message) {
+    var msgBox = document.getElementById("msg-box");
+    msgBox.innerHTML = message;
+}
+
+function highlight_elements_red(element_arr) {
+    element_arr.forEach(element => {
+        element.style.borderColor = "red";
+    });
+}
+
+function remove_highlight(element_arr) {
+    element_arr.forEach(element => {
+        element.style.borderColor = "";
+    });
+}
+</script>
 <!-- checkout area end -->
 {% endblock %}

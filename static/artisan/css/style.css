@@ -117,7 +117,6 @@ input:not([type="file"]), select {
   height: 50px;
   font-size: 15px;
   width: 100%;
-  background: transparent;
   border-radius: 0;
   -webkit-border-radius: 0;
   text-align: left;
@@ -132,6 +131,10 @@ input:not([type="file"]), select {
   max-width: 100%;
   display: block;
   width: 100%;
+}
+
+.billing-info p {
+  font-weight: 500;
 }
 
 .pt-100px {
@@ -3718,6 +3721,7 @@ body.offcanvas-open {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 30px 0 60px;
+  cursor: pointer;
 }
 .cart-main-area .cart-shiping-update-wrapper .cart-clear > button {
   border: medium none;
@@ -4654,7 +4658,6 @@ dialog input:not([type="file"]):focus {
 .artwork-container .product{
   margin-bottom: 40px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .artwork-container .product .thumb{
@@ -6592,6 +6595,8 @@ dialog button:hover {
 .product .thumb {
   position: relative;
   overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .product .thumb .image {
   position: relative;
@@ -6723,8 +6728,11 @@ dialog button:hover {
   line-height: 1;
   background-color: #f7f8fa;
   padding: 0 0 40px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .product .content .ratings {
+  margin-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

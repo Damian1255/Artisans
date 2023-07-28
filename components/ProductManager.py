@@ -57,6 +57,7 @@ class ProductManager():
 
         for product_id in delete_list:
             del product_list[product_id]
+            
         db.update_product_list(product_list)
         print(f'Products by customer {customer_id} successfully deleted!')
         
