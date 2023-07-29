@@ -18,12 +18,34 @@ class ProductManager():
         db.update_product_list(product_list)
         print(f'New product added: {name}')
         return { 'success': True, 'product_id': product_id}
+    
+    def update_product(self, id, name, price, quantity, description, category):
+        product_list = db.get_product_list()
+        try:
+            product_list[id].set_name(name)
+            product_list[id].set_price(price)
+            product_list[id].set_quantity(quantity)
+            product_list[id].set_description(description)
+            product_list[id].set_category(category)
+            
+            db.update_product_list(product_list)
+            print(f'Product {id} successfully updated!')
+            return True
+        except:
+            print(f'Product {id} does not exist!')
+            return False
 
     def delete_product(self, id):
-        product_list = db.get_product_list()
-        del product_list[id]
-        db.update_product_list(product_list)
-        print(f'Product {id} successfully deleted!')
+        try:
+            product_list = db.get_product_list()
+            del product_list[id]
+            db.update_product_list(product_list)
+            
+            print(f'Product {id} successfully deleted!')
+            return True 
+        except:
+            print(f'Product {id} does not exist!')
+            return False
 
     def get_product_list(self):
         return db.get_product_list()

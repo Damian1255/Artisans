@@ -179,6 +179,67 @@ newProductForm.addEventListener("submit", function (event) {
     xhr.send(formData);
 });
 
+function deleteArtwork(product_id) {
+    // Ajax call to delete product
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/artworks/delete/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.success) {
+                location.reload();
+            } else {
+                alert('Failed to delete artwork.');
+            }
+        } else {
+            alert('An Internal error occurred.');
+        }
+    };
+
+    xhr.send(JSON.stringify({
+        product_id : product_id
+    }));
+}
+
+function updateArtwork(product_id) {
+    title = document.getElementById('title-' + product_id);
+    price = document.getElementById('price-' + product_id);
+    quantity = document.getElementById('quantity-' + product_id);
+    description = document.getElementById('description-' + product_id);
+    category = document.getElementById('category-' + product_id);
+
+    // Ajax call to delete product
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/artworks/update/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.success) {
+                location.reload();
+            } else {
+                alert('Failed to update artwork.');
+            }
+        } else {
+            alert('An Internal error occurred.');
+        }
+    };
+
+    xhr.send(JSON.stringify({
+        product_id : product_id,
+        product_title : title.value,
+        product_price : price.value,
+        product_quantity : quantity.value,
+        product_description : description.value,
+        product_category : category.value
+    }));
+}
+
 const input = document.querySelector('input[name="product_images"]');
 const preview = document.getElementById('image-preview');
 
@@ -196,3 +257,4 @@ const preview = document.getElementById('image-preview');
       reader.readAsDataURL(file);
     }
   });
+

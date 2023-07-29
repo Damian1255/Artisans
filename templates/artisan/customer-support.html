@@ -1,5 +1,5 @@
 {% extends "artisan/base.html" %}
-{% block title %}Mioca - Login{% endblock %}
+{% block title %}Mioca - Custoemr Support{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='artisan/css/support/support.css') }}">
@@ -22,7 +22,7 @@
 </div>
 <!-- breadcrumb-area end -->
 
-<div class="container">
+<!-- <div class="container">
     <div class="grid">
         <div class="grid-item">
             <img src="{{ url_for('static', filename='artisan/images/customer-support-images/art-workshops-1.jpeg') }}"
@@ -45,122 +45,48 @@
             <button onclick="scrollToSection('sell-art')">Sell Your Art</button>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="second-section">
+    <h2 class="support-form-heading">How Can We Help You?</h2>
     <div class="second-grid container">
-        <div id="workshops" class="second-grid-item">
-            <h3>Art Workshops</h3>
-            <p>Join us weekly to learn how to apply different art theories in practical and exciting ways.</p>
-            <button>Sign Up</button>
-            <img src="{{ url_for('static', filename='artisan/images/customer-support-images/art-workshops-2.jpeg') }}"
-                alt="Art Workshops">
-        </div>
-        <div id="refunds" class="second-grid-item">
-            <h3>Refunds</h3>
-            <p>With our hassle-free refund policy, enjoy satisfaction with every purchase.</p>
-            <button>Learn More</button>
-            <img src="{{ url_for('static', filename='artisan/images/customer-support-images/refunds-2.jpeg') }}"
-                alt="Refunds">
-        </div>
-        <div id="custom-art" class="second-grid-item">
-            <h3>Request Custom Art</h3>
-            <p>Bring your unique and creative vision to life with our personalized custom art creations.</p>
-            <button>Learn More</button>
-            <img src="{{ url_for('static', filename='artisan/images/customer-support-images/request-custom-art-2.jpeg') }}"
-                alt="Request Custom Art">
-        </div>
-        <div id="sell-art" class="second-grid-item">
-            <h3>Sell Your Art</h3>
-            <p>Turn your passion into profit by showcasing and selling to a wide audience through our platform.</p>
-            <button>Learn More</button>
-            <img src="{{ url_for('static', filename='artisan/images/customer-support-images/sell-your-art-2.jpeg') }}"
-                alt="Sell Your Art">
-        </div>
-        <div class="contact-section">
-            <h2>Not seeing what you're finding for?</h2>
-            <p>Email us at artisans@gmail.com, and we will get in touch with you in 3-5 business days.</p>
-            <p>Alternatively, call us at +65 1234 5678 for urgent matters.</p>
+        <div class="row">
+            <div id="workshops" class="second-grid-item col-md-6">
+                <h3>Art Workshops</h3>
+                <p>Join us weekly to learn how to apply different art theories in practical and exciting ways.</p>
+                <button>Sign Up</button>
+                <img src="{{ url_for('static', filename='artisan/images/customer-support-images/art-workshops-2.jpeg') }}"
+                    alt="Art Workshops">
+            </div>
+            <div id="refunds" class="second-grid-item col-md-6">
+                <h3>Refunds</h3>
+                <p>
+                    With our hassle-free refund policy, enjoy satisfaction with every purchase or get your money back.
+                </p>
+                <button>Learn More</button>
+                <img src="{{ url_for('static', filename='artisan/images/customer-support-images/refunds-2.jpeg') }}"
+                    alt="Refunds">
+            </div>
+            <div id="custom-art" class="second-grid-item col-md-6">
+                <h3>Request Custom Art</h3>
+                <p>Bring your unique and creative vision to life with our personalized custom art creations.</p>
+                <button>Learn More</button>
+                <img src="{{ url_for('static', filename='artisan/images/customer-support-images/request-custom-art-2.jpeg') }}"
+                    alt="Request Custom Art">
+            </div>
+            <div id="sell-art" class="second-grid-item col-md-6">
+                <h3>Sell Your Art</h3>
+                <p>Turn your passion into profit by showcasing and selling to a wide audience through our platform.</p>
+                <button>Learn More</button>
+                <img src="{{ url_for('static', filename='artisan/images/customer-support-images/sell-your-art-2.jpeg') }}"
+                    alt="Sell Your Art">
+            </div>
         </div>
     </div>
 </div>
-
-<div class="faq-section">
-    <h2 class="faq-heading">Frequently Asked Questions (FAQs)</h2>
-    <div class="faq-box container">
-        <h4>How do I create an account?</h4>
-        <p>To create an account, click on the Account button at the top right corner of our homepage and follow the
-            prompts to provide your information.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>How can I browse and purchase artworks?</h4>
-        <p>Simply navigate to our homepage and explore a wide selection of artworks. Once you find one you love,
-            click on it to view details and follow the instructions to purchase.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>How can I request a custom artwork?</h4>
-        <p>To request a custom artwork tailored to your preferences, visit our "Request Custom Art" page and fill
-            out the form with your requirements. Our artists will then get in touch with you in 3-5 business days to
-            discuss the details.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>Can I sell my own artwork on your website?</h4>
-        <p>Absolutely! We provide a platform for artists to sell their own artwork. Visit our "Sell Your Art" page
-            to learn more about the process and upload your artworks for sale.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>How does the art workshop registration work?</h4>
-        <p>To participate in our art workshops, browse our available workshops on the "Art Workshops" page and click
-            on the one you're interested in. Follow the instructions to register and secure your spot.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>What are the payment options available on your website?</h4>
-        <p>We accept various payment methods, including credit cards, debit cards, and PayPal. During the checkout
-            process, you can select your preferred payment option.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>How long does it take to process a refund?</h4>
-        <p>Refunds are typically processed within 5-7 business days after the request is approved. The exact time
-            may vary depending on your payment method and financial institution.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>How can I track the status of my order?</h4>
-        <p>Once your order is confirmed and shipped, you will receive a tracking number via email. You can use this
-            number to track the status of your shipment on the respective courier's website.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>What is your return policy?</h4>
-        <p>We have a flexible return policy. If you're not satisfied with your purchase, you can initiate a return
-            within 30 days of receiving the artwork. Please refer to our "Refunds" page for detailed instructions.
-        </p>
-    </div>
-    <div class="faq-box container">
-        <h4>How can I contact your customer support team for further assistance?</h4>
-        <p>For any additional questions or concerns, you can reach out to us by filling out the support form at the
-            bottom of this webpage. Alternatively, you may email us at artisans@gmail.com for non-urgent matters.
-            Lastly, call us at +65 1234 5678 for urgent matters.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>What are the shipping options available for artworks?</h4>
-        <p>We offer various shipping options, including standard and express shipping. The available options and
-            associated costs will be displayed during the checkout process.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>Can I cancel or modify my order after it has been placed?</h4>
-        <p>Once an order is placed, we strive to process and ship it as quickly as possible. Therefore, we recommend
-            contacting our customer support team immediately if you need to cancel or modify your order, and we will
-            assist you to the best of our ability.</p>
-    </div>
-    <div class="faq-box container">
-        <h4>Can I return or exchange a custom artwork?</h4>
-        <p>Due to the personalized nature of custom artworks, returns or exchanges are typically not accepted unless
-            there is a defect or error in the artwork. We encourage you to communicate your requirements clearly
-            during the custom artwork request process to ensure your satisfaction.</p>
-    </div>
-</div>
-<div class="support-form-content pt-100px pb-100px">
+<div class="support-form-content pt-80px pb-80px">
+    <h2 class="support-form-heading">Submit a Support Form</h2>
     <div class="form-container container">
-        <h2 class="support-form-heading">Submit a Support Form</h2>
         <form id="support-form" action="" method="POST">
             <div class="row">
                 <div class="default-form-box mb-20 col-md-3">
@@ -175,11 +101,11 @@
                 </div>
                 <div class="default-form-box mb-20 col-md-4">
                     <label for="first-name">First Name</label>
-                    <input type="text" id="first-name" name="first-name" placeholder="Enter Your First Name" required>
+                    <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
                 </div>
                 <div class="default-form-box mb-20 col-md-4">
                     <label for="last-name">Last Name</label>
-                    <input type="text" id="last-name" name="last-name" placeholder="Enter Your Last Name" required>
+                    <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
                 </div>
             </div>
             <div class="row">
@@ -407,28 +333,111 @@
                 </div>
                 <div class="default-form-box mb-20 col-md-4">
                     <label for="phone-number">Phone Number</label>
-                    <input type="tel" id="phone-number" name="phone-number" placeholder="Enter Your Phone Number"
+                    <input type="tel" id="phone-number" name="phone-number" placeholder="Phone Number"
                         required>
                 </div>
                 <div class="default-form-box mb-20 col-md-4">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
             </div>
             <div class="default-form-box mb-20">
                 <label for="message-subject">Message Subject</label>
-                <input type="text" id="message-subject" name="message-subject" placeholder="Enter Your Message Subject"
+                <input type="text" id="message-subject" name="message-subject" placeholder="Message Subject"
                     required>
             </div>
             <div class="default-form-box mb-20">
                 <label for="leave-message">Message</label>
-                <textarea id="leave-message" name="leave-message" placeholder="Leave a Message for Us" rows="4" required></textarea>
+                <textarea id="leave-message" name="leave-message" placeholder="Leave a Message for Us" rows="4"
+                    required></textarea>
             </div>
             <div class="edit_button mt-3 col-md-2">
                 <button type="submit">Submit</button>
             </div>
         </form>
     </div>
+</div>
+<div class="faq-section container">
+    <h2 class="support-form-heading">Frequently Asked Questions (FAQs)</h2>
+    <button class="accordion"><h5>How do I create an account?</button>
+    <div class="panel">
+        <p>To create an account, click on the Account button at the top right corner of our homepage and follow the
+            prompts to provide your information.</p>
+    </div>
+
+    <button class="accordion"><h5><h5>How can I browse and purchase artworks?</h5></button>
+    <div class="panel">
+        <p>Simply navigate to our homepage and explore a wide selection of artworks. Once you find one you love,
+            click on it to view details and follow the instructions to purchase.</p>
+    </div>
+
+    <button class="accordion"><h5>How can I request a custom artwork?</h5></button>
+    <div class="panel">
+        <p>Absolutely! We provide a platform for artists to sell their own artwork. Visit our "Sell Your Art" page
+            to learn more about the process and upload your artworks for sale.</p>
+    </div>
+
+    <button class="accordion"><h5>How does the art workshop registration work?</h5></button>
+    <div class="panel">
+        <p>To participate in our art workshops, browse our available workshops on the "Art Workshops" page and click
+            on the one you're interested in. Follow the instructions to register and secure your spot.</p>
+    </div>
+
+    <button class="accordion"><h5>What are the payment options available on your website?</h5></button>
+    <div class="panel">
+        <p>We accept various payment methods, including credit cards, debit cards, and PayPal. During the checkout
+            process, you can select your preferred payment option.</p>
+    </div>
+
+    <button class="accordion"><h5>How long does it take to process a refund?</h5></button>
+    <div class="panel">
+        <p>Refunds are typically processed within 5-7 business days after the request is approved. The exact time
+            may vary depending on your payment method and financial institution.</p>
+    </div>
+
+    <button class="accordion"><h5>How can I track the status of my order?</h5></button>
+    <div class="panel">
+        <p>Once your order is confirmed and shipped, you will receive a tracking number via email. You can use this
+            number to track the status of your shipment on the respective courier's website.</p>
+    </div>
+
+    <button class="accordion"><h5>What is your return policy?</h5></button>
+    <div class="panel">
+        <p>We have a flexible return policy. If you're not satisfied with your purchase, you can initiate a return
+            within 30 days of receiving the artwork. Please refer to our "Refunds" page for detailed instructions.</p>
+    </div>
+
+    <button class="accordion"><h5>How can I contact your customer support team for further assistance?</h5></button>
+    <div class="panel">
+        <p>For any additional questions or concerns, you can reach out to us by filling out the support form at the
+            bottom of this webpage. Alternatively, you may email us at artisans@gmail.com for non-urgent matters.
+            Lastly, call us at +65 1234 5678 for urgent matters.</p>
+    </div>
+
+    <button class="accordion"><h5>What are the shipping options available for artworks?</h5></button>
+    <div class="panel">
+        <p>We offer various shipping options, including standard and express shipping. The available options and
+            associated costs will be displayed during the checkout process.</p>
+    </div>
+
+    <button class="accordion"><h5>an I cancel or modify my order after it has been placed?</h5></button>
+    <div class="panel">
+        <p>Once an order is placed, we strive to process and ship it as quickly as possible. Therefore, we recommend
+            contacting our customer support team immediately if you need to cancel or modify your order, and we will
+            assist you to the best of our ability.</p>
+    </div>
+
+    <button class="accordion"><h5>Can I return or exchange a custom artwork?</h5></button>
+    <div class="panel">
+        <p>Due to the personalized nature of custom artworks, returns or exchanges are typically not accepted unless
+            there is a defect or error in the artwork. We encourage you to communicate your requirements clearly
+            during the custom artwork request process to ensure your satisfaction.</p>
+    </div>
+</div>
+<div class="contact-section">
+    <h2>Not seeing what you're finding for?</h2>
+    <p>Email us at artisans@gmail.com, and we will get in touch with you in 3-5 business days.</p>
+    <p>Alternatively, call us at +65 1234 5678 for urgent matters.</p>
 </div>
 <dialog id="ticketDialog">
     <h2>We got your message!</h2>
@@ -444,7 +453,7 @@
     supportForm = document.getElementById('support-form');
     ticketDialog = document.getElementById('ticketDialog');
     // Function to handle form submission
-    
+
     supportForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
 
@@ -488,5 +497,21 @@
             }
         };
     });
+</script>
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + 40 + "px";
+            }
+        });
+    }
 </script>
 {% endblock %}

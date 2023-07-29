@@ -72,12 +72,58 @@
                                                 <span class="new">Quantity: {{artwork.get_quantity()}}</span>
                                             </span>
                                         </div>
-                                        <a href="" class="add-to-cart">Manage</a>
+                                        <a style="cursor: pointer;" onclick="document.getElementById('editArtworkDialog-{{artwork.get_id()}}').showModal();" class="add-to-cart">
+                                            Manage
+                                        </a>
                                     </div>
                                 </div>
                                 {% endfor %}
                             </div>
                         </div>
+                        {% for artwork in user_artworks %}
+                        <dialog id="editArtworkDialog-{{artwork.get_id()}}">
+                            <h2>Edit Artwork </h2>
+                            <h5 style="color: #eaaa85; margin-bottom: 20px;">{{artwork.get_name()}}</h5>
+                            <span>Title</span>
+                            <input type="text" id="title-{{artwork.get_id()}}" placeholder="Title" value="{{artwork.get_name()}}" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span>Price</span>
+                                    <input type="number" id="price-{{artwork.get_id()}}" placeholder="$ Price" value="{{artwork.get_price()}}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <span>Quantity</span>
+                                    <input type="number" id="quantity-{{artwork.get_id()}}" name="product_quantity" placeholder="Quantity" value="{{artwork.get_quantity()}}" required>
+                                </div>
+                            </div>
+                            <span>Category</span>
+                            <input type="text" id="category-{{artwork.get_id()}}" placeholder="Category" value="{{artwork.get_category()}}" required>
+                            <span>Description</span>
+                            <input type="text" id="description-{{artwork.get_id()}}" placeholder="Description" value="{{artwork.get_description()}}" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="dialog-btn-danger" onclick="document.getElementById('deleteArtDialog-{{artwork.get_id()}}').showModal();">
+                                        <i class="fa fa-arrow-left"> </i> Delete
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="dialog-btn-dark" onclick="updateArtwork({{artwork.get_id()}})">
+                                        <i class="fa fa-arrow-left"> </i> Save
+                                    </button>
+                                </div>
+                            </div>
+                            <a onclick="document.getElementById('editArtworkDialog-{{artwork.get_id()}}').close();" aria-label="close" class="x">❌</a>
+                            <p id="msg"></p>
+                        </dialog>
+                        <dialog id="deleteArtDialog-{{artwork.get_id()}}">
+                            <h3>Delete <br>{{artwork.get_name()}}?</h3>
+                            <p>This action cannot be undone.</p>
+                            <a onclick="document.getElementById('deleteArtDialog-{{artwork.get_id()}}').close();" aria-label="close" class="x">❌</a>
+                            <button type="button" onclick="deleteArtwork({{artwork.get_id()}})" class="dialog-btn-danger">
+                                <i class="fa fa-arrow-left"></i> Delete Artwork
+                            </button>
+                        </dialog>
+                        {% endfor %}
                         <dialog id="newArtworkDialog">
                             <form action="" method="post" id="newProduct" enctype="multipart/form-data">
                                 <h1>New Artwork</h1>
@@ -215,11 +261,11 @@
         <h3>Update Password</h3>
 
         <p style="margin-bottom: 5px;">Enter current password.</p>
-        <input style="padding: 0px 70px 0px 20px;" type="password" name="current_password" placeholder="Current Password" required>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="current_password" placeholder="Current Password" required autocomplete="">
         <p style="margin-bottom: 5px; margin-top: 10px;">Enter new password.</p>
-        <input style="padding: 0px 70px 0px 20px;" type="password" name="new_password" placeholder="New Password" required>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="new_password" placeholder="New Password" required autocomplete="">
         <p style="margin-bottom: 5px; margin-top: 10px;">Confirm new password.</p>
-        <input style="padding: 0px 70px 0px 20px;" type="password" name="confirm_password" placeholder="Confirm Password" required>
+        <input style="padding: 0px 70px 0px 20px;" type="password" name="confirm_password" placeholder="Confirm Password" required autocomplete="">
         <div id="msg" style="text-align: center; color: red"></div>
 
         <a onclick="document.getElementById('AccountUpdateDialog').close();" aria-label="close" class="x">❌</a>

@@ -37,8 +37,7 @@
 }
 
 .second-section {
-    background-color: #f1f1f1;
-    margin-top: 20px;
+    margin: 40px 0px;
     padding: 20px;
 }
 
@@ -49,9 +48,10 @@
     margin-top: 20px;
 }
 
+
 .second-grid-item {
     background-color: #fff;
-    padding: 20px;
+    padding: 30px 0px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -85,16 +85,14 @@
 }
 
 .contact-section {
-    margin-top: 20px;
-    padding-top: 20px;
+    padding: 60px 0px;
     text-align: center;
     background-color: #f1f1f1;
 }
 
 .faq-section {
-    background-color: #f1f1f1;
-    margin-top: 20px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
 .faq-heading {
@@ -130,6 +128,10 @@
 .support-form-heading {
     text-align: center;
     margin-bottom: 50px;
+}
+
+.support-form-content {
+    margin: 50px 100px;
 }
 
 .form-field {
@@ -170,10 +172,11 @@
 
 .form-container {
     border-radius: 4px;
+    border-radius: 5px;
     background: transparent none repeat scroll 0 0;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-    padding: 80px;
+    padding: 60px;
     text-align: left;
 }
 
@@ -182,3 +185,48 @@
     font-style: italic;
     text-align: center;
 }
+
+.accordion {
+    background-color: white;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    transition: 0.4s;
+  }
+  
+  .accordion.active, .accordion:hover {
+    background-color: #eaaa85; 
+    color: white
+  }
+  .accordion.active h5, .accordion:hover h5{
+    color: white
+  }
+
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+  .panel p {
+    padding: 20px 0px;
+  }
+  .accordion:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+  }
+  .accordion h5 {
+    float: left;
+  }
+  .accordion.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }
