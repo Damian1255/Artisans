@@ -53,6 +53,7 @@
                         <span class="avallabillty">Availability: <span class="in-stock"><i class="fa fa-check"></i>In Stock</span></span> ({{product.get_quantity()}} remaining)
                     </div>
                     <p class="mt-30px mb-0">{{product.get_description()}}</p>
+                    {% if product.get_customer_id() == session['user_id'] %}
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
                             <div class="dec qtybutton2">-</div>
@@ -67,6 +68,7 @@
                         </div>
                         <input type="hidden" id="product-id" value="{{product.get_id()}}">
                     </div>
+                    {% endif %}
                     <div class="pro-details-categories-info pro-details-same-style d-flex">
                         <span>Categories: </span>
                         <ul class="d-flex">

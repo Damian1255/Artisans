@@ -219,7 +219,11 @@
                                             <span class="new">${{products[key].get_price()}}</span>
                                         </span>
                                     </div>
+                                    {% if products[key].get_customer_id() == session['user_id'] %}
                                     <button title="Add To Cart" class=" add-to-cart" onclick="addCart({{products[key].get_id()}})">Add To Cart</button>
+                                    {% else %}
+                                    <a href="/artworks/{{products[key].get_id()}}" style="cursor: pointer;" title="Add To Cart" class=" add-to-cart" >View</a>
+                                    {% endif %}
                                 </div>
                             </div>
                             {% endfor %}
