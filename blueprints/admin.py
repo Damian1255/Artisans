@@ -12,16 +12,75 @@ user_manager = UserManager.UserManager()
 def index():
     try:
         if session['admin_logged_in']:
-            return render_template('admin/index.html')
+            return render_template('admin/dashboard-eCommerce.html')
         else:
             return redirect(url_for('/'))
     except:
         return redirect(url_for('admin.login'))
     
-@admin_blueprint.route('/ecommerce')
-def ecommerce():
-    return render_template('admin/dashboard-eCommerce.html')
+@admin_blueprint.route("/support")
+def support():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/dashboard-human-resources.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
+    
+@admin_blueprint.route("/products")
+def products():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/ecommerce-products.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
+    
+@admin_blueprint.route("/products/<int:product_id>")
+def product(product_id):
+    return render_template('admin/ecommerce-products-details.html')
 
+@admin_blueprint.route("/products/orders")
+def orders():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/ecommerce-orders.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
+    
+@admin_blueprint.route("/staffs")
+def staffs():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/app-contact-list.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
+    
+@admin_blueprint.route("/staffs/new")
+def new_staff():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/app-contact-new.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
+    
+@admin_blueprint.route("/profile")
+def profile():
+    try:
+        if session['admin_logged_in']:
+            return render_template('admin/user-profile.html')
+        else:
+            return redirect(url_for('/'))
+    except:
+        return redirect(url_for('admin.login'))
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,7 +118,7 @@ def register():
     return render_template('admin/temp-sign-up.html')
         
 
-@admin_blueprint.route('/artworks/new', methods=['GET', 'POST'])
+@admin_blueprint.route('/products/new', methods=['GET', 'POST'])
 def new_product():
     if request.method == 'POST':
         # save images to static/uploads
@@ -81,7 +140,7 @@ def new_product():
 
         product_manager.add_product(12345, title, price, quantity, image, description, category)
 
-    return render_template('admin/product-temp.html')
+    return render_template('admin/ecommerce-add-new-products.html')
 
 def allowed_file(filename):
     return '.' in filename and \
