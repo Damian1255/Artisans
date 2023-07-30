@@ -155,7 +155,7 @@ class CartManager():
             </li>
             """
 
-        grand_total = sum([item[0].get_price() * item[1].get_quantity() for item in cart])
+        grand_total = sum([float(item[0].get_price()) * float(item[1].get_quantity()) for item in cart])
         total_display += f"""
         <div class="title-wrap"></div>
         <h4 class="grand-totall-title">Grand Total <span>${grand_total}</span></h4>

@@ -32,7 +32,8 @@
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content ml-25px">
-                    <h2>{{product.get_name()}}</h2>
+                    <h2 style="margin-bottom: 0px;">{{product.get_name()}}</h2>
+                    <p>By {{artist}}</p>
                     <div class="pricing-meta">
                         <ul class="d-flex">
                             <li class="new-price">${{product.get_price()}}</li>
@@ -50,10 +51,15 @@
                         <span class="read-review"><a class="reviews" href="#">( 2 Review )</a></span>
                     </div>
                     <div class="stock mt-30px">
+                        {% if product.get_quantity()|int > 0 %}
                         <span class="avallabillty">Availability: <span class="in-stock"><i class="fa fa-check"></i>In Stock</span></span> ({{product.get_quantity()}} remaining)
+                        {% else %}
+                        <span class="avallabillty">Availability: <span class="in-stock"><i class="fa fa-times"></i>Out of Stock</span></span>
+                        {% endif %}
                     </div>
                     <p class="mt-30px mb-0">{{product.get_description()}}</p>
-                    {% if product.get_customer_id()|int != session['user_id']|int %}
+                    {% if product.get_customer_id()|int != session['user_id'] %}
+                    {% if product.get_quantity()|int > 0 %}
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
                             <div class="dec qtybutton2">-</div>
@@ -68,6 +74,7 @@
                         </div>
                         <input type="hidden" id="product-id" value="{{product.get_id()}}">
                     </div>
+                    {% endif %}
                     {% else %}
                         <h6 style="margin: 20px 0px;"><a href="/account">Edit Artwork</a></h6>
                     {% endif %}

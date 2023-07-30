@@ -21,7 +21,17 @@ def index():
 @product_bp.route('/<int:id>')
 def product_page(id):
     if product_manager.get_product(id):
-        return render_template('artisan/single-product-tabstyle-2.html', product=product_manager.get_product(id))
+        product = product_manager.get_product(id)
+        
+        customer = user_manager.get_customer(int(product.get_customer_id()))
+        if customer:
+            artist = customer.get_username()
+        elif product.get_customer_id() == 00000:
+            artist = "Artisan's"
+        else:
+            artist = 'Unknown'
+
+        return render_template('artisan/single-product-tabstyle-2.html', product=product, artist=artist)
     else:
         return render_template('artisan/404.html'), 404
 

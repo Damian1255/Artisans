@@ -97,4 +97,14 @@ class OrderManager():
         db.update_order_list(order_list)
         print(f'Orders by product {product_id} successfully deleted!')
     
+    def get_ordered_quantity_by_product(self, product_id):
+        order_list = db.get_order_list()
+        total_quantity = 0
+
+        for order_id in order_list:
+            order = order_list[order_id]
+            if order.get_product_id() == product_id:
+                total_quantity += order.get_order_quantity()
+        
+        return total_quantity
     

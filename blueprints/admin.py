@@ -2,11 +2,13 @@ from flask import Blueprint, render_template, session, redirect, url_for, jsonif
 import os
 from configuration import config
 from werkzeug.utils import secure_filename
-from components import ProductManager, UserManager
+from components import ProductManager, UserManager, OrderManager
 
 admin_blueprint = Blueprint(name="admin", import_name=__name__, url_prefix="/admin/")
 product_manager = ProductManager.ProductManager()
 user_manager = UserManager.UserManager()
+order_manager = OrderManager.OrderManager()
+
 
 @admin_blueprint.route("/")
 def index():
@@ -18,6 +20,7 @@ def index():
     except:
         return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/support")
 def support():
     try:
@@ -28,40 +31,90 @@ def support():
     except:
         return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/products")
 def products():
-    try:
-        if session['admin_logged_in']:
-            return render_template('admin/ecommerce-products.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+    if session['admin_logged_in']:
+        products = product_manager.get_product_list()
+        product_list = []
+        
+        for key in products:
+            sold = order_manager.get_ordered_quantity_by_product(products[key].get_id())
+            product_list.append([products[key], sold])
+
+        return render_template('admin/ecommerce-products.html', products=product_list)
+    else:
+        return redirect(url_for('/'))
+
+    return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/products/<int:product_id>")
 def product(product_id):
-    return render_template('admin/ecommerce-products-details.html')
+    if session['admin_logged_in']:
+        product = product_manager.get_product(product_id)
+        if product:
+            return render_template('admin/ecommerce-products-details.html', product=product)
+        
+        return redirect(url_for('admin.products'))
+    
+    return redirect(url_for('admin.login'))
+
+
+@admin_blueprint.route('/products/new', methods=['GET', 'POST'])
+def new_product():
+    if request.method == 'POST':
+        # save images to static/uploads
+        img_urls = []
+        for image in request.files.getlist('product_images'):
+            if image and allowed_file(image.filename):
+                imagename = secure_filename(image.filename)
+                image.save(os.path.join(config.UPLOAD_FOLDER, imagename))
+                img_urls.append(imagename)
+
+        title = request.form['title']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        description = request.form['description']
+        category = request.form['category']
+        image = img_urls
+
+        product_manager.add_product(00000, title, price, quantity, image, description, category)
+        return redirect(url_for('admin.products'))
+
+    if session['admin_logged_in']:
+        return render_template('admin/ecommerce-add-new-products.html')
+    
+    return redirect(url_for('admin.login'))
+
 
 @admin_blueprint.route("/products/orders")
 def orders():
-    try:
-        if session['admin_logged_in']:
-            return render_template('admin/ecommerce-orders.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+    if session['admin_logged_in']:
+        orders = order_manager.get_order_list()
+        order_list = []
+        for order in orders:
+            customer = user_manager.get_customer(orders[order].get_customer_id())
+            order_list.append([orders[order], customer])
+
+        return render_template('admin/ecommerce-orders.html', orders=order_list)
+
+    return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/staffs")
 def staffs():
     try:
         if session['admin_logged_in']:
-            return render_template('admin/app-contact-list.html')
+            admin_list = user_manager.get_admin_list()
+
+            return render_template('admin/app-contact-list.html', staffs=admin_list)
         else:
             return redirect(url_for('/'))
     except:
         return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/staffs/new")
 def new_staff():
     try:
@@ -72,15 +125,15 @@ def new_staff():
     except:
         return redirect(url_for('admin.login'))
     
+
 @admin_blueprint.route("/profile")
 def profile():
-    try:
-        if session['admin_logged_in']:
-            return render_template('admin/user-profile.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+    if session['admin_logged_in']:
+        admin = user_manager.get_admin(session['admin_id'])
+        return render_template('admin/user-profile.html', admin=admin)
+
+    return redirect(url_for('admin.login'))
+
 
 @admin_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -116,31 +169,8 @@ def register():
             return jsonify({ 'success': False })
     
     return render_template('admin/temp-sign-up.html')
-        
 
-@admin_blueprint.route('/products/new', methods=['GET', 'POST'])
-def new_product():
-    if request.method == 'POST':
-        # save images to static/uploads
-        img_urls = []
-        for image in request.files.getlist('product_images'):
-            if image and allowed_file(image.filename):
-                imagename = secure_filename(image.filename)
-                image.save(os.path.join(config.UPLOAD_FOLDER, imagename))
-                img_urls.append(imagename)
-            
-            # todo: add error handling for invalid file types
 
-        title = request.form['title']
-        price = request.form['price']
-        quantity = request.form['quantity']
-        description = request.form['description']
-        category = request.form['category']
-        image = img_urls
-
-        product_manager.add_product(12345, title, price, quantity, image, description, category)
-
-    return render_template('admin/ecommerce-add-new-products.html')
 
 def allowed_file(filename):
     return '.' in filename and \

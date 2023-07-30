@@ -106,7 +106,7 @@ def checkout():
         for item in cart:
             product = item[0]
             quantity = item[1].get_quantity()
-            product_manager.update_product_quantity(product.get_id(), product.get_quantity() - quantity)
+            product_manager.update_product_quantity(product.get_id(), int(product.get_quantity()) - int(quantity))
 
         # Clear cart
         cart_manager.delete_items_by_customer(session['user_id'])
@@ -124,6 +124,6 @@ def checkout():
             return redirect(url_for('index'))
         
         customer = user_manager.get_customer(session['user_id'])
-        grand_total = sum([item[0].get_price() * item[1].get_quantity() for item in cart])
-
+        grand_total = sum([float(item[0].get_price()) * float(item[1].get_quantity()) for item in cart])
+        
         return render_template('artisan/checkout.html', customer=customer, cart=cart, grand_total=grand_total)

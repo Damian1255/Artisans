@@ -19,8 +19,13 @@ def account():
             product = product_manager.get_product(order.get_product_id())
             order_list.append([order, product])
 
-        user_artworks = product_manager.get_products_by_customer((session['user_id']))
+        artworks = product_manager.get_products_by_customer((session['user_id']))
+        user_artworks = []
 
+        for artwork in artworks:
+            sold = order_manager.get_ordered_quantity_by_product(artwork.get_id())
+            user_artworks.append([artwork, sold])
+            
         return render_template('artisan/my-account.html', user=user, orders=order_list, user_artworks=user_artworks)
 
     return redirect(url_for('account.login'))

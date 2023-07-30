@@ -107,9 +107,13 @@ class UserManager():
 
 
     def get_customer(self, id):
-        customer = db.get_customer_list()[id]
-        print(f'Customer {customer.get_username()} successfully retrieved!')
-        return customer
+        try:
+            customer = db.get_customer_list()[id]
+            print(f'Customer {customer.get_username()} successfully retrieved!')
+            return customer
+        except:
+            print(f'Customer {id} not found!')
+            return False
     
 
     def get_admin(self, id):
@@ -117,6 +121,9 @@ class UserManager():
         print(f'Admin {admin.get_username()} successfully retrieved!')
         return admin
     
+    def get_admin_list(self):
+        print(f'Admin list successfully retrieved!')
+        return db.get_admin_list()
 
     def update_customer(self, id, first_name, last_name, email, dob):
         customer_list = db.get_customer_list()

@@ -67,7 +67,7 @@ class ProductManager():
                 customer_products.append(product)
                 
         return customer_products
-    
+
     def delete_products_by_customer(self, customer_id):
         product_list = db.get_product_list()
         delete_list = []

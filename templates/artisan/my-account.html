@@ -56,23 +56,28 @@
                                     <!-- Single Prodect -->
                                     <div class="product">
                                         <div class="thumb">
-                                            <a href="/artworks/{{artwork.get_id()}}" class="image">
-                                                <img src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork.get_image()[0]}}"
+                                            <a href="/artworks/{{artwork[0].get_id()}}" class="image">
+                                                <img src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork[0].get_image()[0]}}"
                                                     alt="Product" />
                                                 <img class="hover-image"
-                                                    src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork.get_image()[0]}}"
+                                                    src="{{ url_for('static', filename='artisan/images/product-image/')}}{{artwork[0].get_image()[0]}}"
                                                     alt="Product" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a
-                                                    href="/artworks/{{artwork.get_id()}}">{{artwork.get_name()}}</a>
+                                                    href="/artworks/{{artwork[0].get_id()}}">{{artwork[0].get_name()}}</a>
                                             </h5>
                                             <span class="price">
-                                                <span class="new">Quantity: {{artwork.get_quantity()}}</span>
+                                                {% if artwork[0].get_quantity()|int > 0 %}
+                                                <p style="margin-bottom: 3px; color: green;">In Stock ({{artwork[0].get_quantity()}})</p>
+                                                {% else %}
+                                                <p style="margin-bottom: 3px; color: red;">Out of Stock</p>
+                                                {% endif %}
+                                                <p class="new" style="text-align: center;">{{artwork[1]}} Sold</p>
                                             </span>
                                         </div>
-                                        <a style="cursor: pointer;" onclick="document.getElementById('editArtworkDialog-{{artwork.get_id()}}').showModal();" class="add-to-cart">
+                                        <a style="cursor: pointer;" onclick="document.getElementById('editArtworkDialog-{{artwork[0].get_id()}}').showModal();" class="add-to-cart">
                                             Manage
                                         </a>
                                     </div>
@@ -81,45 +86,45 @@
                             </div>
                         </div>
                         {% for artwork in user_artworks %}
-                        <dialog id="editArtworkDialog-{{artwork.get_id()}}">
+                        <dialog id="editArtworkDialog-{{artwork[0].get_id()}}">
                             <h2>Edit Artwork </h2>
-                            <h5 style="color: #eaaa85; margin-bottom: 20px;">{{artwork.get_name()}}</h5>
+                            <h5 style="color: #eaaa85; margin-bottom: 20px;">{{artwork[0].get_name()}}</h5>
                             <span>Title</span>
-                            <input type="text" id="title-{{artwork.get_id()}}" placeholder="Title" value="{{artwork.get_name()}}" required>
+                            <input type="text" id="title-{{artwork[0].get_id()}}" placeholder="Title" value="{{artwork[0].get_name()}}" required>
                             <div class="row">
                                 <div class="col-md-6">
                                     <span>Price</span>
-                                    <input type="number" id="price-{{artwork.get_id()}}" placeholder="$ Price" value="{{artwork.get_price()}}" required>
+                                    <input type="number" id="price-{{artwork[0].get_id()}}" placeholder="$ Price" value="{{artwork[0].get_price()}}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <span>Quantity</span>
-                                    <input type="number" id="quantity-{{artwork.get_id()}}" name="product_quantity" placeholder="Quantity" value="{{artwork.get_quantity()}}" required>
+                                    <span>Stock</span>
+                                    <input type="number" min="0" id="quantity-{{artwork[0].get_id()}}" name="product_quantity" placeholder="Quantity" value="{{artwork[0].get_quantity()}}" required>
                                 </div>
                             </div>
                             <span>Category</span>
-                            <input type="text" id="category-{{artwork.get_id()}}" placeholder="Category" value="{{artwork.get_category()}}" required>
+                            <input type="text" id="category-{{artwork[0].get_id()}}" placeholder="Category" value="{{artwork[0].get_category()}}" required>
                             <span>Description</span>
-                            <input type="text" id="description-{{artwork.get_id()}}" placeholder="Description" value="{{artwork.get_description()}}" required>
+                            <input type="text" id="description-{{artwork[0].get_id()}}" placeholder="Description" value="{{artwork[0].get_description()}}" required>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button type="button" class="dialog-btn-danger" onclick="document.getElementById('deleteArtDialog-{{artwork.get_id()}}').showModal();">
+                                    <button type="button" class="dialog-btn-danger" onclick="document.getElementById('deleteArtDialog-{{artwork[0].get_id()}}').showModal();">
                                         <i class="fa fa-arrow-left"> </i> Delete
                                     </button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" class="dialog-btn-dark" onclick="updateArtwork({{artwork.get_id()}})">
+                                    <button type="button" class="dialog-btn-dark" onclick="updateArtwork({{artwork[0].get_id()}})">
                                         <i class="fa fa-arrow-left"> </i> Save
                                     </button>
                                 </div>
                             </div>
-                            <a onclick="document.getElementById('editArtworkDialog-{{artwork.get_id()}}').close();" aria-label="close" class="x">❌</a>
+                            <a onclick="document.getElementById('editArtworkDialog-{{artwork[0].get_id()}}').close();" aria-label="close" class="x">❌</a>
                             <p id="msg"></p>
                         </dialog>
-                        <dialog id="deleteArtDialog-{{artwork.get_id()}}">
-                            <h3>Delete <br>{{artwork.get_name()}}?</h3>
+                        <dialog id="deleteArtDialog-{{artwork[0].get_id()}}">
+                            <h3>Delete <br>{{artwork[0].get_name()}}?</h3>
                             <p>This action cannot be undone.</p>
-                            <a onclick="document.getElementById('deleteArtDialog-{{artwork.get_id()}}').close();" aria-label="close" class="x">❌</a>
-                            <button type="button" onclick="deleteArtwork({{artwork.get_id()}})" class="dialog-btn-danger">
+                            <a onclick="document.getElementById('deleteArtDialog-{{artwork[0].get_id()}}').close();" aria-label="close" class="x">❌</a>
+                            <button type="button" onclick="deleteArtwork({{artwork[0].get_id()}})" class="dialog-btn-danger">
                                 <i class="fa fa-arrow-left"></i> Delete Artwork
                             </button>
                         </dialog>
@@ -129,7 +134,7 @@
                                 <h1>New Artwork</h1>
                                 <p>Upload your artwork.</p>
                                 <div id="image-preview"></div>
-                                <input type="file" name="product_images" placeholder="Product image" accept=".png, .jpg" required multiple style="margin-bottom: 20px;">
+                                <input type="file" name="product_images" placeholder="Product image" accept="image/*" required multiple style="margin-bottom: 20px;">
                                 <input type="text" name="product_title" placeholder="Title" required>
                                 <div class="row">
                                     <div class="col-md-6">
