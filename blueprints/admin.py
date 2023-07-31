@@ -43,8 +43,6 @@ def products():
             product_list.append([products[key], sold])
 
         return render_template('admin/ecommerce-products.html', products=product_list)
-    else:
-        return redirect(url_for('/'))
 
     return redirect(url_for('admin.login'))
     
@@ -95,7 +93,8 @@ def orders():
         order_list = []
         for order in orders:
             customer = user_manager.get_customer(orders[order].get_customer_id())
-            order_list.append([orders[order], customer])
+            product = product_manager.get_product(orders[order].get_product_id())
+            order_list.append([orders[order], customer, product])
 
         return render_template('admin/ecommerce-orders.html', orders=order_list)
 
