@@ -9,30 +9,20 @@
 		<div class="page-content">
 			<!--breadcrumb-->
 			<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-				<div class="breadcrumb-title pe-3">Applications</div>
+				<div class="breadcrumb-title pe-3">Staff</div>
 				<div class="ps-3">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb mb-0 p-0">
-							<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+							<li class="breadcrumb-item"><a href="/admin/staffs"><i class="bx bx-home-alt"></i></a>
 							</li>
-							<li class="breadcrumb-item active" aria-current="page">Contact List</li>
+							<li class="breadcrumb-item active" aria-current="page">Staff Members</li>
 						</ol>
 					</nav>
 				</div>
 				<div class="ms-auto">
-					<div class="btn-group">
-						<button type="button" class="btn btn-primary">Settings</button>
-						<button type="button"
-							class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-							data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-						</button>
-						<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-								href="javascript:;">Action</a>
-							<a class="dropdown-item" href="javascript:;">Another action</a>
-							<a class="dropdown-item" href="javascript:;">Something else here</a>
-							<div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-								link</a>
-						</div>
+					<div class="col-lg-12 col-xl-12">
+						<a href="javascript:;" onclick="document.getElementById('newAdminDialog').showModal()" class="btn btn-primary mb-3 mb-lg-0"><i
+								class='bx bxs-plus-square'></i>New Staff</a>
 					</div>
 				</div>
 			</div>
@@ -48,9 +38,8 @@
 								<img src="assets/images/avatars/avatar-1.png" width="110" height="110"
 									class="rounded-circle shadow" alt="">
 								<h5 class="mb-0 mt-5">{{staffs[key].get_first_name()}} {{staffs[key].get_last_name()}}</h5>
-								<p class="mb-3">Staff</p>
-								<div class="d-grid"> <a href="#" class="btn btn-outline-primary radius-15">Contact
-										Me</a>
+								<p class="mb-3">Staff Member</p>
+								<div class="d-grid"> <a href="javascript:;" onclick="document.getElementById('deleteStaffDialog-{{staffs[key].get_user_id()}}').showModal()" class="btn btn-outline-primary radius-15">Remove Staff</a>
 								</div>
 							</div>
 						</div>
@@ -62,6 +51,127 @@
 	</div>
 	<!--end page wrapper -->
 </div>
+{% for key in staffs %}
+<dialog id="deleteStaffDialog-{{staffs[key].get_user_id()}}">
+	<h3>Delete Staff {{staffs[key].get_first_name()}} {{staffs[key].get_last_name()}}?</h3>
+	<p>This action cannot be undone.</p>
+	<a onclick="document.getElementById('deleteStaffDialog-{{staffs[key].get_user_id()}}').close();" aria-label="close" class="x">❌</a>
+	<button type="button" onclick="deleteAdmin({{staffs[key].get_user_id()}})" style="width: 100%;" class="btn btn-danger">
+		Delete Staff
+	</button>
+</dialog>
+{% endfor %}
+<dialog id="newAdminDialog">
+	<h2>New Staff</h2>
+	<form action="" id="admin-register">
+		<div class="row">
+			<div class="col-md-6 mb-3">
+				<label for="admin-first-name" class="form-label">First Name</label>
+				<input type="text" class="form-control" name="admin-first-name" placeholder="First Name" value="" required>
+			</div>
+			<div class="col-md-6 mb-3">
+				<label for="admin-last-name" class="form-label">Last Name</label>
+				<input type="text" class="form-control" name="admin-last-name" placeholder="Last Name" value="" required>
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="admin-email" class="form-label">Email</label>
+			<input type="email" class="form-control" name="admin-email" placeholder="Email" value="" required>
+		</div>
+		<div class="mb-3">
+			<label for="admin-username" class="form-label">Username</label>
+			<input type="text" class="form-control" name="admin-username" placeholder="Username" value="" required>
+		</div>
+		<div class="mb-3">
+			<label for="admin-password" class="form-label">Password</label>
+			<input type="password" class="form-control" name="admin-password" placeholder="Password" value="" required>
+		</div>
+		<div class="mb-3">
+			<label for="admin-confirm-password" class="form-label">Confirm Password</label>
+			<input type="password" class="form-control" name="admin-confirm-password" placeholder="Confirm Password" value="" required>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button type="submit" style="width: 100%;" class="btn btn-primary">
+					<i class="fa fa-arrow-left"> </i> Create Staff
+				</button>
+			</div>
+		</div>
+		<a onclick="document.getElementById('newAdminDialog').close();" aria-label="close" class="x">❌</a>
+		<p id="msg" style="color:red; text-align: center; margin: 10px 0px;">-</p>
+	</form>
+</dialog>
+<script>
+    var adminForm = document.getElementById("admin-register");
+    adminForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+		msg.innerHTML = ""
+
+        var first_name = adminForm.querySelector("input[name='admin-first-name']");
+        var last_name = adminForm.querySelector("input[name='admin-last-name']");
+        var email = adminForm.querySelector("input[name='admin-email']");
+        var username = adminForm.querySelector("input[name='admin-username']");
+        var password = adminForm.querySelector("input[name='admin-password']");
+		var confirm_password = adminForm.querySelector("input[name='admin-confirm-password']");
+        var msg = document.getElementById("msg");
+
+		if (password.value != confirm_password.value) {
+			msg.innerHTML = "Passwords do not match."
+			return;
+		}
+
+        // Ajax call to register user 
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/admin/register', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    adminForm.reset()
+                    location.reload();
+                } else {
+                    msg.innerHTML = "Email or Username already exists."
+                }
+            } else {
+                alert('An Internal error occurred.');
+            }
+        };
+        xhr.send(JSON.stringify({
+            first_name: first_name.value,
+            last_name: last_name.value,
+            email: email.value,
+            username: username.value,
+            password: password.value,
+        }));
+    });
+
+	function deleteAdmin(admin_id) {
+		// Ajax call to delete product
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '/admin/staffs/delete', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+
+		xhr.onload = function () {
+			if (xhr.status === 200) {
+				var response = JSON.parse(xhr.responseText);
+
+				if (response.success) {
+					location.reload();
+				} else {
+					alert('Failed to delete staff.');
+				}
+			} else {
+				alert('An Internal error occurred.');
+			}
+		};
+
+		xhr.send(JSON.stringify({
+			admin_id : admin_id
+		}));
+	}
+</script>
 {% endblock %}
 {% block js %}
 <!-- Bootstrap JS -->

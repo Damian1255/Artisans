@@ -101,6 +101,14 @@ def orders():
     return redirect(url_for('admin.login'))
     
 
+@admin_blueprint.route('/products/orders/delete', methods=['GET', 'POST'])
+def delete_order():
+    order_id = request.json['order_id']
+    order_manager.delete_order(order_id)
+
+    return jsonify({'success': True})
+
+
 @admin_blueprint.route("/staffs")
 def staffs():
     try:
@@ -124,6 +132,13 @@ def new_staff():
     except:
         return redirect(url_for('admin.login'))
     
+@admin_blueprint.route('/staffs/delete', methods=['GET', 'POST'])
+def delete_admin():
+    admin_id = request.json['admin_id']
+    user_manager.delete_admin(admin_id)
+
+    return jsonify({'success': True})
+
 
 @admin_blueprint.route("/profile")
 def profile():
@@ -168,7 +183,6 @@ def register():
             return jsonify({ 'success': False })
     
     return render_template('admin/temp-sign-up.html')
-
 
 
 def allowed_file(filename):

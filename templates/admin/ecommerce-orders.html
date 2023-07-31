@@ -7,30 +7,15 @@
 	<div class="page-content">
 		<!--breadcrumb-->
 		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-			<div class="breadcrumb-title pe-3">eCommerce</div>
+			<div class="breadcrumb-title pe-3">Orders</div>
 			<div class="ps-3">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb mb-0 p-0">
-						<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+						<li class="breadcrumb-item"><a href="/admin/products/orders"><i class="bx bx-home-alt"></i></a>
 						</li>
 						<li class="breadcrumb-item active" aria-current="page">Orders</li>
 					</ol>
 				</nav>
-			</div>
-			<div class="ms-auto">
-				<div class="btn-group">
-					<button type="button" class="btn btn-primary">Settings</button>
-					<button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-						data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-					</button>
-					<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-							href="javascript:;">Action</a>
-						<a class="dropdown-item" href="javascript:;">Another action</a>
-						<a class="dropdown-item" href="javascript:;">Something else here</a>
-						<div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-							link</a>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!--end breadcrumb-->
@@ -51,9 +36,8 @@
 								<th>Order#</th>
 								<th>Customer</th>
 								<th>Status</th>
-								<th>Total</th>
-								<th>Date</th>
-								<th>View Details</th>
+								<th>Total Amount</th>
+								<th>Order Date</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -81,15 +65,9 @@
 								<td>${{order[0].get_order_total()}}</td>
 								<td>{{order[0].get_order_date()}}</td>
 								<td>
-									<button type="button"
-										onclick="document.getElementById('orderdetailDialog-{{order[0].get_order_id()}}').showModal()"
-										class="btn btn-primary btn-sm radius-30 px-4">View
-										Details</button>
-								</td>
-								<td>
 									<div class="d-flex order-actions">
-										<a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-										<a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
+										<a href="javascript:;" onclick="document.getElementById('orderdetailDialog-{{order[0].get_order_id()}}').showModal()" class=""><i class='bx bxs-detail'></i></a>
+										<a href="javascript:;" onclick="document.getElementById('orderDeleteDialog-{{order[0].get_order_id()}}').showModal()"class="ms-3"><i class='bx bxs-trash'></i></a>
 									</div>
 								</td>
 								<dialog id="orderdetailDialog-{{order[0].get_order_id()}}">
@@ -103,6 +81,14 @@
 										Close
 									</button>
 								</dialog>
+								<dialog id="orderDeleteDialog-{{order[0].get_order_id()}}">
+									<h3>Delete Order #{{order[0].get_order_id()}}?</h3>
+									<p>This action cannot be undone.</p>
+									<a onclick="document.getElementById('orderDeleteDialog-{{order[0].get_order_id()}}').close();" aria-label="close" class="x">❌</a>
+									<button type="button" onclick="deleteOrder({{order[0].get_order_id()}})" style="width: 100%;" class="btn btn-danger">
+										Delete Order
+									</button>
+								</dialog>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -110,10 +96,34 @@
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 </div>
+<script>
+	function deleteOrder(order_id) {
+		// Ajax call to delete product
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '/admin/products/orders/delete', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+
+		xhr.onload = function () {
+			if (xhr.status === 200) {
+				var response = JSON.parse(xhr.responseText);
+
+				if (response.success) {
+					location.reload();
+				} else {
+					alert('Failed to delete order.');
+				}
+			} else {
+				alert('An Internal error occurred.');
+			}
+		};
+
+		xhr.send(JSON.stringify({
+			order_id : order_id
+		}));
+	}
+</script>
 <!--end page wrapper -->
 {% endblock %}
 {% block js %}
