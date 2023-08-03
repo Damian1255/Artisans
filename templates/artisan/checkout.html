@@ -98,7 +98,7 @@
                                     {% for item in cart %}
                                     <li>
                                         <span class="order-middle-left">{{item[0].get_name()}} (x{{item[1].get_quantity()}})</span> <span
-                                        class="order-price">${{item[0].get_price() * item[1].get_quantity()}}</span>
+                                        class="order-price">${{item[0].get_price()|int * item[1].get_quantity()|int}}</span>
                                     </li>
                                     {% endfor %}
                                 </ul>

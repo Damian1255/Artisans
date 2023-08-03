@@ -1,53 +1,68 @@
 $(function () {
-    "use strict";
-    var e = {
-        series: [{ name: "Revenue", data: [240, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 257] }],
-        chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#17a00e" }, sparkline: { enabled: !0 } },
-        markers: { size: 0, colors: ["#17a00e"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
-        dataLabels: { enabled: !1 },
-        stroke: { show: !0, width: 3, curve: "smooth" },
-        colors: ["#17a00e"],
-        xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-        fill: { opacity: 1 },
-        tooltip: {
-            theme: "dark",
-            fixed: { enabled: !1 },
-            x: { show: !1 },
-            y: {
-                title: {
-                    formatter: function (e) {
-                        return "";
+    // ajax call for getting data 
+    $.ajax({
+        url: "http://127.0.0.1:5000/admin/data",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            var result = data
+            
+            // revenue chart
+            $("#total-revenue").text("$" + result.result_bydate.sales.reduce((a, b) => a + b, 0))
+            "use strict";
+            var e = {
+                series: [{ name: "Revenue", data: result.result_bydate.sales }],
+                chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#17a00e" }, sparkline: { enabled: !0 } },
+                markers: { size: 0, colors: ["#17a00e"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
+                dataLabels: { enabled: !1 },
+                stroke: { show: !0, width: 3, curve: "smooth" },
+                colors: ["#17a00e"],
+                xaxis: { type: 'date', categories: result.result_bydate.date },
+                fill: { opacity: 1 },
+                tooltip: {
+                    theme: "dark",
+                    fixed: { enabled: !1 },
+                    x: { show: !0 },
+                    y: {
+                        title: {
+                            formatter: function (e) {
+                                return "Revenue ($)";
+                            },
+                        },
                     },
+                    marker: { show: !1 },
                 },
-            },
-            marker: { show: !1 },
-        },
-    };
-    new ApexCharts(document.querySelector("#chart1"), e).render();
-    e = {
-        series: [{ name: "Customers", data: [240, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 257] }],
-        chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#ffc107" }, sparkline: { enabled: !0 } },
-        markers: { size: 0, colors: ["#ffc107"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
-        dataLabels: { enabled: !1 },
-        stroke: { show: !0, width: 3, curve: "smooth" },
-        colors: ["#ffc107"],
-        xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-        fill: { opacity: 1 },
-        tooltip: {
-            theme: "dark",
-            fixed: { enabled: !1 },
-            x: { show: !1 },
-            y: {
-                title: {
-                    formatter: function (e) {
-                        return "";
+            };
+            new ApexCharts(document.querySelector("#chart1"), e).render();
+            
+            // quantity chart
+            $("#total-quantity").text(result.result_bydate.quantity.reduce((a, b) => a + b, 0))
+            e = {
+                series: [{ name: "Customers", data: result.result_bydate.quantity }],
+                chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#ffc107" }, sparkline: { enabled: !0 } },
+                markers: { size: 0, colors: ["#ffc107"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
+                dataLabels: { enabled: !1 },
+                stroke: { show: !0, width: 3, curve: "smooth" },
+                colors: ["#ffc107"],
+                xaxis: { categories: result.result_bydate.date },
+                fill: { opacity: 1 },
+                tooltip: {
+                    theme: "dark",
+                    fixed: { enabled: !1 },
+                    x: { show: !0 },
+                    y: {
+                        title: {
+                            formatter: function (e) {
+                                return "Sold";
+                            },
+                        },
                     },
+                    marker: { show: !1 },
                 },
-            },
-            marker: { show: !1 },
-        },
-    };
-    new ApexCharts(document.querySelector("#chart2"), e).render();
+            };
+            new ApexCharts(document.querySelector("#chart2"), e).render();
+        }
+    });
     e = {
         series: [{ name: "Store Visitores", data: [240, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 257] }],
         chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#f41127" }, sparkline: { enabled: !0 } },

@@ -42,10 +42,19 @@ if __name__ == '__main__':
     app.run(debug=True)
     
     # Initialize session
-    if 'user_id' not in session:
+    if 'logged_in' not in session:
         session['user_id'] = None
         session['first_name'] = None
         session['last_name'] = None
         session['username'] = None
         session['cart'] = None
         session['logged_in'] = True
+        
+    if 'admin_logged_in' not in session:
+        session['admin_id'] = None
+        session['admin_first_name'] = None
+        session['admin_last_name'] = None
+        session['admin_username'] = None
+        session['admin_logged_in'] = False
+    
+

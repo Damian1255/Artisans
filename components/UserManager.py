@@ -109,7 +109,6 @@ class UserManager():
     def get_customer(self, id):
         try:
             customer = db.get_customer_list()[id]
-            print(f'Customer {customer.get_username()} successfully retrieved!')
             return customer
         except:
             print(f'Customer {id} not found!')

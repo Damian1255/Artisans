@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request, flash
-import os
+import os, pandas as pd
+from datetime import datetime
 from configuration import config
 from werkzeug.utils import secure_filename
 from components import ProductManager, UserManager, OrderManager
@@ -183,6 +184,49 @@ def register():
             return jsonify({ 'success': False })
     
     return render_template('admin/temp-sign-up.html')
+
+
+@admin_blueprint.route('/data', methods=['GET', 'POST'])
+def data():
+    if request.method == 'POST':
+        records = []
+
+        orders = order_manager.get_order_list()
+        for order in orders:
+            c = user_manager.get_customer(orders[order].get_customer_id())
+            p = product_manager.get_product(orders[order].get_product_id())
+
+            date = orders[order].get_order_date()
+            customer = c.get_first_name() + ' ' + c.get_last_name()
+            product = p.get_name()
+            quantity = int(orders[order].get_order_quantity())
+            sales = float(orders[order].get_order_total())
+
+            records.append({
+                'date': date,
+                'customer': customer,
+                'product': product,
+                'quantity': quantity,
+                'sales': sales
+            })
+
+        # check for empty gap in date to fill with 0
+        start_date = datetime.strptime(records[0]['date'], '%Y-%m-%d').date()
+        end_date = datetime.strptime(records[-1]['date'], '%Y-%m-%d').date()
+
+        for date in pd.date_range(start_date, end_date):
+            date = date.strftime('%Y-%m-%d')
+            if not any(record['date'] == date for record in records):
+                records.append({
+                    'date': date, 'customer': '', 'product': '', 'quantity': 0, 'sales': 0
+                })
+
+        df = pd.DataFrame(records).groupby(['date']).sum(numeric_only=True).reset_index()
+        result_bydate = df.to_dict('list')
+
+        return jsonify({
+            'result_bydate': result_bydate
+        })
 
 
 def allowed_file(filename):

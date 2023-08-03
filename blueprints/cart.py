@@ -38,7 +38,7 @@ def add_item():
         product_id = int(request.json['product_id'])
         quantity = int(request.json['quantity'])
 
-        if cart_manager.add_to_cart(session['user_id'], product_id, quantity):
+        if cart_manager.add_to_cart(session['user_id'], product_id, int(quantity)):
             # Update cart session
             session['cart'] = cart_manager.get_cart_html(session['user_id'])
             return jsonify({'success': True})
@@ -97,10 +97,9 @@ def checkout():
         cart = cart_manager.get_cart(session['user_id'])
         for item in cart:
             product = item[0]
-            quantity = item[1].get_quantity()
-            order_total = product.get_price() * quantity
-            order_manager.new_order(
-                session['user_id'], product.get_id(), quantity, order_total)
+            quantity = int(item[1].get_quantity())
+            order_total = float(product.get_price()) * quantity
+            order_manager.new_order(session['user_id'], product.get_id(), quantity, order_total)
 
         # Update Product quantity
         for item in cart:

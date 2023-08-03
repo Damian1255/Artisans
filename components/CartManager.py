@@ -15,7 +15,7 @@ class CartManager():
         cart = CartManager.get_cart(self, customer_id)
         for item in cart:
             if item[0].get_id() == product_id:
-                if item[1].get_quantity() + quantity > product.get_quantity():
+                if item[1].get_quantity() + int(quantity) > int(product.get_quantity()):
                     print(f'Insufficient stock for product {product_id}!')
                     return False
 
@@ -125,7 +125,7 @@ class CartManager():
                         <div class="inc qtybutton" onclick="updateCart({item[1].get_cart_id()}, 1)">+</div>
                     </div>
                 </td>
-                <td class="product-subtotal">${item[0].get_price() * item[1].get_quantity()}</td>
+                <td class="product-subtotal">${float(item[0].get_price()) * float(item[1].get_quantity())}</td>
                 <td class="product-remove">
                     <a onclick="document.getElementById('itemDialog-{item[1].get_cart_id()}').showModal();"><i class="fa fa-times"></i></a>
                 </td>
@@ -140,7 +140,7 @@ class CartManager():
             </tr>
             """
             total_display += f"""
-            <h5>{item[0].get_name()} X {item[1].get_quantity()} <span>${item[0].get_price() * item[1].get_quantity()}</span></h5>
+            <h5>{item[0].get_name()} X {item[1].get_quantity()} <span>${float(item[0].get_price()) * float(item[1].get_quantity())}</span></h5>
             <input type="hidden" id="product-{item[1].get_cart_id()}" value="{item[0].get_id()}">
             """
 
@@ -150,7 +150,7 @@ class CartManager():
                         alt="Cart product Image"></a>
                 <div class="content">
                     <a href="/artworks/{item[0].get_id()}" class="title">{item[0].get_name()} (x{item[1].get_quantity()})</a>
-                    <span class="quantity-price"><span class="amount">${item[1].get_quantity() * item[0].get_price()}</span></span>
+                    <span class="quantity-price"><span class="amount">${float(item[1].get_quantity()) * float(item[0].get_price())}</span></span>
                 </div>
             </li>
             """
