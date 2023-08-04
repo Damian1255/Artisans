@@ -93,11 +93,13 @@ class ProductManager():
             print(f'Product {product_id} does not exist!')
 
         
-    def search_product(self, query):
+    def search_product(self, query, category):
         product_list = db.get_product_list()
         results = {}
         for product in product_list.values():
-            if query.lower() in product.get_name().lower():
+            if (query == None or query.lower() in product.get_name().lower()) and (category == None or category == product.get_category()):
                 results[product.get_id()] = product
+                
         return results
+        
     

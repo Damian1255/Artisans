@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from components import ProductManager, CartManager
+from components import ProductManager, CartManager, OrderManager
 import logging
 
 from blueprints.admin import admin_blueprint
@@ -24,11 +24,12 @@ log.disabled = True
 app.logger.disabled = True
 
 product_manager = ProductManager.ProductManager()
+order_manager = OrderManager.OrderManager()
 cart_manager = CartManager.CartManager()
 
 @app.route('/')
 def index():
-    return render_template('artisan/index.html', products=product_manager.get_product_list())
+    return render_template('artisan/index.html', products=product_manager.get_product_list(), top_products=order_manager.get_top_sellers())
 
 @app.route('/about')
 def about():

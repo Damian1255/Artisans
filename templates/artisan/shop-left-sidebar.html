@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
-                <h3>Artworks ({{products|length}})</h3>
+                <h3>{{title}} ({{products|length}})</h3>
                 <!-- <div class="sidebar-widget-image">
                     <a href="#" class="single-banner">
                         <img src="{{ url_for('static', filename='artisan/images/banner/12.jpg')}}" alt="">
@@ -46,60 +46,6 @@
                     </div>
                 </div>
                 <!-- Shop Top Area End -->
-
-                <!-- Mobile shop bar -->
-                <div class="shop-top-bar mobile-tab">
-                    <!-- Left Side End -->
-                    <div class="shop-tab nav d-flex justify-content-between">
-                        <div class="shop-tab nav">
-                            <a class="active" href="#shop-grid" data-bs-toggle="tab">
-                                <i class="fa fa-th" aria-hidden="true"></i>
-                            </a>
-                            <a href="#shop-list" data-bs-toggle="tab">
-                                <i class="fa fa-list" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <!-- Right Side Start -->
-                        <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Sort By:</p>
-                            </div>
-                            <div class="shop-select">
-                                <select class="shop-sort">
-                                    <option data-display="Default">Default</option>
-                                    <option value="1"> Name, A to Z</option>
-                                    <option value="2"> Name, Z to A</option>
-                                    <option value="3"> Price, low to high</option>
-                                    <option value="4"> Price, high to low</option>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Right Side End -->
-                    <!-- Right Side Start -->
-                    <div class="select-shoing-wrap d-flex align-items-center justify-content-between">
-                        <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Show:</p>
-                            </div>
-                            <div class="shop-select show">
-                                <select class="shop-sort">
-                                    <option data-display="12">12</option>
-                                    <option value="1"> 12</option>
-                                    <option value="2"> 10</option>
-                                    <option value="3"> 25</option>
-                                    <option value="4"> 20</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <!-- Right Side End -->
-                        <!-- Left Side start -->
-                        <p class="compare-product">Product Compare <span>(0) </span></p>
-                    </div>
-                </div>
-                <!-- Mobile shop bar -->
 
                 <!-- Shop Bottom Area Start -->
                 <div class="shop-bottom-area">
@@ -236,41 +182,16 @@
                         <h4 class="sidebar-title">Categories</h4>
                         <div class="sidebar-widget-category">
                             <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                        <span>(65)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Computer
-                                        <span>(12)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Covid-19
-                                        <span>(22)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Electronics
-                                        <span>(19)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Frame Sunglasses
-                                        <span>(17)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Furniture
-                                        <span>(7)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Genuine Leather
-                                        <span>(9)</span> </a></li>
+                                {% for category in categories %}
+                                <li>
+                                    <a href="/artworks/{{categories[category][1]}}" class="selected m-0">
+                                        <i class="fa fa-angle-right"></i> {{category}} <span>({{categories[category][0]}})</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
-                    <!-- Sidebar single item -->
-                    <div class="sidebar-widget mt-8">
-                        <h4 class="sidebar-title">Price Filter</h4>
-                        <div class="price-filter">
-                            <div class="price-slider-amount">
-                                <input type="text" id="amount" class="p-0 h-auto lh-1" name="price"
-                                    placeholder="Add Your Price" />
-                            </div>
-                            <div id="slider-range"></div>
-                        </div>
-                    </div>
-                    <!-- Sidebar single item -->
-                    <div class="sidebar-widget-image ">
-                        <a href="#" class="single-banner">
-                            <img src="assets/images/banner/11.jpg" alt="">
-                        </a>
-                    </div>
-                    <!-- Sidebar single item -->
                 </div>
             </div>
         </div>

@@ -15,7 +15,19 @@ order_manager = OrderManager.OrderManager()
 
 @product_bp.route('/')
 def index():
-    return render_template('artisan/shop-left-sidebar.html', products=product_manager.get_product_list())
+    products = product_manager.get_product_list()
+
+    prefix = 'search/?category='
+    categories = {}
+    categories['All'] = [len(products), '']
+
+    for key in products:
+        if products[key].get_category() not in categories:
+            categories[products[key].get_category()] = [1, prefix + products[key].get_category()]
+        else:
+            categories[products[key].get_category()][0] += 1
+
+    return render_template('artisan/shop-left-sidebar.html', products=products, categories=categories, count=len(products), title='Artworks')
 
 
 @product_bp.route('/<int:id>')
@@ -40,9 +52,34 @@ def product_page(id):
 def product_search():
     try:
         query = request.args.get('query')
-        results = product_manager.search_product(query)
+        category = request.args.get('category')
+        results = product_manager.search_product(query, category)
+        
+        # Get categories
+        categories = {}
+        if query:
+            prefix = f'search/?query={query}&category='
+            all_products = product_manager.search_product(query, None)
+            categories['All'] = [len(all_products), f'search/?query={query}']
 
-        return render_template('artisan/shop-left-sidebar.html', products=results)
+            if category:
+                title = f'Search results for "{query}" in {category}'
+            else:
+                title = f'Search results for "{query}"'
+        elif category:
+            prefix = f'search/?category='
+            all_products = product_manager.get_product_list()
+            categories['All'] = [len(all_products), f'']
+            title = f'{category}'
+
+        for key in all_products:
+            if all_products[key].get_category() not in categories:
+                categories[all_products[key].get_category()] = [1, prefix + all_products[key].get_category()]
+            else:
+                categories[all_products[key].get_category()][0] += 1
+
+
+        return render_template('artisan/shop-left-sidebar.html', products=results, categories=categories, count=len(all_products), title=title)
     except:
         return render_template('artisan/404.html'), 404
 

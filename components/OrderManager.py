@@ -119,3 +119,15 @@ class OrderManager():
         
         return total_quantity
     
+    def get_top_sellers(self):
+        product_manager = ProductManager.ProductManager()
+        product_list = product_manager.get_product_list()
+        top_sellers = []
+        
+        for product_id in product_list:
+            product = product_list[product_id]
+            total_quantity = self.get_ordered_quantity_by_product(product_id)
+            top_sellers.append([product, total_quantity])
+        
+        top_sellers.sort(key=lambda x: x[1], reverse=True)
+        return top_sellers[:5]

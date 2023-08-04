@@ -6,6 +6,7 @@ $(function () {
         dataType: "json",
         success: function (data) {
             var result = data
+            console.log(result)
             
             // revenue chart
             $("#total-revenue").text("$" + result.result_bydate.sales.reduce((a, b) => a + b, 0))
@@ -117,6 +118,19 @@ $(function () {
                 },
             };
             new ApexCharts(document.querySelector("#chart4"), e).render();
+
+            // sales by category chart
+            e = {
+                series: result.result_topcategory.sales,
+                chart: { height: 240, type: "donut" },
+                legend: { position: "bottom", show: !1 },
+                plotOptions: { pie: { donut: { size: "80%" } } },
+                colors: ["#17a00e", "#0d6efd", "#f41127", "#ffc107"],
+                dataLabels: { enabled: !1 },
+                labels: result.result_topcategory.category,
+                responsive: [{ breakpoint: 480, options: { chart: { height: 200 }, legend: { position: "bottom" } } }],
+            };
+            new ApexCharts(document.querySelector("#chart15"), e).render();
         }
     });
 
@@ -361,17 +375,6 @@ $(function () {
     };
     new ApexCharts(document.querySelector("#chart14"), e).render();
     e = {
-        series: [25, 65, 10, 14],
-        chart: { height: 240, type: "donut" },
-        legend: { position: "bottom", show: !1 },
-        plotOptions: { pie: { donut: { size: "80%" } } },
-        colors: ["#17a00e", "#0d6efd", "#f41127", "#ffc107"],
-        dataLabels: { enabled: !1 },
-        labels: ["Kids", "Men", "Women", "Furniture"],
-        responsive: [{ breakpoint: 480, options: { chart: { height: 200 }, legend: { position: "bottom" } } }],
-    };
-    new ApexCharts(document.querySelector("#chart15"), e).render();
-    e = {
         chart: { height: 180, type: "radialBar", toolbar: { show: !1 } },
         plotOptions: {
             radialBar: {
@@ -533,17 +536,4 @@ $(function () {
         labels: ["Total Sales"],
         responsive: [{ breakpoint: 480, options: { chart: { height: 300 } } }],
     };
-    new ApexCharts(document.querySelector("#chart20"), e).render();
-    e = {
-        series: [{ name: "Visitors", data: [427, 613, 801, 457, 605, 414, 671, 360, 540] }],
-        chart: { foreColor: "#6c757d", type: "bar", height: 390, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !1, top: 3, left: 10, blur: 3, opacity: 0.1, color: "#0d6efd" }, sparkline: { enabled: !1 } },
-        plotOptions: { radialBar: { hollow: { size: "70%" } }, bar: { horizontal: !1, columnWidth: "35%", endingShape: "rounded" } },
-        markers: { size: 0, colors: ["#0d6efd"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
-        dataLabels: { enabled: !1 },
-        stroke: { show: !0, width: 3, curve: "smooth" },
-        colors: ["#0d6efd"],
-        xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"] },
-        fill: { opacity: 1 },
-    };
-    new ApexCharts(document.querySelector("#chart21"), e).render();
 });

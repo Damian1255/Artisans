@@ -199,6 +199,7 @@ def data():
             date = orders[order].get_order_date()
             customer = c.get_first_name() + ' ' + c.get_last_name()
             product = p.get_name()
+            category = p.get_category()
             quantity = int(orders[order].get_order_quantity())
             sales = float(orders[order].get_order_total())
 
@@ -206,6 +207,7 @@ def data():
                 'date': date,
                 'customer': customer,
                 'product': product,
+                'category': category,
                 'quantity': quantity,
                 'sales': sales,
                 'profit': round(sales * orders[order].get_comm_rate(), 2)
@@ -222,14 +224,21 @@ def data():
             date = date.strftime('%Y-%m-%d')
             if not any(record['date'] == date for record in records):
                 records.append({
-                    'date': date, 'customer': '', 'product': '', 'quantity': 0, 'sales': 0, 'profit': 0
+                    'date': date, 'customer': '',
+                    'product': '', 'category': '',
+                    'quantity': 0, 'sales': 0, 'profit': 0
                 })
 
         df = pd.DataFrame(records).groupby(['date']).sum(numeric_only=True).reset_index()
         result_bydate = df.to_dict('list')
 
+        df = pd.DataFrame(records).groupby(['category']).sum(numeric_only=True).reset_index()
+        df.sort_values(by=['sales'], inplace=True, ascending=False)
+        result_topcategory = df.to_dict('list')
+
         return jsonify({
-            'result_bydate': result_bydate
+            'result_bydate': result_bydate,
+            'result_topcategory': result_topcategory
         })
 
 
