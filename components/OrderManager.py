@@ -1,11 +1,13 @@
 import random, datetime
 from classes import Order
 from components import DbManager, ProductManager
+from configuration import config
 
 db = DbManager.DbManager()
+comm_rate = config.COMM_RATE
 
 class OrderManager():
-    def new_order(self, customer_id, product_id, order_quantity, order_total):
+    def new_order(self, customer_id, product_id, seller_id, order_quantity, order_total):
         order_list = db.get_order_list()
 
         order_id = random.randint(100000, 999999)
@@ -13,7 +15,7 @@ class OrderManager():
             order_id = random.randint(100000, 999999)
 
         order_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        order = Order.Order(order_id, customer_id, product_id, order_quantity, order_total, order_date)
+        order = Order.Order(order_id, customer_id, product_id, seller_id, order_quantity, order_total, order_date, comm_rate)
         order_list[order_id] = order
 
         db.update_order_list(order_list)
@@ -48,6 +50,15 @@ class OrderManager():
                 product_orders.append(order_list[order])
         return product_orders
     
+    def get_orders_by_seller(self, seller_id):
+        order_list = db.get_order_list()
+        seller_orders = []
+
+        for order in order_list:
+            if int(order_list[order].get_seller_id()) == seller_id:
+                seller_orders.append(order_list[order])
+        return seller_orders
+
     def get_orders_by_date(self, order_date):
         order_list = db.get_order_list()
         date_orders = []

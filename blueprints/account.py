@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from components import UserManager, CartManager, OrderManager, ProductManager
+from configuration import config
 
 account_blueprint = Blueprint(
     name="account", import_name=__name__, url_prefix="/account/")
@@ -15,18 +16,28 @@ def account():
         user = user_manager.get_customer(session['user_id'])
         orders = order_manager.get_orders_by_customer(session['user_id'])
         order_list = []
+
         for order in orders:
             product = product_manager.get_product(order.get_product_id())
             order_list.append([order, product])
 
         artworks = product_manager.get_products_by_customer((session['user_id']))
         user_artworks = []
-
         for artwork in artworks:
             sold = order_manager.get_ordered_quantity_by_product(artwork.get_id())
             user_artworks.append([artwork, sold])
+
+
+        total_sold = 0
+        total_profit = 0.0
+        
+        artworks = order_manager.get_orders_by_seller((session['user_id']))
+        for artwork in artworks:
+            total_profit += round(artwork.get_order_total() - artwork.get_order_total() * artwork.get_comm_rate())
+            total_sold += artwork.get_order_quantity()
             
-        return render_template('artisan/my-account.html', user=user, orders=order_list, user_artworks=user_artworks)
+            
+        return render_template('artisan/my-account.html', user=user, orders=order_list, user_artworks=user_artworks, total_sold=total_sold, total_profit=total_profit)
 
     return redirect(url_for('account.login'))
 

@@ -29,6 +29,9 @@ $(function () {
                                 return "Revenue ($)";
                             },
                         },
+                        formatter: function (e) {
+                            return "$" + e;
+                        },
                     },
                     marker: { show: !1 },
                 },
@@ -61,54 +64,62 @@ $(function () {
                 },
             };
             new ApexCharts(document.querySelector("#chart2"), e).render();
-        }
-    });
-    e = {
-        series: [{ name: "Store Visitores", data: [240, 160, 671, 414, 555, 257, 901, 613, 727, 414, 555, 257] }],
-        chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#f41127" }, sparkline: { enabled: !0 } },
-        markers: { size: 0, colors: ["#f41127"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
-        dataLabels: { enabled: !1 },
-        stroke: { show: !0, width: 3, curve: "smooth" },
-        colors: ["#f41127"],
-        xaxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-        fill: { opacity: 1 },
-        tooltip: {
-            theme: "dark",
-            fixed: { enabled: !1 },
-            x: { show: !1 },
-            y: {
-                title: {
-                    formatter: function (e) {
-                        return "";
+            
+            // profit chart
+            $("#total-profit").text("$" + result.result_bydate.profit.reduce((a, b) => a + b, 0))
+            e = {
+                series: [{ name: "Profit", data: result.result_bydate.profit }],
+                chart: { type: "line", height: 65, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#f41127" }, sparkline: { enabled: !0 } },
+                markers: { size: 0, colors: ["#f41127"], strokeColors: "#fff", strokeWidth: 2, hover: { size: 7 } },
+                dataLabels: { enabled: !1 },
+                stroke: { show: !0, width: 3, curve: "smooth" },
+                colors: ["#f41127"],
+                xaxis: { categories: result.result_bydate.date },
+                fill: { opacity: 1 },
+                tooltip: {
+                    theme: "dark",
+                    fixed: { enabled: !1 },
+                    x: { show: !0 },
+                    y: {
+                        title: {
+                            formatter: function (e) {
+                                return "Profit ($)";
+                            },
+                        },
+                        formatter: function (e) {
+                            return "$" + e;
+                        },
+                    },
+                    marker: { show: !1 },
+                },
+            };
+            new ApexCharts(document.querySelector("#chart3"), e).render();
+
+            // sales and profit chart
+            e = {
+                series: [
+                    { name: "Total Sales", data: result.result_bydate.sales },
+                    { name: "Profit", data: result.result_bydate.profit },
+                ],
+                chart: { foreColor: "#9ba7b2", type: "bar", height: 300, toolbar: { show: !1 } },
+                plotOptions: { bar: { horizontal: !1, columnWidth: "55%", endingShape: "rounded" } },
+                dataLabels: { enabled: !1 },
+                stroke: { show: !0, width: 2, colors: ["transparent"] },
+                colors: ["#0dcaf0", "#0d6efd"],
+                xaxis: { categories: result.result_bydate.date },
+                fill: { opacity: 1 },
+                tooltip: {
+                    y: {
+                        formatter: function (e) {
+                            return "$" + e;
+                        },
                     },
                 },
-            },
-            marker: { show: !1 },
-        },
-    };
-    new ApexCharts(document.querySelector("#chart3"), e).render();
-    e = {
-        series: [
-            { name: "Total Sales", data: [44, 55, 57, 56, 61, 58, 63, 60, 66] },
-            { name: "Customers", data: [76, 85, 101, 98, 87, 105, 91, 114, 94] },
-            { name: "Store Visitores", data: [35, 41, 36, 26, 45, 48, 52, 53, 41] },
-        ],
-        chart: { foreColor: "#9ba7b2", type: "bar", height: 300, toolbar: { show: !1 } },
-        plotOptions: { bar: { horizontal: !1, columnWidth: "55%", endingShape: "rounded" } },
-        dataLabels: { enabled: !1 },
-        stroke: { show: !0, width: 2, colors: ["transparent"] },
-        colors: ["#0dcaf0", "#0d6efd", "#e5e7e8"],
-        xaxis: { categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"] },
-        fill: { opacity: 1 },
-        tooltip: {
-            y: {
-                formatter: function (e) {
-                    return "$ " + e + " thousands";
-                },
-            },
-        },
-    };
-    new ApexCharts(document.querySelector("#chart4"), e).render();
+            };
+            new ApexCharts(document.querySelector("#chart4"), e).render();
+        }
+    });
+
     e = {
         series: [{ name: "Revenue", data: [240, 160, 671, 414, 555, 257, 901, 613] }],
         chart: { type: "area", height: 45, toolbar: { show: !1 }, zoom: { enabled: !1 }, dropShadow: { enabled: !1, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#0d6efd" }, sparkline: { enabled: !0 } },

@@ -110,6 +110,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="shop-grid">
                                     <div class="row mb-n-30px">
+                                        {% if products|length > 0 %}
                                         {% for key in products %}
                                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
                                             data-aos-delay="200">
@@ -155,10 +156,15 @@
                                             </div>
                                         </div>
                                         {% endfor %}
-                                    
+                                        {% else %}
+                                        <div class="row">
+                                            <h3 class="col-12" style="text-align: center;">There are no artworks</h3>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="shop-list">
+                                    {% if products|length > 0 %}
                                     {% for key in products %}
                                     <div class="shop-list-wrapper">
                                         <div class="row">
@@ -209,6 +215,11 @@
                                         </div>
                                     </div>
                                     {% endfor %}
+                                    {% else %}
+                                    <div class="row">
+                                        <h3 class="col-12" style="text-align: center;">There are no artworks</h3>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

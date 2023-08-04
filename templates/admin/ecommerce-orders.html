@@ -42,6 +42,7 @@
 							</tr>
 						</thead>
 						<tbody>
+							{% if orders|length > 0 %}
 							{% for order in orders %}
 							<tr>
 								<td>
@@ -91,6 +92,11 @@
 								</dialog>
 							</tr>
 							{% endfor %}
+							{% else %}
+							<tr>
+								<p><strong>There are no orders</strong></p>
+							</tr>
+							{% endif %}
 						</tbody>
 					</table>
 				</div>

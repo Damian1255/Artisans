@@ -49,12 +49,10 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="about.html">About us</a></li>
-                                        <li class="li"><a class="single-link" href="#">Delivery information</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.html">Privacy Policy</a></li>
-                                        <li class="li"><a class="single-link" href="#">Sales</a></li>
+                                        <li class="li"><a class="single-link" href="/about">About us</a></li>
+                                        <li class="li"><a class="single-link" href="/support">Customer Support</a>
+                                        <li class="li"><a class="single-link" href="#">Privacy Policy</a></li>
                                         <li class="li"><a class="single-link" href="#">Terms & Conditions</a></li>
-                                        <li class="li"><a class="single-link" href="#">Shipping Policy</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -69,19 +67,14 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         {% if session['logged_in'] %}
-                                            {% if session['isadmin'] %}
-                                                <li class="li"><a class="single-link" href="/admin/">Dashboard <i class="pe-7s-exapnd2" style="font-size: 15px;font-weight: bold;"></i></i></a></li>
-                                            {% endif %}
                                             <li class="li"><a class="single-link" href="/account"> My account</a></li>
-                                            <li class="li"><a class="single-link" href="cart.html">My orders</a></li>
-                                            <li class="li"><a class="single-link" href="#">Returns</a></li>
-                                            <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shipping</a></li>
-                                            <li class="li"><a class="single-link" href="wishlist.html">Wishlist</a></li>
+                                            <li class="li"><a class="single-link" href="/account">My orders</a></li>
+                                            <li class="li"><a class="single-link" href="#">Wishlist</a></li>
                                         {% else %}
                                             <li class="li"><a class="single-link" href="/account/login">Login</a></li>
                                             <li class="li"><a class="single-link" href="/account/register">Register</a></li>
-                                            <li class="li"><a class="single-link" href="/admin">Employee Sign In</a></li>
                                         {% endif %}
+                                        <li class="li"><a class="single-link" target="_blank" href="/admin"><i class="pe-7s-id" style="font-size: 18px;font-weight: bold;"></i> Employee Sign In</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -100,7 +93,6 @@
                                         <li class="li"><a class="single-link" href="#">Latest products</a></li>
                                         <li class="li"><a class="single-link" href="#">Sale</a></li>
                                         <li class="li"><a class="single-link" href="#">All Collection</a></li>
-                                        <li class="li"><a class="single-link" href="contact.html">Contact Us</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -111,7 +103,6 @@
                     <!-- Start single blog -->
                     <div class="col-md-6 col-lg-4 col-md-6 col-sm-6 pl-120px line-shape">
                         <div class="single-wedge ">
-
                             <h4 class="footer-herading">Contact Us</h4>
                             <div class="footer-links">
                                 <!-- News letter area -->

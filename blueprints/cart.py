@@ -99,7 +99,7 @@ def checkout():
             product = item[0]
             quantity = int(item[1].get_quantity())
             order_total = float(product.get_price()) * quantity
-            order_manager.new_order(session['user_id'], product.get_id(), quantity, order_total)
+            order_manager.new_order(session['user_id'], product.get_id(), product.get_customer_id(), quantity, order_total)
 
         # Update Product quantity
         for item in cart:

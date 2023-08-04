@@ -46,6 +46,17 @@
                 <!-- Tab panes -->
                 <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
                     <div class="tab-pane fade show active" id="dashboard">
+                        <h4>Overview</h4>
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-3">
+                                <h6>Profit</h6>
+                                <p>${{total_profit}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Artwork Sold</h6>
+                                <p>{{total_sold}}</p>
+                            </div>
+                        </div>
                         <h4>Your Artworks ({{user_artworks|length}})</h4>
                         <p>Create new or and manage your artworks.</p>
                         <button class="btn-dark" onclick="document.getElementById('newArtworkDialog').showModal();">Create New Artwork</button>

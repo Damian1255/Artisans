@@ -207,18 +207,22 @@ def data():
                 'customer': customer,
                 'product': product,
                 'quantity': quantity,
-                'sales': sales
+                'sales': sales,
+                'profit': round(sales * orders[order].get_comm_rate(), 2)
             })
 
         # check for empty gap in date to fill with 0
-        start_date = datetime.strptime(records[0]['date'], '%Y-%m-%d').date()
-        end_date = datetime.strptime(records[-1]['date'], '%Y-%m-%d').date()
+        try:
+            start_date = datetime.strptime(records[0]['date'], '%Y-%m-%d').date()
+        except:
+            start_date = datetime.today().date()
+        end_date = datetime.today().date()
 
         for date in pd.date_range(start_date, end_date):
             date = date.strftime('%Y-%m-%d')
             if not any(record['date'] == date for record in records):
                 records.append({
-                    'date': date, 'customer': '', 'product': '', 'quantity': 0, 'sales': 0
+                    'date': date, 'customer': '', 'product': '', 'quantity': 0, 'sales': 0, 'profit': 0
                 })
 
         df = pd.DataFrame(records).groupby(['date']).sum(numeric_only=True).reset_index()

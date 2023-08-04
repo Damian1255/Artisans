@@ -88,7 +88,8 @@ class CartManager():
             if cart.get_customer_id() == customer_id:
                 # get product
                 product = ProductManager.ProductManager().get_product(cart.get_product_id())
-                cart_items.append([product, cart])
+                if int(product.get_quantity()) > 0:
+                    cart_items.append([product, cart])
 
         print(f'Cart items for customer {customer_id} retrieved! {len(cart_items)} items found.')
         return cart_items
