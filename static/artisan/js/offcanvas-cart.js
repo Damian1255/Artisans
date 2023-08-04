@@ -13,7 +13,12 @@ function getCart() {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
+            try {
+                var response = JSON.parse(xhr.responseText);
+            } catch (error) {
+                console.log("Loading cart aborted, user not logged in.");
+                return;
+            }
             if (response.success) {
                 cartCount.innerHTML = response.cart_count;
                 cartList.innerHTML = response.offcanvas_cart;
@@ -23,9 +28,7 @@ function getCart() {
                     cartItem.innerHTML = response.cart_display;
                     grandTotal.innerHTML = response.total_display;
                     cartPageTitle.innerHTML = "Your cart items (" + response.cart_count + ")";
-                } catch (error) {
-                    console.log("Cart Aborted")
-                }
+                } catch (error) {}
                 
             } else {
                 alert("Unable to get cart.")

@@ -8,10 +8,10 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
                 <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
-                    <div class="swiper-container mr-15px zoom-thumbs-2 align-self-start">
+                    <div class="swiper-container mr-15px zoom-thumbs-2">
                         <div class="swiper-wrapper">
                             {% for image in product.get_image() %}
-                            <div class="swiper-slide">
+                            <div class="swiper-slide" >
                                 <img class="img-responsive m-auto" src="{{ url_for('static', filename='artisan/images/product-image/')}}{{image}}"
                                     alt="">
                             </div>
@@ -107,7 +107,7 @@
                         </ul>
                     </div>
                     <div class="payment-img">
-                        <a href="#"><img src="assets/images//icons/payment.png" alt=""></a>
+                        <a href="#"><img src="{{ url_for('static', filename='artisan/images/icons/payment.png')}}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                             <div class="review-wrapper">
                                 <div class="single-review">
                                     <div class="review-img">
-                                        <img src="assets/images/review-image/1.png" alt="" />
+                                        <img src="{{ url_for('static', filename='artisan/images/review-image/1.png')}}" alt="" />
                                     </div>
                                     <div class="review-content">
                                         <div class="review-top-wrap">
@@ -169,7 +169,7 @@
                                 </div>
                                 <div class="single-review child-review">
                                     <div class="review-img">
-                                        <img src="assets/images/review-image/2.png" alt="" />
+                                        <img src="{{ url_for('static', filename='artisan/images/review-image/2.png')}}" alt="" />
                                     </div>
                                     <div class="review-content">
                                         <div class="review-top-wrap">

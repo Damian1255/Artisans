@@ -9035,8 +9035,8 @@ dialog button:hover {
 }
 .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-content {
   text-align: center;
-  margin-top: 45px;
   position: relative;
+  padding: 0px 30px;
 }
 .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-content::after {
   position: absolute;
@@ -9066,22 +9066,25 @@ dialog button:hover {
   z-index: -1;
 }
 .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-content p {
-  font-size: 30px;
+  font-size: 28px;
   line-height: 48px;
   color: #565656;
   font-style: italic;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-content p {
-    font-size: 24px;
+    font-size: 21px;
     line-height: 38px;
   }
 }
 @media only screen and (max-width: 767px) {
   .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-content p {
-    font-size: 24px;
+    font-size: 21px;
     line-height: 38px;
   }
+}
+.testimonial-wrapper .swiper-button-prev, .testimonial-wrapper .swiper-button-next {
+  top: 20%;
 }
 .testimonial-wrapper .swiper-wrapper .swiper-slide .testi-inner .testi-author {
   line-height: 1;
@@ -9127,24 +9130,22 @@ dialog button:hover {
   content: "";
 }
 .testimonial-wrapper .swiper-button-prev {
-  left: 25%;
+  left: 0%;
 }
 @media only screen and (max-width: 575px) {
   .testimonial-wrapper .swiper-button-prev {
-    left: 15%;
+    left: 0%;
   }
 }
 .testimonial-wrapper .swiper-button-next {
-  right: 25%;
+  right: 0%;
 }
 @media only screen and (max-width: 575px) {
   .testimonial-wrapper .swiper-button-next {
-    right: 15%;
+    right: 0%;
   }
 }
-.testimonial-wrapper .swiper-button-prev, .testimonial-wrapper .swiper-button-next {
-  top: 60px;
-}
+
 .testimonial-wrapper .swiper-button-prev:hover:after, .testimonial-wrapper .swiper-button-next:hover:after {
   color: #eaaa85;
 }
