@@ -39,6 +39,17 @@ def about():
 def wishlist():
     return render_template('artisan/coming-soon.html')
 
+@app.route('/wip')
+def wip():
+    return render_template('artisan/coming-soon.html')
+
+@app.route('/sell')
+def sell():
+    if session['logged_in']:
+        return redirect(url_for('account.account') + '?sell-artwork')
+    
+    return redirect('/')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('artisan/404.html'), 404

@@ -83,7 +83,7 @@ var msg = document.getElementById("msg");
 
 passwordUpdateForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    
+
     remove_highlight([current_password, new_password, confirm_password])
     msg.innerHTML = ""
 
@@ -200,7 +200,7 @@ function deleteArtwork(product_id) {
     };
 
     xhr.send(JSON.stringify({
-        product_id : product_id
+        product_id: product_id
     }));
 }
 
@@ -231,30 +231,37 @@ function updateArtwork(product_id) {
     };
 
     xhr.send(JSON.stringify({
-        product_id : product_id,
-        product_title : title.value,
-        product_price : price.value,
-        product_quantity : quantity.value,
-        product_description : description.value,
-        product_category : category.value
+        product_id: product_id,
+        product_title: title.value,
+        product_price: price.value,
+        product_quantity: quantity.value,
+        product_description: description.value,
+        product_category: category.value
     }));
 }
 
 const input = document.querySelector('input[name="product_images"]');
 const preview = document.getElementById('image-preview');
 
-  input.addEventListener('change', () => {
+input.addEventListener('change', () => {
     preview.innerHTML = '';
     const files = input.files;
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        const img = document.createElement('img');
-        img.src = reader.result;
-        preview.appendChild(img);
-      });
-      reader.readAsDataURL(file);
+        const file = files[i];
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const img = document.createElement('img');
+            img.src = reader.result;
+            preview.appendChild(img);
+        });
+        reader.readAsDataURL(file);
     }
-  });
+});
+
+// get parameters from url
+url = window.location.href;
+url = url.split('?')[1];
+if (url == 'sell-artwork') {
+    document.getElementById('newArtworkDialog').showModal();
+}
 

@@ -4985,6 +4985,20 @@ only screen and (max-width: 767px) {
   position: relative;
 }
 
+.sell-art-btn {
+  background-color: #eaaa85;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  color:white;
+  transition: all 0.3s ease 0s;
+}
+
+.sell-art-btn:hover {
+  box-shadow: 0 5px 15px 0 rgba(153, 63, 107, 0.5);
+  background-color: #eaaa85;
+}
+
 @media only screen and (max-width: 767px) {
   .single-my-account .myaccount-info-wrapper .entries-wrapper {
     padding: 30px 10px;
