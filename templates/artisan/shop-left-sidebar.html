@@ -69,12 +69,12 @@
                                                             alt="Product" />
                                                     </a>
                                                     <div class="actions">
-                                                        <a href="wishlist.html" class="action wishlist"
+                                                        <a href="/wishlist" class="action wishlist"
                                                             title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
+                                                        <!-- <a href="#" class="action quickview"
                                                             data-link-action="quickview" title="Quick view"
                                                             data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
+                                                                class="pe-7s-look"></i></a> -->
                                                     </div>
                                                 </div>
                                                 <div class="content">
@@ -143,7 +143,7 @@
                                                             <span class="new">${{products[key].get_price()}}</span>
                                                         </span>
                                                         <div class="actions">
-                                                            <a href="wishlist.html" class="action wishlist"
+                                                            <a href="/wishlist" class="action wishlist"
                                                                 title="Wishlist"><i class="pe-7s-like"></i></a>
                                                         </div>
                                                         {% if products[key].get_customer_id()|int != session['user_id'] %}

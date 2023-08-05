@@ -35,6 +35,10 @@ def index():
 def about():
     return render_template('artisan/about.html')
 
+@app.route('/wishlist')
+def wishlist():
+    return render_template('artisan/coming-soon.html')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('artisan/404.html'), 404
