@@ -39,7 +39,8 @@
 									class="rounded-circle shadow" alt="">
 								<h5 class="mb-0 mt-5">{{staffs[key].get_first_name()}} {{staffs[key].get_last_name()}}</h5>
 								<p class="mb-3">Staff Member</p>
-								<div class="d-grid"> <a href="javascript:;" onclick="document.getElementById('deleteStaffDialog-{{staffs[key].get_user_id()}}').showModal()" class="btn btn-outline-primary radius-15">Remove Staff</a>
+								<div class="d-grid">
+									<a href="javascript:;" onclick="document.getElementById('deleteStaffDialog-{{staffs[key].get_user_id()}}').showModal()" class="btn btn-danger radius-15">Remove Staff</a>
 								</div>
 							</div>
 						</div>

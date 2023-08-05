@@ -89,7 +89,7 @@
     <div class="form-container container">
         <form id="support-form" action="" method="POST">
             <div class="row">
-                <div class="default-form-box mb-20 col-md-3">
+                <div class="default-form-box mb-20 col-md-2">
                     <label for="salutation">Salutation</label>
                     <select id="salutation" name="salutation" required>
                         <option value="">Choose</option>
@@ -99,17 +99,17 @@
                         <option value="Dr">Dr</option>
                     </select>
                 </div>
-                <div class="default-form-box mb-20 col-md-4">
+                <div class="default-form-box mb-20 col-md-5">
                     <label for="first-name">First Name</label>
                     <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
                 </div>
-                <div class="default-form-box mb-20 col-md-4">
+                <div class="default-form-box mb-20 col-md-5">
                     <label for="last-name">Last Name</label>
                     <input type="text" id="last-name" name="last-name" placeholder="Last Name" required>
                 </div>
             </div>
             <div class="row">
-                <div class="default-form-box mb-20 col-md-3">
+                <div class="default-form-box mb-20 col-md-2">
                     <label for="country-code">Country Code</label>
                     <select id="country-code" name="country-code" required>
                         <option value="">Choose</option>
@@ -331,17 +331,46 @@
                         <!-- Add more country codes as needed -->
                     </select>
                 </div>
-                <div class="default-form-box mb-20 col-md-4">
+                <div class="default-form-box mb-20 col-md-5">
                     <label for="phone-number">Phone Number</label>
                     <input type="tel" id="phone-number" name="phone-number" placeholder="Phone Number"
                         required>
                 </div>
-                <div class="default-form-box mb-20 col-md-4">
+                <div class="default-form-box mb-20 col-md-5">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
             </div>
             <div class="default-form-box mb-20">
+                <label for="category">Topic</label>
+                <select id="category" name="category" required>
+                    <option value="" selected disabled>Choose</option>
+                    <option value="Accessibility Support">Accessibility Support</option>
+                    <option value="Account Issues">Account Issues</option>
+                    <option value="Account Security and Privacy">Account Security and Privacy</option>
+                    <option value="Billing and Payments">Billing and Payments</option>
+                    <option value="Canceling or Modifying an Order">Canceling or Modifying an Order</option>
+                    <option value="Community Guidelines and Policies">Community Guidelines and Policies</option>
+                    <option value="Data and Privacy Concerns">Data and Privacy Concerns</option>
+                    <option value="Feedback and Suggestions">Feedback and Suggestions</option>
+                    <option value="Frequently Asked Questions (FAQs)">Frequently Asked Questions (FAQs)</option>
+                    <option value="Marketing and Promotions">Marketing and Promotions</option>
+                    <option value="Membership and Rewards Program">Membership and Rewards Program</option>
+                    <option value="Order Status and Tracking">Order Status and Tracking</option>
+                    <option value="Password Reset">Password Reset</option>
+                    <option value="Product Information">Product Information</option>
+                    <option value="Product Warranty and Support">Product Warranty and Support</option>
+                    <option value="Requesting a Quote or Custom Order">Requesting a Quote or Custom Order</option>
+                    <option value="Report a Bug">Report a Bug</option>
+                    <option value="Returns and Refunds">Returns and Refunds</option>
+                    <option value="Shipping and Delivery">Shipping and Delivery</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Troubleshooting">Troubleshooting</option>
+                    <option value="Website Navigation and Usability">Website Navigation and Usability</option>
+                    <option value="Wholesale or Bulk Purchases">Wholesale or Bulk Purchases</option>
+                    <option value="Workshops">Workshops</option>
+                    <option value="Other">Others</option>
+                </select>
                 <label for="message-subject">Message Subject</label>
                 <input type="text" id="message-subject" name="message-subject" placeholder="Message Subject"
                     required>
@@ -464,6 +493,7 @@
         var email = document.getElementById('email').value;
         var countryCode = document.getElementById('country-code').value;
         var phoneNumber = document.getElementById('phone-number').value;
+        var category = document.getElementById('category').value;
         var messageSubject = document.getElementById('message-subject').value;
         var message = document.getElementById('leave-message').value;
 
@@ -475,6 +505,7 @@
             email: email,
             countryCode: countryCode,
             phoneNumber: phoneNumber,
+            category: category,
             messageSubject: messageSubject,
             message: message
         };

@@ -3,12 +3,13 @@ import os, pandas as pd
 from datetime import datetime
 from configuration import config
 from werkzeug.utils import secure_filename
-from components import ProductManager, UserManager, OrderManager
+from components import ProductManager, UserManager, OrderManager, SupportManager, DbManager
 
 admin_blueprint = Blueprint(name="admin", import_name=__name__, url_prefix="/admin/")
 product_manager = ProductManager.ProductManager()
 user_manager = UserManager.UserManager()
 order_manager = OrderManager.OrderManager()
+support_manager = SupportManager.SupportManager()
 
 
 @admin_blueprint.route("/")
@@ -24,13 +25,12 @@ def index():
 
 @admin_blueprint.route("/support")
 def support():
-    try:
-        if session['admin_logged_in']:
-            return render_template('admin/dashboard-human-resources.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+    if session['admin_logged_in']:
+        tickets = support_manager.get_ticket_list()
+        return render_template('admin/dashboard-human-resources.html', tickets=tickets)
+    else:
+        return redirect(url_for('/'))
+
     
 
 @admin_blueprint.route("/products")

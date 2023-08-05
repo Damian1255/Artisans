@@ -2644,7 +2644,7 @@ dialog {
 	padding: 1rem 3rem;
 	background: white;
 	max-width: 400px;
-	padding-top: 2rem;
+	padding: 2rem;
 	border-radius: 20px;
 	border: 0;
 	box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);

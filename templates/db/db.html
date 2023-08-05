@@ -226,8 +226,11 @@
                     <th>Ticket ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Category</th>
                     <th>Subject</th>
                     <th>Message</th>
+                    <th>Created</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
@@ -237,8 +240,11 @@
                     <td>{{ support_tickets[key].get_ticket_id() }}</td>
                     <td>{{ support_tickets[key].get_first_name() }}</td>
                     <td>{{ support_tickets[key].get_last_name() }}</td>
+                    <td>{{ support_tickets[key].get_category() }}</td>
                     <td>{{ support_tickets[key].get_subject() }}</td>
                     <td>{{ support_tickets[key].get_message() }}</td>
+                    <td>{{ support_tickets[key].get_date_created() }}</td>
+                    <td>{{ support_tickets[key].get_status() }}</td>
                     <td><input type="submit" value="Delete" onclick="deleteItem('delete/ticket/', {{ support_tickets[key].get_ticket_id() }})"></td>
                 </tr>
                 {% endfor %}
