@@ -72,11 +72,23 @@
 									</div>
 								</td>
 								<dialog id="orderdetailDialog-{{order[0].get_order_id()}}">
-									<h3>Order #{{order[0].get_order_id()}}</h3>
-									<p>{{order[1].get_first_name()}} {{order[1].get_last_name()}}</p>
-									<p>{{order[0].get_order_date()}}</p>
-									<p>{{order[2].get_name()}} (x{{order[0].get_order_quantity()}})</p>
-									<p>${{order[0].get_order_total()}}</p>
+									<div class="row">
+										<h3 class="mb-3">Order #{{order[0].get_order_id()}}</h3>
+										<div class="row">
+											<div class="col-6">
+												<h6 class="form-label">Customer name</h6>
+												<p>{{order[1].get_first_name()}} {{order[1].get_last_name()}}</p>
+											</div>
+											<div class="col-6">
+												<h6 class="form-label">Order date</h6>
+												{{order[0].get_order_date()}}
+											</div>
+										</div>
+										<div class="col-12 mb-3">
+											<h6 class="form-label">Order details</h6>
+											<p>{{order[2].get_name()}} (x{{order[0].get_order_quantity()}}) - ${{order[0].get_order_total()}}</p>
+										</div>
+									</div>
 									<a onclick="document.getElementById('orderdetailDialog-{{order[0].get_order_id()}}').close();" aria-label="close" class="x">❌</a>
 									<button type="button" onclick="document.getElementById('orderdetailDialog-{{order[0].get_order_id()}}').close();" style="width: 100%;" class="btn btn-primary">
 										Close

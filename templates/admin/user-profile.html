@@ -33,7 +33,7 @@
 										<h4>{{admin.get_first_name()}} {{admin.get_last_name()}}</h4>
 										<p class="text-muted font-size-sm mb-1">{{admin.get_email()}}</p>
 										<p class="text-secondary">Staff</p>
-										<a href="/admin/logout"><button class="btn btn-primary">Log Out</button></a>
+										<a href="/admin/logout"><button class="btn btn-danger">Log Out</button></a>
 									</div>
 								</div>
 							</div>
@@ -48,7 +48,7 @@
 										<h6 class="mb-0">First Name</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_first_name()}}" />
+										<input type="text" id="update-fn" class="form-control" value="{{admin.get_first_name()}}" />
 									</div>
 								</div>
 								<div class="row mb-3">
@@ -56,7 +56,7 @@
 										<h6 class="mb-0">Last Name</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_last_name()}}" />
+										<input type="text" id="update-ln" class="form-control" value="{{admin.get_last_name()}}" />
 									</div>
 								</div>
 								<div class="row mb-3">
@@ -64,48 +64,29 @@
 										<h6 class="mb-0">Email</h6>
 									</div>
 									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_email()}}" />
+										<input type="text" id="update-email" class="form-control" value="{{admin.get_email()}}" />
 									</div>
 								</div>
+								<input type="hidden" name="" id="update-id" value="{{admin.get_user_id()}}">
 								<div class="row">
 									<div class="col-sm-3"></div>
 									<div class="col-sm-9 text-secondary">
-										<input type="button" class="btn btn-primary px-4" value="Save Changes" />
+										<input type="button" id="update-btn" class="btn btn-primary px-4" value="Save Changes" />
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="card" style="padding: 20px;">
 							<div class="card-body">
-								<h4 class="mb-4">Account Password</h4>
-								<div class="row mb-3">
-									<div class="col-sm-3">
-										<h6 class="mb-0">First Name</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_first_name()}}" />
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Last Name</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_last_name()}}" />
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="col-sm-3">
-										<h6 class="mb-0">Email</h6>
-									</div>
-									<div class="col-sm-9 text-secondary">
-										<input type="text" class="form-control" value="{{admin.get_email()}}" />
-									</div>
-								</div>
+								<h4 class="mb-4">My Account</h4>
 								<div class="row">
-									<div class="col-sm-3"></div>
-									<div class="col-sm-9 text-secondary">
-										<input type="button" class="btn btn-primary px-4" value="Save Changes" />
+									<div class="row mb-3">
+										<div class="col-sm-3">
+											<h6 class="mb-0">Change Password</h6>
+										</div>
+										<div class="col-sm-9 text-secondary">
+											<input type="button" class="btn btn-primary px-4" onclick="document.getElementById('PasswordUpdateDialog').showModal();" value="Change Password" />
+										</div>
 									</div>
 								</div>
 							</div>
@@ -116,6 +97,149 @@
 		</div>
 	</div>
 </div>
+<dialog id="PasswordUpdateDialog">
+    <form method="post" action="#" id="password-update-form">
+        <h3>Update Password</h3>
+
+        <p style="margin-bottom: 5px;">Enter current password.</p>
+        <input class="form-control" type="password" name="current_password"
+            placeholder="Current Password" required autocomplete="">
+        <p style="margin-bottom: 5px; margin-top: 10px;">Enter new password.</p>
+        <input class="form-control" type="password" name="new_password" placeholder="New Password"
+            required autocomplete="">
+        <p style="margin-bottom: 5px; margin-top: 10px;">Confirm new password.</p>
+        <input class="form-control" type="password" name="confirm_password"
+            placeholder="Confirm Password" required autocomplete="">
+        <div id="msg" style="text-align: center; color: red"></div>
+
+        <a onclick="document.getElementById('PasswordUpdateDialog').close();" aria-label="close" class="x">❌</a>
+        <input type="hidden" name="pwd_customer_id" value="{{admin.get_user_id()}}">
+        <button class="btn btn-primary" style="width: 100%;margin-top: 20px" type="submit" class="dialog-btn"><i class="fa fa-arrow-left"> </i>
+            Update</button>
+    </form>
+</dialog>
+<dialog id="UpdateDialog">
+    <h2>Information Updated</h2>
+    <p>Your information has been updated successfully.</p>
+    <a onclick="document.getElementById('UpdateDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="btn btn-primary" style="width: 100%;" onclick="location.reload()">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>
+<dialog id="UpdatePasswordDialog">
+    <h2>Password Updated</h2>
+    <p>Your password has been updated successfully.</p>
+    <a onclick="document.getElementById('UpdatePasswordDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="btn btn-primary" style="width: 100%;" onclick="document.getElementById('UpdatePasswordDialog').close();">
+        <i class="fa fa-arrow-left"> </i> Close
+    </a>
+</dialog>
+<script>
+
+var updatebtn = document.getElementById("update-btn");
+
+updatebtn.addEventListener("click", function (event) {
+	event.preventDefault();
+
+	var updateid = document.getElementById("update-id");
+	var updatefn = document.getElementById("update-fn");
+	var updateln = document.getElementById("update-ln");
+	var updateemail = document.getElementById("update-email");
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/admin/update', true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+
+	xhr.onload = function () {
+		if (xhr.status === 200) {
+			var response = JSON.parse(xhr.responseText);
+
+			if (response.success) {
+				document.getElementById("UpdateDialog").showModal();
+			} else {
+				alert('An Internal error occurred.');
+			}
+		} else {
+			alert('An Internal error occurred.');
+		}
+	};
+	xhr.send(JSON.stringify({
+		user_id: updateid.value,
+		first_name: updatefn.value,
+		last_name: updateln.value,
+		email: updateemail.value
+	}));
+});
+
+
+var passwordUpdateForm = document.getElementById("password-update-form");
+passwordUpdateForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+	var current_password = passwordUpdateForm.querySelector("input[name='current_password']");
+	var new_password = passwordUpdateForm.querySelector("input[name='new_password']");
+	var confirm_password = passwordUpdateForm.querySelector("input[name='confirm_password']");
+	var msg = document.getElementById("msg");
+
+    remove_highlight([current_password, new_password, confirm_password])
+    msg.innerHTML = ""
+
+    if (new_password.value != confirm_password.value) {
+        highlight_elements_red([new_password, confirm_password])
+        msg.innerHTML = "Passwords do not match."
+        return
+    }
+    // Ajax call to update password
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/admin/password/update', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.success) {
+                passwordUpdateForm.reset();
+                document.getElementById("PasswordUpdateDialog").close();
+				document.getElementById("UpdatePasswordDialog").showModal();
+            } else {
+                msg.innerHTML = "Current password is incorrect."
+                highlight_elements_red([current_password])
+            }
+        } else {
+            alert('An Internal error occurred.');
+        }
+    };
+    xhr.send(JSON.stringify({
+        user_id: passwordUpdateForm.querySelector("input[name='pwd_customer_id']").value,
+        current_password: current_password.value,
+        new_password: new_password.value,
+    }));
+});
+
+function show_msg(message, color) {
+    var msgBox = document.getElementById("msg-box");
+    msgBox.innerHTML = message;
+    msgBox.style.color = color;
+
+    setTimeout(function () {
+        msgBox.innerHTML = "";
+    }
+        , 3000);
+}
+
+function highlight_elements_red(element_arr) {
+    element_arr.forEach(element => {
+        element.style.borderColor = "red";
+    });
+}
+
+function remove_highlight(element_arr) {
+    element_arr.forEach(element => {
+        element.style.borderColor = "";
+    });
+}
+</script>
 <!--end page wrapper -->
 {% endblock %}
 {% block js %}

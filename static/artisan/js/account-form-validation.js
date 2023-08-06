@@ -147,14 +147,6 @@ newProductForm = document.getElementById("newProduct");
 newProductForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    var customer_id = newProductForm.querySelector("input[name='customer_id']").value;
-    var product_title = newProductForm.querySelector("input[name='product_title']");
-    var product_price = newProductForm.querySelector("input[name='product_price']");
-    var product_quantity = newProductForm.querySelector("input[name='product_quantity']");
-    var product_description = newProductForm.querySelector("textarea[name='product_description']");
-    var product_image = newProductForm.querySelector("input[name='product_image']");
-    var product_category = newProductForm.querySelector("select[name='product_category']");
-
     const formData = new FormData(newProductForm);
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/artworks/new', true);

@@ -138,8 +138,34 @@
 							</td>
 							<dialog id="ticketDetailDialog-{{tickets[key].get_ticket_id()}}">
 								<div class="row">
-									<h3>Ticket #{{tickets[key].get_ticket_id()}}</h3>
+									<h3 class="mb-3">Ticket #{{tickets[key].get_ticket_id()}}</h3>
+									<div class="row">
+										<div class="col-6 mb-3">
+											<h6 class="form-label">Phone</h6>
+											<a href="tel:{{tickets[key].get_phone_number()}}">{{tickets[key].get_phone_number()}}</a>
+										</div>
+										<div class="col-6 mb-3">
+											<h6 class="form-label">Email</h6>
+											<a href="mailto:{{tickets[key].get_email()}}">{{tickets[key].get_email()}}</a>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-6 mb-3">
+											<h6 class="form-label">Category</h6>
+											{{tickets[key].get_category()}}
+										</div>
+										<div class="col-6 mb-3">
+											<h6 class="form-label">Subject</h6>
+											{{tickets[key].get_subject()}}
+										</div>
+									</div>
 									<div class="col-12 mb-3">
+										<h6 class="form-label">Message</h6>
+										<textarea style="width: 100%;" rows="5" readonly>{{tickets[key].get_message()}}</textarea>
+									</div>
+									<hr>
+									<div class="col-12 mb-4">
 										<h6 class="form-label">Status</h6>
 										<select class="form-control" name="status-{{tickets[key].get_ticket_id()}}" id="status-{{tickets[key].get_ticket_id()}}"
 										onchange="updateStatus({{tickets[key].get_ticket_id()}}, this.value)">
@@ -147,41 +173,7 @@
 											<option value="Closed" {% if tickets[key].get_status() == 'Closed' %} selected {% endif %}>Resolved</option>
 										</select>
 									</div>
-									<div class="row">
-										<div class="col-6 mb-3">
-											<h6 class="form-label">First name</h6>
-											{{tickets[key].get_first_name()}}
-										</div>
-										<div class="col-6 mb-3">
-											<h6 class="form-label">First name</h6>
-											{{tickets[key].get_last_name()}}
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-6 mb-3">
-											<h6 class="form-label">Phone</h6>
-											{{tickets[key].get_phone_number()}}
-										</div>
-										<div class="col-6 mb-3">
-											<h6 class="form-label">Email</h6>
-											{{tickets[key].get_email()}}
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-12 mb-3">
-											<h6 class="form-label">Category</h6>
-											{{tickets[key].get_category()}}
-										</div>
-									</div>
-									<div class="col-6 mb-3">
-										<h6 class="form-label">Subject</h6>
-										{{tickets[key].get_subject()}}
-									</div>
-									<div class="col-12 mb-3">
-										<h6 class="form-label">Message</h6>
-										<textarea style="width: 100%;" rows="5" readonly>{{tickets[key].get_message()}}</textarea>
-									</div>
-									<div class="col-12 mb-3">
+									<div class="col-12">
 										<button type="button"
 										onclick="document.getElementById('ticketDetailDialog-{{tickets[key].get_ticket_id()}}').close();"
 										style="width: 100%;" class="btn btn-primary">

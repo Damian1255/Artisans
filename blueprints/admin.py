@@ -183,6 +183,33 @@ def register():
     
     return render_template('admin/temp-sign-up.html')
 
+@admin_blueprint.route('/update/', methods=['GET', 'POST'])
+def update_admin():
+    if request.method == 'POST':
+        first_name = request.json['first_name']
+        last_name = request.json['last_name']
+        email = request.json['email']
+
+        user_manager.update_admin(session['admin_id'], first_name, last_name, email)
+        session['admin_first_name'] = first_name
+        session['admin_last_name'] = last_name
+
+        return jsonify({ 'success': True })
+    
+    return jsonify({ 'success': False })
+
+@admin_blueprint.route('/password/update', methods=['GET', 'POST'])
+def update_password():
+    if request.method == 'POST':
+        current_password = request.json['current_password']
+        password = request.json['new_password']
+
+        if user_manager.authenticate_admin(session['admin_username'], current_password)['success']:
+            user_manager.update_admin_password(session['admin_id'], password)
+            return jsonify({ 'success': True })
+    
+    return jsonify({ 'success': False })
+
 
 @admin_blueprint.route('/data', methods=['GET', 'POST'])
 def data():

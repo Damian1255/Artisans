@@ -138,6 +138,21 @@ class UserManager():
         print(f'Customer {customer.get_username()} successfully updated!')
         return True
     
+    
+    def update_admin(self, id, first_name, last_name, email):
+        admin_list = db.get_admin_list()
+        admin = admin_list[id]
+
+        admin.set_first_name(first_name)
+        admin.set_last_name(last_name)
+        admin.set_email(email)
+
+        admin_list[id] = admin
+        db.update_admin_list(admin_list)
+        print(f'Admin {admin.get_username()} successfully updated!')
+        return True
+    
+
     def update_password(self, id, password):
         customer_list = db.get_customer_list()
         customer = customer_list[id]
@@ -149,6 +164,20 @@ class UserManager():
         db.update_customer_list(customer_list)
         print(f'Customer {customer.get_username()} password successfully updated!')
         return True
+    
+
+    def update_admin_password(self, id, password):
+        admin_list = db.get_admin_list()
+        admin = admin_list[id]
+
+        password = hashlib.md5((password + salt).encode()).hexdigest()
+        admin.set_password(password)
+
+        admin_list[id] = admin
+        db.update_admin_list(admin_list)
+        print(f'Admin {admin.get_username()} password successfully updated!')
+        return True
+
 
     def get_customer_list(self):
         print(f'Customer list successfully retrieved!')

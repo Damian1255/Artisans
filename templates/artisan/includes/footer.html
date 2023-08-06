@@ -69,7 +69,7 @@
                                         {% if session['logged_in'] %}
                                             <li class="li"><a class="single-link" href="/account"> My account</a></li>
                                             <li class="li"><a class="single-link" href="/account">My orders</a></li>
-                                            <li class="li"><a class="single-link" href="#">Wishlist</a></li>
+                                            <li class="li"><a class="single-link" href="/wishlist">Wishlist</a></li>
                                         {% else %}
                                             <li class="li"><a class="single-link" href="/account/login">Login</a></li>
                                             <li class="li"><a class="single-link" href="/account/register">Register</a></li>
@@ -88,12 +88,10 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="shop-left-sidebar.html">Bestsellers</a></li>
-                                        <li class="li"><a class="single-link" href="#">Discount</a></li>
-                                        <li class="li"><a class="single-link" href="#">Latest products</a></li>
-                                        <li class="li"><a class="single-link" href="#">Sale</a></li>
-                                        <li class="li"><a class="single-link" href="#">All Collection</a></li>
+                                        <li class="li">
+                                            <a class="single-link" href="/artworks">All Collection</a>
                                         </li>
+                                        <li class="li"><a class="single-link" href="/sell">Sell your art</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -114,9 +112,9 @@
                                 </p>
                                 <p class="address">
                                     <i class="pe-7s-map-marker"></i>
-                                    <span>Your address goes here.
+                                    <span>Singapore
                                         <br>
-                                        123, Address.
+                                        123 Street, 200009
                                     </span>
                                 </p>
                                 <p class="phone m-0">
