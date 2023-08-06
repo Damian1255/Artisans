@@ -131,3 +131,17 @@ class OrderManager():
         
         top_sellers.sort(key=lambda x: x[1], reverse=True)
         return top_sellers[:5]
+    
+    def get_top_customers(self):
+        customer_list = []
+        customers = db.get_customer_list()
+        for customer_id in customers:
+            total_sales = 0
+
+            orders = OrderManager.get_orders_by_customer(self, customer_id)
+            for order in orders:
+                total_sales += order.get_order_total()
+            customer_list.append([customers[customer_id], total_sales, len(orders)])
+        
+        customer_list.sort(key=lambda x: x[1], reverse=True)
+        return customer_list

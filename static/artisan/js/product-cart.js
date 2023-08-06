@@ -29,8 +29,3 @@ addcartbtn.addEventListener("click", function (event) {
         quantity: quantity.value
     }));
 });
-
-function show_error(message) {
-    var msgBox = document.getElementById("login-msg-box");
-    msgBox.innerHTML = message;
-}

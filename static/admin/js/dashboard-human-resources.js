@@ -13,9 +13,7 @@ $(function () {
         chart: {
           height: 310,
           type: 'bar',
-          toolbar: {
-            show: false
-          }
+          toolbar: { show: !0, tools:{download:true}}
         },
         plotOptions: {
           bar: {
@@ -128,9 +126,7 @@ $(function () {
         chart: {
           height: 330,
           type: 'bar',
-          toolbar: {
-            show: false
-          },
+          toolbar: { show: !0, tools:{download:true}},
           dropShadow: {
             enabled: true,
             opacity: 0.1,
@@ -228,9 +224,7 @@ $(function () {
         chart: {
           height: 335,
           type: 'radialBar',
-          toolbar: {
-            show: false
-          }
+          toolbar: { show: !0, tools:{download:true}}
         },
         plotOptions: {
           radialBar: {
@@ -298,7 +292,7 @@ $(function () {
           }
         },
         // colors: ["#ff5447"],
-        series: [result.tickets_total[1] / result.tickets_total[0] * 100],
+        series: [Math.round(result.tickets_total[1] / result.tickets_total[0] * 100)],
         stroke: {
           lineCap: 'round'
         },

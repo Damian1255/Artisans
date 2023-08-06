@@ -107,5 +107,5 @@ def data():
         return jsonify({
             'tickets': tickets,
             'tickets_category': tickets_category,
-            'tickets_total': [len(records), close]
+            'tickets_total': [len(tickets), close]
         })

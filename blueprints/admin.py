@@ -14,28 +14,26 @@ support_manager = SupportManager.SupportManager()
 
 @admin_blueprint.route("/")
 def index():
-    try:
-        if session['admin_logged_in']:
-            return render_template('admin/dashboard-eCommerce.html')
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+    if 'admin_logged_in' in session and session['admin_logged_in']:
+        top_customers = order_manager.get_top_customers()
+        return render_template('admin/dashboard-eCommerce.html', top_customers=top_customers)
+    
+    return redirect(url_for('admin.login'))
     
 
 @admin_blueprint.route("/support")
 def support():
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         tickets = support_manager.get_ticket_list()
         return render_template('admin/dashboard-human-resources.html', tickets=tickets)
-    else:
-        return redirect(url_for('/'))
+
+    return redirect(url_for('admin.login'))
 
     
 
 @admin_blueprint.route("/products")
 def products():
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         products = product_manager.get_product_list()
         product_list = []
         
@@ -50,7 +48,7 @@ def products():
 
 @admin_blueprint.route("/products/<int:product_id>")
 def product(product_id):
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         product = product_manager.get_product(product_id)
         if product:
             return render_template('admin/ecommerce-products-details.html', product=product)
@@ -81,7 +79,7 @@ def new_product():
         product_manager.add_product(00000, title, price, quantity, image, description, category)
         return redirect(url_for('admin.products'))
 
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         return render_template('admin/ecommerce-add-new-products.html')
     
     return redirect(url_for('admin.login'))
@@ -89,7 +87,7 @@ def new_product():
 
 @admin_blueprint.route("/products/orders")
 def orders():
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         orders = order_manager.get_order_list()
         order_list = []
         for order in orders:
@@ -113,7 +111,7 @@ def delete_order():
 @admin_blueprint.route("/staffs")
 def staffs():
     try:
-        if session['admin_logged_in']:
+        if 'admin_logged_in' in session and session['admin_logged_in']:
             admin_list = user_manager.get_admin_list()
 
             return render_template('admin/app-contact-list.html', staffs=admin_list)
@@ -126,7 +124,7 @@ def staffs():
 @admin_blueprint.route("/staffs/new")
 def new_staff():
     try:
-        if session['admin_logged_in']:
+        if 'admin_logged_in' in session and session['admin_logged_in']:
             return render_template('admin/app-contact-new.html')
         else:
             return redirect(url_for('/'))
@@ -143,7 +141,7 @@ def delete_admin():
 
 @admin_blueprint.route("/profile")
 def profile():
-    if session['admin_logged_in']:
+    if 'admin_logged_in' in session and session['admin_logged_in']:
         admin = user_manager.get_admin(session['admin_id'])
         return render_template('admin/user-profile.html', admin=admin)
 
@@ -207,6 +205,7 @@ def data():
                 'date': date,
                 'customer': customer,
                 'product': product,
+                'product_id': p.get_id(),
                 'category': category,
                 'quantity': quantity,
                 'sales': sales,
@@ -225,7 +224,7 @@ def data():
             if not any(record['date'] == date for record in records):
                 records.append({
                     'date': date, 'customer': '',
-                    'product': '', 'category': '',
+                    'product': '', 'product_id': 0, 'category': '',
                     'quantity': 0, 'sales': 0, 'profit': 0
                 })
 
@@ -234,11 +233,49 @@ def data():
 
         df = pd.DataFrame(records).groupby(['category']).sum(numeric_only=True).reset_index()
         df.sort_values(by=['sales'], inplace=True, ascending=False)
+        df = df.head(5)
         result_topcategory = df.to_dict('list')
+
+        df = pd.DataFrame(records).groupby(['product']).sum(numeric_only=True).reset_index()
+        df.sort_values(by=['sales'], inplace=True, ascending=False)
+        df = df.head(10)
+        result_topproduct = df.to_dict('list')
+
+        # product images for top products
+        df = pd.DataFrame(records).groupby(['product_id']).sum(numeric_only=True).reset_index()
+        df.sort_values(by=['sales'], inplace=True, ascending=False)
+        df = df.head(10)
+        result_topproduct['product_id'] = df['product_id'].tolist()
+
+        result_products = {}
+        for id in df['product_id'].tolist():
+            date = []
+            quantity = []
+            orders = order_manager.get_orders_by_product(id)
+            for order in orders:
+                date.append(order.get_order_date(),)
+                quantity.append(order.get_order_quantity())
+
+            result_products[id] = [date, quantity]
+            # check for empty gap in date to fill with 0
+            try:
+                start_date = datetime.strptime(date[0], '%Y-%m-%d').date()
+            except:
+                start_date = datetime.today().date()
+            end_date = datetime.today().date()
+
+            for date in pd.date_range(start_date, end_date):
+                date = date.strftime('%Y-%m-%d')
+                if not any(d == date for d in result_products[id][0]):
+                    result_products[id][0].append(date)
+                    result_products[id][1].append(0)
+            
 
         return jsonify({
             'result_bydate': result_bydate,
-            'result_topcategory': result_topcategory
+            'result_topcategory': result_topcategory,
+            'result_topproduct': result_topproduct,
+            'result_products': result_products
         })
 
 

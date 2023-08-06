@@ -45,10 +45,10 @@ def wip():
 
 @app.route('/sell')
 def sell():
-    if session['logged_in']:
+    if 'logged_in' in session and session['logged_in']:
         return redirect(url_for('account.account') + '?sell-artwork')
     
-    return redirect('/')
+    return redirect('/?login-required')
 
 @app.errorhandler(404)
 def page_not_found(e):

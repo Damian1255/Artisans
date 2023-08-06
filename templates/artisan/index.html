@@ -1337,6 +1337,14 @@
         </div>
     </div>
 </div>
+<dialog id="newArtDialog">
+    <h2>Selling Your Art</h2>
+    <p>A account is required to sell your art. Please log in or create an account to continue.</p>
+    <a onclick="document.getElementById('newArtDialog').close();" aria-label="close" class="x">❌</a>
+    <a class="dialog-btn" href="/account/register">
+        <i class="fa fa-arrow-left"> </i> Proceed to Register
+    </a>
+</dialog>
 <!-- Testimonial Area End -->
 <script>
     function addCart(id) {
@@ -1365,6 +1373,13 @@
             product_id : id,
             quantity : 1
         }));
+    }
+
+    // get parameters from url
+    url = window.location.href;
+    url = url.split('?')[1];
+    if (url == 'login-required') {
+        document.getElementById('newArtDialog').showModal();
     }
 </script>
 <!--  Blog area End -->
