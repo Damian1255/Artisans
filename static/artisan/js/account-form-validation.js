@@ -255,5 +255,7 @@ url = window.location.href;
 url = url.split('?')[1];
 if (url == 'sell-artwork') {
     document.getElementById('newArtworkDialog').showModal();
+    // remove the parameter from url
+    window.history.pushState({}, document.title, "/" + "account");
 }
 

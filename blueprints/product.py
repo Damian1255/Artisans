@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request
+from flask import Blueprint, render_template, jsonify, request
 from components import DbManager, UserManager, ProductManager, CartManager, OrderManager
 from werkzeug.utils import secure_filename
 from configuration import config

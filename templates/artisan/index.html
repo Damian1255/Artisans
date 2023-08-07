@@ -477,6 +477,8 @@
     url = url.split('?')[1];
     if (url == 'login-required') {
         document.getElementById('newArtDialog').showModal();
+        // remove the parameter from url
+        window.history.replaceState({}, document.title, "/");
     }
 </script>
 <!--  Blog area End -->

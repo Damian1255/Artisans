@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request, flash
+from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request
 import os, pandas as pd
 from datetime import datetime
 from configuration import config
 from werkzeug.utils import secure_filename
-from components import ProductManager, UserManager, OrderManager, SupportManager, DbManager
+from components import ProductManager, UserManager, OrderManager, SupportManager
 
 admin_blueprint = Blueprint(name="admin", import_name=__name__, url_prefix="/admin/")
 product_manager = ProductManager.ProductManager()

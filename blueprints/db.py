@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, redirect, url_for, jsonify
+from flask import Blueprint, render_template, jsonify
 from components import DbManager, UserManager, ProductManager, CartManager, SupportManager, OrderManager
 
 db_blueprint = Blueprint(name="db", import_name=__name__, url_prefix="/db/")

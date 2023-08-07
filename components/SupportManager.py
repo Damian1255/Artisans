@@ -1,6 +1,6 @@
 import random, datetime
 from classes import SupportTicket
-from components import DbManager, ProductManager
+from components import DbManager
 
 db = DbManager.DbManager()
 

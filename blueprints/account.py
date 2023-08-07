@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from components import UserManager, CartManager, OrderManager, ProductManager
-from configuration import config
 
 account_blueprint = Blueprint(
     name="account", import_name=__name__, url_prefix="/account/")

@@ -1,6 +1,6 @@
 from datetime import datetime
 import pandas as pd
-from flask import Blueprint, render_template, session, redirect, url_for, jsonify, request
+from flask import Blueprint, render_template, jsonify, request
 from components import DbManager, UserManager, SupportManager
 
 support_bp = Blueprint(name="support_bp", import_name=__name__, url_prefix="/support/")
