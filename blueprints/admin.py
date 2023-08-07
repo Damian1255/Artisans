@@ -94,6 +94,9 @@ def orders():
             customer = user_manager.get_customer(orders[order].get_customer_id())
             product = product_manager.get_product(orders[order].get_product_id())
             order_list.append([orders[order], customer, product])
+        
+        # sort by date
+        order_list.sort(key=lambda x: x[0].get_order_date(), reverse=True)
 
         return render_template('admin/ecommerce-orders.html', orders=order_list)
 
@@ -110,15 +113,12 @@ def delete_order():
 
 @admin_blueprint.route("/staffs")
 def staffs():
-    try:
-        if 'admin_logged_in' in session and session['admin_logged_in']:
-            admin_list = user_manager.get_admin_list()
+    if 'admin_logged_in' in session and session['admin_logged_in']:
+        admin_list = user_manager.get_admin_list()
 
-            return render_template('admin/app-contact-list.html', staffs=admin_list)
-        else:
-            return redirect(url_for('/'))
-    except:
-        return redirect(url_for('admin.login'))
+        return render_template('admin/app-contact-list.html', staffs=admin_list)
+    
+    return redirect(url_for('admin.login'))
     
 
 @admin_blueprint.route("/staffs/new")

@@ -38,9 +38,17 @@
 								<img src="assets/images/avatars/avatar-1.png" width="110" height="110"
 									class="rounded-circle shadow" alt="">
 								<h5 class="mb-0 mt-5">{{staffs[key].get_first_name()}} {{staffs[key].get_last_name()}}</h5>
+								{% if staffs[key].get_user_id() != session['admin_id'] %}
 								<p class="mb-3">Staff Member</p>
+								{% else %}
+								<p class="mb-3">Staff Member (You)</p>
+								{% endif %}
 								<div class="d-grid">
+									{% if staffs[key].get_user_id() != session['admin_id'] %}
 									<a href="javascript:;" onclick="document.getElementById('deleteStaffDialog-{{staffs[key].get_user_id()}}').showModal()" class="btn btn-danger radius-15">Remove Staff</a>
+									{% else %}
+									<a href="/admin/profile" class="btn btn-primary radius-15">View Profile</a>
+									{% endif %}
 								</div>
 							</div>
 						</div>
@@ -99,7 +107,7 @@
 			</div>
 		</div>
 		<a onclick="document.getElementById('newAdminDialog').close();" aria-label="close" class="x">❌</a>
-		<p id="msg" style="color:red; text-align: center; margin: 10px 0px;">-</p>
+		<p id="msg" style="color:red; text-align: center; margin: 10px 0px;"></p>
 	</form>
 </dialog>
 <script>

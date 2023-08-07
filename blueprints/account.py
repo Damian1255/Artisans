@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from components import UserManager, CartManager, OrderManager, ProductManager
+from configuration import config
 
 account_blueprint = Blueprint(
     name="account", import_name=__name__, url_prefix="/account/")
@@ -36,7 +37,10 @@ def account():
             total_sold += artwork.get_order_quantity()
             
             
-        return render_template('artisan/my-account.html', user=user, orders=order_list, user_artworks=user_artworks, total_sold=total_sold, total_profit=total_profit)
+        return render_template('artisan/my-account.html', user=user,
+                               orders=order_list, user_artworks=user_artworks,
+                               total_sold=total_sold, total_profit=total_profit,
+                               comm_rate=config.COMM_RATE)
 
     return redirect(url_for('account.login'))
 

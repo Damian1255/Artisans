@@ -47,6 +47,8 @@
                 <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
                     <div class="tab-pane fade show active" id="dashboard">
                         <h4>Overview</h4>
+                        <p>Our current commission rate is {{comm_rate*100}}% of the total price of the artwork. You will receive {{100 -comm_rate*100}}%
+                            of the total price of the artwork.</p>
                         <div class="row" style="margin-bottom: 30px;">
                             <div class="col-md-3">
                                 <h6>Profit</h6>
@@ -278,11 +280,11 @@
                                     <dialog id="ViewProductDialog-{{order[0].get_order_id()}}">
                                         <h2>{{order[1].get_name()}}</h2>
                                         <img src="{{ url_for('static', filename='artisan/images/product-image/')}}{{order[1].get_image()[0]}}"
-                                            alt="{{order[1].get_name()}}" width="100%">
+                                            alt="{{order[1].get_name()}}" width="100%" class="md-3">
                                         <a onclick="document.getElementById('ViewProductDialog-{{order[0].get_order_id()}}').close();"
                                             aria-label="close" class="x">❌</a>
                                         <a href="{{ url_for('static', filename='artisan/images/product-image/')}}{{order[1].get_image()[0]}}"
-                                            download="{{order[1].get_name()}}" class="dialog-btn" id="dialog-btn">
+                                            download="{{order[1].get_name()}}" class="dialog-btn" style="margin-top: 20px;" id="dialog-btn">
                                             <i class="fa fa-arrow-down"> </i> Download
                                         </a>
                                     </dialog>

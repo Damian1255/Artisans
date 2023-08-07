@@ -102,19 +102,18 @@
             <div class="col-12">
                 <div class="section-title text-center mb-2">
                     <h2 class="title">Popular Categories</h2>
-                    
                 </div>
                 <!-- Tab Start -->
                 <div class="tab-slider swiper-container slider-nav-style-1 small-nav">
                     <ul class="product-tab-nav nav swiper-wrapper ">
                         <li class="nav-item swiper-slide">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#tab-all">
+                            <a class="nav-link active" style="text-align: center;" data-bs-toggle="tab" href="#tab-all">
                                 <span>All</span>
                             </a>
                         </li>
                         {% for category in categories %}
                         <li class="nav-item swiper-slide">
-                            <a class="nav-link"  style="text-align: center;" data-bs-toggle="tab" href="#tab-{{category.split(' ')[0]}}-{{category.split(' ')[1]}}">
+                            <a class="nav-link" style="text-align: center;" data-bs-toggle="tab" href="#tab-{{category.split(' ')[0]}}-{{category.split(' ')[1]}}">
                                 <span>{{category}}</span>
                             </a>
                         </li>
