@@ -53,7 +53,9 @@
 			</div>
 		</div>
 		{% if query %}
-		<h5>Search Results for {{query}} ({{products|length}}) - <a href="/admin/products">Clear Search</a></h5>
+		<h5>{{products|length}} Search Results for {{query}} - <a href="/admin/products">Clear Search</a></h5>
+		{% else %}
+		<h5>{{products|length}} Products</h5>
 		{% endif %}
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
 			{% for product in products %}
