@@ -29,7 +29,21 @@ cart_manager = CartManager.CartManager()
 
 @app.route('/')
 def index():
-    return render_template('artisan/index.html', products=product_manager.get_product_list(), top_products=order_manager.get_top_sellers())
+    products=product_manager.get_product_list()
+    top_products=order_manager.get_top_sellers()
+    categories = product_manager.get_categories(products)
+
+    categories_top = []
+    for product in top_products:
+        if product[0].get_category() not in categories_top:
+            categories_top.append(product[0].get_category())
+    print(categories_top)
+
+    return render_template('artisan/index.html',
+                           products=products,
+                           top_products=top_products,
+                           categories=categories,
+                           categories_top=categories_top)
 
 @app.route('/about')
 def about():

@@ -101,5 +101,13 @@ class ProductManager():
                 results[product.get_id()] = product
                 
         return results
+    
+    def get_categories(self, product_list):
+        categories = []
+        for product in product_list.values():
+            if product.get_category() not in categories:
+                categories.append(product.get_category())
+            
+        return categories
         
     
