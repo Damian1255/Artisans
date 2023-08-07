@@ -25,23 +25,31 @@ def index():
 def support():
     if 'admin_logged_in' in session and session['admin_logged_in']:
         tickets = support_manager.get_ticket_list()
+
+        # sort dictionary by date
+        tickets = {k: v for k, v in sorted(tickets.items(), key=lambda item: item[1].get_date_created(), reverse=True)}
+        
         return render_template('admin/dashboard-human-resources.html', tickets=tickets)
 
     return redirect(url_for('admin.login'))
 
     
 
-@admin_blueprint.route("/products")
+@admin_blueprint.route("/products", methods=['GET', 'POST'])
 def products():
     if 'admin_logged_in' in session and session['admin_logged_in']:
-        products = product_manager.get_product_list()
-        product_list = []
-        
+        try:
+            query = request.args.get('query')
+            products = product_manager.search_product(query, None)
+        except:
+            products = product_manager.get_product_list()
+
+        product_list = []        
         for key in products:
             sold = order_manager.get_ordered_quantity_by_product(products[key].get_id())
             product_list.append([products[key], sold])
 
-        return render_template('admin/ecommerce-products.html', products=product_list)
+        return render_template('admin/ecommerce-products.html', products=product_list, query=query)
 
     return redirect(url_for('admin.login'))
     

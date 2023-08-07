@@ -19,14 +19,16 @@
 									<div class="row row-cols-lg-auto g-2">
 										<div class="col-12">
 											<div class="position-relative">
-												<input type="text" class="form-control ps-5"
-													placeholder="Search Product..."> <span
-													class="position-absolute top-50 product-show translate-middle-y"><i
-														class="bx bx-search"></i></span>
+												<form role="search" method="get" action="admin/products/search/">
+													<input type="text" class="form-control ps-5" name="query" placeholder="Search Product...">
+													<span class="position-absolute top-50 product-show translate-middle-y">
+														<i class="bx bx-search"></i>
+													</span>
+												</form>
 											</div>
 										</div>
 										<div class="col-12">
-											<div class="btn-group" role="group"
+											<!-- <div class="btn-group" role="group"
 												aria-label="Button group with nested dropdown">
 												<button type="button" class="btn btn-white">Sort By</button>
 												<div class="btn-group" role="group">
@@ -40,7 +42,7 @@
 														<li><a class="dropdown-item" href="#">Dropdown link</a></li>
 													</ul>
 												</div>
-											</div>
+											</div> -->
 										</div>
 									</div>
 								</form>
@@ -50,7 +52,9 @@
 				</div>
 			</div>
 		</div>
-
+		{% if query %}
+		<h5>Search Results for {{query}} ({{products|length}}) - <a href="/admin/products">Clear Search</a></h5>
+		{% endif %}
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
 			{% for product in products %}
 			<div class="col">

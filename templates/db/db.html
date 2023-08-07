@@ -42,12 +42,14 @@
         }
     </style>
 </head>
-
 <body>
     <h2>Database Manager</h2>
+    <a href="/admin" style="float: right;">< Back to admin portal</a>
     <p>Click on the buttons to view database content.</p>
-    <a href="/admin/register">Add new admin</a>
-    <a href="/admin/artworks/new">Add new product</a>
+    <div style="margin-bottom: 10px;">
+        <a href="/admin/register">Add new admin</a>
+        <a href="/admin/artworks/new">Add new product</a>
+    </div>
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Customers')">Customers</button>
         <button class="tablinks" onclick="openTab(event, 'Admins')">Admins</button>
@@ -252,7 +254,18 @@
         </table>
     </div>
 
+    <dialog id="WarningDialog">
+        <h2>Development Use Only!</h2>
+        <p>This page is for development use only.</p>
+        <a onclick="document.getElementById('WarningDialog').close();" aria-label="close" class="x">❌</a>
+        <a class="dialog-btn" onclick="document.getElementById('WarningDialog').close();">
+            <i class="fa fa-arrow-left"> </i> Close
+        </a>
+    </dialog>
+
     <script>
+        document.getElementById('WarningDialog').showModal();
+
         document.getElementsByClassName("tablinks")[0].click();
 
         function openTab(evt, tabName) {

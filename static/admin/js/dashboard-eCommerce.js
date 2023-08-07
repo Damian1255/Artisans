@@ -132,7 +132,7 @@ $(function () {
 
             e = {
                 series: result.result_topcategory.sales,
-                chart: { height: 240, type: "donut" },
+                chart: { height: 240, type: "donut", toolbar: { show: !0, tools:{download:true}} },
                 legend: { position: "bottom", show: !1 },
                 plotOptions: { pie: { donut: { size: "60%" } } },
                 colors: colors,

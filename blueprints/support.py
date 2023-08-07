@@ -61,14 +61,14 @@ def data():
         records = []
         close = 0
 
-        tickets = support_manager.get_ticket_list()
-        for ticket in tickets:
-            date = tickets[ticket].get_date_created()
-            id = tickets[ticket].get_ticket_id()
-            customer = tickets[ticket].get_first_name() + ' ' + tickets[ticket].get_last_name()
-            category = tickets[ticket].get_category()
-            subject = tickets[ticket].get_subject()
-            status = tickets[ticket].get_status()
+        ticket_list = support_manager.get_ticket_list()
+        for ticket in ticket_list:
+            date = ticket_list[ticket].get_date_created()
+            id = ticket_list[ticket].get_ticket_id()
+            customer = ticket_list[ticket].get_first_name() + ' ' + ticket_list[ticket].get_last_name()
+            category = ticket_list[ticket].get_category()
+            subject = ticket_list[ticket].get_subject()
+            status = ticket_list[ticket].get_status()
 
             records.append({
                 'date': date,
@@ -107,5 +107,5 @@ def data():
         return jsonify({
             'tickets': tickets,
             'tickets_category': tickets_category,
-            'tickets_total': [len(tickets), close]
+            'tickets_total': [len(ticket_list), close]
         })

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, session, redirect, url_for
 from components import DbManager, UserManager, ProductManager, CartManager, SupportManager, OrderManager
 
 db_blueprint = Blueprint(name="db", import_name=__name__, url_prefix="/db/")
@@ -12,15 +12,20 @@ order_manager = OrderManager.OrderManager()
 
 @db_blueprint.route('/')
 def index():
-    customer_list = db.get_customer_list()
-    admin_list = db.get_admin_list()
-    product_list = db.get_product_list()
-    cart_list = db.get_cart_list()
-    support_list = db.get_support_ticket_list()
-    order_list = db.get_order_list()
+    if 'admin_logged_in' in session and session['admin_logged_in']:
+        customer_list = db.get_customer_list()
+        admin_list = db.get_admin_list()
+        product_list = db.get_product_list()
+        cart_list = db.get_cart_list()
+        support_list = db.get_support_ticket_list()
+        order_list = db.get_order_list()
 
-    return render_template('db/db.html', customers=customer_list, admins=admin_list,
-                           products=product_list, cart_items=cart_list, support_tickets=support_list, orders=order_list)
+        return render_template('db/db.html', 
+                                customers=customer_list, admins=admin_list,
+                                products=product_list, cart_items=cart_list, support_tickets=support_list,
+                                orders=order_list)
+    else:
+        return redirect(url_for('admin.login'))
 
 @db_blueprint.route('/delete/admin/<int:id>', methods=['GET', 'POST'])
 def delete_admin(id):

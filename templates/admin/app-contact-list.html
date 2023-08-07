@@ -35,7 +35,7 @@
 					<div class="card radius-15">
 						<div class="card-body text-center">
 							<div class="p-4 border radius-15">
-								<img src="assets/images/avatars/avatar-1.png" width="110" height="110"
+								<img src="{{ url_for('static', filename='admin/images/avatars/avatar-1.png')}}" width="110" height="110"
 									class="rounded-circle shadow" alt="">
 								<h5 class="mb-0 mt-5">{{staffs[key].get_first_name()}} {{staffs[key].get_last_name()}}</h5>
 								{% if staffs[key].get_user_id() != session['admin_id'] %}
