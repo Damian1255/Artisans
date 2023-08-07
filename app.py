@@ -37,7 +37,6 @@ def index():
     for product in top_products:
         if product[0].get_category() not in categories_top:
             categories_top.append(product[0].get_category())
-    print(categories_top)
 
     return render_template('artisan/index.html',
                            products=products,
