@@ -112,6 +112,8 @@
 </dialog>
 <script>
     var adminForm = document.getElementById("admin-register");
+	var msg = document.getElementById("msg");
+	
     adminForm.addEventListener("submit", function (event) {
         event.preventDefault();
 		msg.innerHTML = ""
@@ -122,7 +124,6 @@
         var username = adminForm.querySelector("input[name='admin-username']");
         var password = adminForm.querySelector("input[name='admin-password']");
 		var confirm_password = adminForm.querySelector("input[name='admin-confirm-password']");
-        var msg = document.getElementById("msg");
 
 		if (password.value != confirm_password.value) {
 			msg.innerHTML = "Passwords do not match."

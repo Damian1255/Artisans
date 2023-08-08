@@ -257,5 +257,10 @@ if (url == 'sell-artwork') {
     document.getElementById('newArtworkDialog').showModal();
     // remove the parameter from url
     window.history.pushState({}, document.title, "/" + "account");
+} else if (url.split('=')[0] == 'edit-artwork') {
+    id = window.location.href.split('=')[1];
+    document.getElementById('editArtworkDialog-'+id).showModal();
+    // remove the parameter from url
+    window.history.pushState({}, document.title, "/" + "account");
 }
 

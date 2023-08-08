@@ -94,8 +94,13 @@
 								<p class="mb-0 font-13 text-secondary"><i class='bx bxs-calendar'></i>of all time
 									revenue</p>
 							</div>
-							<div class="font-22 ms-auto"><i class='bx bx-dots-horizontal-rounded'></i>
+							<div class="font-22 ms-auto" data-bs-toggle="dropdown">
+								<i class='bx bx-dots-horizontal-rounded'></i>
 							</div>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
+								<a class="dropdown-item" id="switch-line">Line Chart</a>
+								<a class="dropdown-item" id="switch-bar">Bar Chart</a>	
+							</div>	
 						</div>
 						<div class="row row-cols-1 row-cols-sm-3 mt-4">
 							<div class="col">
@@ -124,6 +129,7 @@
 							</div>
 						</div>
 						<div id="chart4"></div>
+						<div id="chart5" style="display: none;"></div>
 					</div>
 				</div>
 			</div>
