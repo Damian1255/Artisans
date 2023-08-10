@@ -12,7 +12,7 @@ product_manager = ProductManager.ProductManager()
 
 @account_blueprint.route('/')
 def account():
-    if 'logged_in' in session:
+    if 'logged_in' in session and session['logged_in']:
         user = user_manager.get_customer(session['user_id'])
         orders = order_manager.get_orders_by_customer(session['user_id'])
         order_list = []
@@ -26,7 +26,6 @@ def account():
         for artwork in artworks:
             sold = order_manager.get_ordered_quantity_by_product(artwork.get_id())
             user_artworks.append([artwork, sold])
-
 
         total_sold = 0
         total_profit = 0.0
