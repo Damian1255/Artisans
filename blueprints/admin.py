@@ -57,8 +57,8 @@ def products():
 @admin_blueprint.route("/products/<int:product_id>")
 def product(product_id):
     if 'admin_logged_in' in session and session['admin_logged_in']:
-        product = product_manager.get_product(product_id)
-        if product:
+        if product_manager.get_product(product_id):
+            product = product_manager.get_product(product_id)
             sold = order_manager.get_ordered_quantity_by_product(product_id)
             customer = user_manager.get_customer(int(product.get_customer_id()))
 
