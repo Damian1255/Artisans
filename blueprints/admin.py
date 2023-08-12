@@ -59,7 +59,17 @@ def product(product_id):
     if 'admin_logged_in' in session and session['admin_logged_in']:
         product = product_manager.get_product(product_id)
         if product:
-            return render_template('admin/ecommerce-products-details.html', product=product)
+            sold = order_manager.get_ordered_quantity_by_product(product_id)
+            customer = user_manager.get_customer(int(product.get_customer_id()))
+
+            if customer:
+                artist = customer.get_username()
+            elif product.get_customer_id() == 00000:
+                artist = "Artisan's"
+            else:
+                artist = 'Unknown'
+                
+            return render_template('admin/ecommerce-products-details.html', product=product, sold=sold, artist=artist)
         
         return redirect(url_for('admin.products'))
     
@@ -173,6 +183,11 @@ def login():
     return render_template('admin/authentication-signin.html')
 
 
+@admin_blueprint.route('/coming-soon', methods=['GET', 'POST'])
+def coming_soon():
+    return render_template('admin/errors-coming-soon.html')
+
+
 @admin_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':        
@@ -191,6 +206,7 @@ def register():
     
     return render_template('admin/temp-sign-up.html')
 
+
 @admin_blueprint.route('/update/', methods=['GET', 'POST'])
 def update_admin():
     if request.method == 'POST':
@@ -205,6 +221,7 @@ def update_admin():
         return jsonify({ 'success': True })
     
     return jsonify({ 'success': False })
+
 
 @admin_blueprint.route('/password/update', methods=['GET', 'POST'])
 def update_password():
@@ -276,7 +293,6 @@ def data():
         df = df.head(10)
         result_topproduct = df.to_dict('list')
 
-        # product images for top products
         df = pd.DataFrame(records).groupby(['product_id']).sum(numeric_only=True).reset_index()
         df.sort_values(by=['sales'], inplace=True, ascending=False)
         df = df.head(10)
@@ -287,9 +303,15 @@ def data():
             date = []
             quantity = []
             orders = order_manager.get_orders_by_product(id)
+
             for order in orders:
-                date.append(order.get_order_date(),)
+                date.append(order.get_order_date())
                 quantity.append(order.get_order_quantity())
+
+            df = pd.DataFrame({'date': date, 'quantity': quantity})
+            df = df.groupby(['date']).sum(numeric_only=True).reset_index()
+            date = df['date'].tolist()
+            quantity = df['quantity'].tolist()
 
             result_products[id] = [date, quantity]
             # check for empty gap in date to fill with 0
@@ -304,7 +326,9 @@ def data():
                 if not any(d == date for d in result_products[id][0]):
                     result_products[id][0].append(date)
                     result_products[id][1].append(0)
-            
+
+            # sort by date
+            result_products[id][0], result_products[id][1] = zip(*sorted(zip(result_products[id][0], result_products[id][1]))) 
 
         return jsonify({
             'result_bydate': result_bydate,

@@ -9,6 +9,20 @@ $(function () {
 
             // revenue chart
             $("#total-revenue").text("$" + result.result_bydate.sales.reduce((a, b) => a + b, 0))
+
+            // revenue status since previous day
+            prev = result.result_bydate.sales[result.result_bydate.sales.length - 2]
+            current = result.result_bydate.sales[result.result_bydate.sales.length - 1]
+            
+            if (prev == 0) {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> 100% Since Previous Day</p>`
+            } else if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round((prev - current) / prev * 100)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> ${Math.round((current - prev) / prev * 100)}% Since Previous Day</p>`
+            }
+            $("#rev-status").append(html)
+
             "use strict";
             var e = {
                 series: [{ name: "Revenue", data: result.result_bydate.sales }],
@@ -40,6 +54,21 @@ $(function () {
 
             // quantity chart
             $("#total-quantity").text(result.result_bydate.quantity.reduce((a, b) => a + b, 0))
+
+            // quantity status since previous day
+            prev = result.result_bydate.quantity[result.result_bydate.quantity.length - 2]
+            current = result.result_bydate.quantity[result.result_bydate.quantity.length - 1]
+
+            if (prev == 0) {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> 100% Since Previous Day</p>`
+            } else if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round((prev - current) / prev * 100)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> ${Math.round((current - prev) / prev * 100)}% Since Previous Day</p>`
+            }
+
+            $("#qty-status").append(html)
+
             e = {
                 series: [{ name: "Customers", data: result.result_bydate.quantity }],
                 chart: { type: "line", height: 65, toolbar: { show: !0, tools: { download: true } }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#ffc107" }, sparkline: { enabled: !0 } },
@@ -67,6 +96,21 @@ $(function () {
 
             // profit chart
             $("#total-profit").text("$" + result.result_bydate.profit.reduce((a, b) => a + b, 0))
+
+            // profit status since previous day
+            prev = result.result_bydate.profit[result.result_bydate.profit.length - 2]
+            current = result.result_bydate.profit[result.result_bydate.profit.length - 1]
+
+            if (prev == 0) {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> 100% Since Previous Day</p>`
+            } else if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round((prev - current) / prev * 100)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> ${Math.round((current - prev) / prev * 100)}% Since Previous Day</p>`
+            }
+
+            $("#profit-status").append(html)
+            
             e = {
                 series: [{ name: "Profit", data: result.result_bydate.profit }],
                 chart: { type: "line", height: 65, toolbar: { show: !0, tools: { download: true } }, zoom: { enabled: !1 }, dropShadow: { enabled: !0, top: 3, left: 14, blur: 4, opacity: 0.12, color: "#f41127" }, sparkline: { enabled: !0 } },
@@ -94,8 +138,48 @@ $(function () {
                 },
             };
             new ApexCharts(document.querySelector("#chart3"), e).render();
-
+            
             // sales and profit chart
+            $("#metric-rev").text("$" + result.result_bydate.sales.reduce((a, b) => a + b, 0))
+            $("#metric-qty").text(result.result_bydate.quantity.reduce((a, b) => a + b, 0))
+            $("#metric-profit").text("$" + result.result_bydate.profit.reduce((a, b) => a + b, 0))
+
+            // profit status since previous day
+            prev = result.result_bydate.profit[result.result_bydate.profit.length - 2]
+            current = result.result_bydate.profit[result.result_bydate.profit.length - 1]
+
+            if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> $${Math.round(current - prev)} Since Previous Day</p>`
+            }
+
+            $("#metric-status-profit").append(html)
+
+            // sales status since previous day
+            prev = result.result_bydate.sales[result.result_bydate.sales.length - 2]
+            current = result.result_bydate.sales[result.result_bydate.sales.length - 1]
+
+            if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> $${Math.round(current - prev)} Since Previous Day</p>`
+            }
+
+            $("#metric-status-rev").append(html)
+
+            // quantity status since previous day
+            prev = result.result_bydate.quantity[result.result_bydate.quantity.length - 2]
+            current = result.result_bydate.quantity[result.result_bydate.quantity.length - 1]
+
+            if (prev > current) {
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round(prev - current)}% Since Previous Day</p>`
+            } else {
+                html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> ${Math.round(current - prev)} Since Previous Day</p>`
+            }
+
+            $("#metric-status-qty").append(html)
+
             e = {
                 series: [
                     { name: "Total Sales", data: result.result_bydate.sales },
@@ -116,6 +200,13 @@ $(function () {
                         },
                     },
                 },
+                yaxis: {
+                    labels: {
+                        formatter: function (value) {
+                            return "$" + Math.round(value);
+                        }
+                    }
+                }
             };
             new ApexCharts(document.querySelector("#chart4"), e).render();
 
@@ -169,6 +260,13 @@ $(function () {
                         },
                     },
                 },
+                yaxis: {
+                    labels: {
+                        formatter: function (value) {
+                            return "$" + Math.round(value);
+                        }
+                    }
+                }
             };
             new ApexCharts(document.querySelector("#chart5"), e).render();
 
@@ -192,6 +290,13 @@ $(function () {
                 dataLabels: { enabled: !1 },
                 labels: result.result_topcategory.category,
                 responsive: [{ breakpoint: 480, options: { chart: { height: 200 }, legend: { position: "bottom" } } }],
+                tooltip: {
+                    y: {
+                        formatter: function (e) {
+                            return "$" + e;
+                        },
+                    },
+                }
             };
             new ApexCharts(document.querySelector("#chart15"), e).render();
 

@@ -34,8 +34,8 @@ def index():
 def product_page(id):
     if product_manager.get_product(id):
         product = product_manager.get_product(id)
-        
         customer = user_manager.get_customer(int(product.get_customer_id()))
+        
         if customer:
             artist = customer.get_username()
         elif product.get_customer_id() == 00000:

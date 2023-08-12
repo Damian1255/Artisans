@@ -43,8 +43,7 @@
     </style>
 </head>
 <body>
-    <h2>Database Manager</h2>
-    <a href="/admin" style="float: right;">< Back to admin portal</a>
+    <h2>Database Manager <a href="/admin" style="font-size: 14px;">< Return to admin portal</a></h2>
     <p>Click on the buttons to view database content.</p>
     <div style="margin-bottom: 10px;">
         <a href="/admin/register">Add new admin</a>
@@ -258,7 +257,7 @@
         <h2>Development Use Only!</h2>
         <p>This page is for development use only.</p>
         <a onclick="document.getElementById('WarningDialog').close();" aria-label="close" class="x">❌</a>
-        <a class="dialog-btn" onclick="document.getElementById('WarningDialog').close();">
+        <a class="dialog-btn" style="cursor: pointer;" onclick="document.getElementById('WarningDialog').close();">
             <i class="fa fa-arrow-left"> </i> Close
         </a>
     </dialog>

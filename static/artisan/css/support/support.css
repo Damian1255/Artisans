@@ -66,21 +66,9 @@
     margin-bottom: 20px;
 }
 
-.second-grid-item button {
-    padding: 10px 20px;
-    background-color: #dad7cd;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.second-grid-item button:hover {
-    background-color: #d5bdaf;
-}
-
 .second-grid-item img {
     max-width: 100%;
+    margin-top: 20px;
     height: auto;
 }
 

@@ -63,6 +63,10 @@ def sell():
     
     return redirect('/?login-required')
 
+@app.route('/privacy')
+def privacy():
+    return render_template('artisan/privacy-policy.html')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('artisan/404.html'), 404

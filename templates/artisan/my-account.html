@@ -47,15 +47,15 @@
                 <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
                     <div class="tab-pane fade show active" id="dashboard">
                         <h4>Overview</h4>
-                        <p>Our current commission rate is {{comm_rate*100}}% of the total price of the artwork. You will receive {{100 -comm_rate*100}}%
+                        <p>Our current commission rate is <strong>{{comm_rate*100}}%</strong> of the total price of the artwork. You will receive <strong>{{100 -comm_rate*100}}%</strong>
                             of the total price of the artwork.</p>
                         <div class="row" style="margin-bottom: 30px;">
                             <div class="col-md-3">
-                                <h6>Profit</h6>
+                                <h6>Profit made</h6>
                                 <p>${{total_profit}}</p>
                             </div>
                             <div class="col-md-3">
-                                <h6>Artwork Sold</h6>
+                                <h6>Total Artwork Sold</h6>
                                 <p>{{total_sold}}</p>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 <div class="col-md-6">
                                     <button type="button" class="dialog-btn-danger"
                                         onclick="document.getElementById('deleteArtDialog-{{artwork[0].get_id()}}').showModal();">
-                                        <i class="fa fa-arrow-left"> </i> Delete
+                                        <i class="fa fa-trash">  </i> Delete
                                     </button>
                                 </div>
                                 <div class="col-md-6">
@@ -285,7 +285,7 @@
                                             aria-label="close" class="x">❌</a>
                                         <a href="{{ url_for('static', filename='artisan/images/product-image/')}}{{order[1].get_image()[0]}}"
                                             download="{{order[1].get_name()}}" class="dialog-btn" style="margin-top: 20px;" id="dialog-btn">
-                                            <i class="fa fa-arrow-down"> </i> Download
+                                            <i class="fa fa-download"> </i> Download
                                         </a>
                                     </dialog>
                                     {% endfor %}
