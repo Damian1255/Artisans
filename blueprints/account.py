@@ -57,13 +57,11 @@ def login():
             return jsonify({'success': True})
 
         return jsonify({'success': False})
-    try:
-        if session['logged_in']:
-            return redirect(url_for('index'))
-        else:
-            return render_template('artisan/login.html')
-    except:
-        return render_template('artisan/login.html')
+    
+    if 'logged_in' in session and session['logged_in']:
+            return redirect(url_for('account.account'))
+    
+    return render_template('artisan/login.html')
 
 
 @account_blueprint.route('/register', methods=['GET', 'POST'])
@@ -85,13 +83,11 @@ def register():
         else:
             return jsonify({'success': False})
 
-    try:
-        if session['logged_in']:
-            return redirect(url_for('index'))
-        else:
-            return render_template('artisan/login.html', show_reg=True)
-    except:
-        return render_template('artisan/login.html', show_reg=True)
+
+    if 'logged_in' in session and session['logged_in']:
+        return redirect(url_for('account.account'))
+    
+    return render_template('artisan/login.html', show_reg=True)
 
 
 @account_blueprint.route('/update-user/<int:id>', methods=['GET', 'POST'])
