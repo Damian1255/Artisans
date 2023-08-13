@@ -9,6 +9,7 @@ from blueprints.product import product_bp
 from blueprints.cart import cart_bp
 from blueprints.support import support_bp
 
+# Initialize Flask app
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('configuration/config.py')
 app.register_blueprint(admin_blueprint)
@@ -23,16 +24,21 @@ log = logging.getLogger('werkzeug')
 log.disabled = True
 app.logger.disabled = True
 
+# Initialize managers
 product_manager = ProductManager.ProductManager()
 order_manager = OrderManager.OrderManager()
 cart_manager = CartManager.CartManager()
+
+# If you are reading this, just a heads up that the code you are about to see isnt the best code.
+# As it is slightly rushed to meet a deadline. I will be refactoring this code in the future. - Damian
 
 @app.route('/')
 def index():
     products=product_manager.get_product_list()
     top_products=order_manager.get_top_sellers()
     categories = product_manager.get_categories(products)
-
+    
+    # Get categories of top products
     categories_top = []
     for product in top_products:
         if product[0].get_category() not in categories_top:
@@ -44,17 +50,21 @@ def index():
                            categories=categories,
                            categories_top=categories_top)
 
+
 @app.route('/about')
 def about():
     return render_template('artisan/about.html')
+
 
 @app.route('/wishlist')
 def wishlist():
     return render_template('artisan/coming-soon.html')
 
+
 @app.route('/wip')
 def wip():
     return render_template('artisan/coming-soon.html')
+
 
 @app.route('/sell')
 def sell():
@@ -63,13 +73,16 @@ def sell():
     
     return redirect('/?login-required')
 
+
 @app.route('/privacy')
 def privacy():
     return render_template('artisan/privacy-policy.html')
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('artisan/404.html'), 404
+
 
 if __name__ == '__main__':
     app.run(debug=True)

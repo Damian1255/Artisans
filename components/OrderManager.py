@@ -3,10 +3,13 @@ from classes import Order
 from components import DbManager, ProductManager
 from configuration import config
 
+# Order Manager is used to create, delete, and get orders from the database
+
 db = DbManager.DbManager()
 comm_rate = config.COMM_RATE
 
 class OrderManager():
+    # Creates a new order and adds it to the database
     def new_order(self, customer_id, product_id, seller_id, order_quantity, order_total):
         order_list = db.get_order_list()
 
@@ -22,16 +25,19 @@ class OrderManager():
         print(f"Order {order_id} created")
         return True
     
+    # Returns an order object from the database
     def get_order(self, order_id):
         order_list = db.get_order_list()
         if order_id in order_list:
             return order_list[order_id]
         else:
             return False
-        
+    
+    # Returns a list of all orders in the database
     def get_order_list(self):
         return db.get_order_list()
     
+    # Returns a the orders by a specific customer
     def get_orders_by_customer(self, customer_id):
         order_list = db.get_order_list()
         customer_orders = []
@@ -41,6 +47,7 @@ class OrderManager():
                 customer_orders.append(order_list[order])
         return customer_orders
     
+    # Returns a the orders by a specific product
     def get_orders_by_product(self, product_id):
         order_list = db.get_order_list()
         product_orders = []
@@ -50,6 +57,7 @@ class OrderManager():
                 product_orders.append(order_list[order])
         return product_orders
     
+    # Returns a the orders by a specific seller
     def get_orders_by_seller(self, seller_id):
         order_list = db.get_order_list()
         seller_orders = []
@@ -59,15 +67,7 @@ class OrderManager():
                 seller_orders.append(order_list[order])
         return seller_orders
 
-    def get_orders_by_date(self, order_date):
-        order_list = db.get_order_list()
-        date_orders = []
-
-        for order in order_list:
-            if order_list[order].get_order_date() == order_date:
-                date_orders.append(order_list[order])
-        return date_orders
-    
+    # Deletes an order from the database
     def delete_order(self, order_id):
         order_list = db.get_order_list()
         if order_id in order_list:
@@ -78,6 +78,7 @@ class OrderManager():
         else:
             return False
     
+    # Deletes orders made by a specific customer
     def delete_orders_by_customer(self, customer_id):
         order_list = db.get_order_list()
         delete_list = []
@@ -93,6 +94,7 @@ class OrderManager():
         db.update_order_list(order_list)
         print(f'Orders by customer {customer_id} successfully deleted!')
     
+    # Deletes orders from a specific product
     def delete_orders_by_product(self, product_id):
         order_list = db.get_order_list()
         delete_list = []
@@ -108,6 +110,7 @@ class OrderManager():
         db.update_order_list(order_list)
         print(f'Orders by product {product_id} successfully deleted!')
     
+    # get total quantity of a product ordered
     def get_ordered_quantity_by_product(self, product_id):
         order_list = db.get_order_list()
         total_quantity = 0
@@ -119,6 +122,7 @@ class OrderManager():
         
         return total_quantity
     
+    # get list of top sellers
     def get_top_sellers(self):
         product_manager = ProductManager.ProductManager()
         product_list = product_manager.get_product_list()
@@ -132,6 +136,7 @@ class OrderManager():
         top_sellers.sort(key=lambda x: x[1], reverse=True)
         return top_sellers[:5]
     
+    # get list of top customers
     def get_top_customers(self):
         customer_list = []
         customers = db.get_customer_list()

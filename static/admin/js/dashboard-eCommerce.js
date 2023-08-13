@@ -149,7 +149,7 @@ $(function () {
             current = result.result_bydate.profit[result.result_bydate.profit.length - 1]
 
             if (prev > current) {
-                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)}% Since Previous Day</p>`
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)} Since Previous Day</p>`
             } else {
                 html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> $${Math.round(current - prev)} Since Previous Day</p>`
             }
@@ -161,7 +161,7 @@ $(function () {
             current = result.result_bydate.sales[result.result_bydate.sales.length - 1]
 
             if (prev > current) {
-                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)}% Since Previous Day</p>`
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> $${Math.round(prev - current)} Since Previous Day</p>`
             } else {
                 html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> $${Math.round(current - prev)} Since Previous Day</p>`
             }
@@ -173,7 +173,7 @@ $(function () {
             current = result.result_bydate.quantity[result.result_bydate.quantity.length - 1]
 
             if (prev > current) {
-                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round(prev - current)}% Since Previous Day</p>`
+                html = `<p class="mb-0 font-13 text-danger"><i class="fa bx bxs-down-arrow text-danger"></i> ${Math.round(prev - current)} Since Previous Day</p>`
             } else {
                 html = `<p class="mb-0 font-13 text-success"><i class="fa bx bxs-up-arrow text-success"></i> ${Math.round(current - prev)} Since Previous Day</p>`
             }

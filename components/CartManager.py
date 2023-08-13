@@ -3,10 +3,13 @@ from classes import Cart
 from components import DbManager, ProductManager
 from flask import url_for
 
+# CartManager is used to manage the user cart
+
 db = DbManager.DbManager()
 product_manager = ProductManager.ProductManager()
 
 class CartManager():
+    # add item to cart
     def add_to_cart(self, customer_id, product_id, quantity):
         cart_list = db.get_cart_list()
 
@@ -40,6 +43,7 @@ class CartManager():
         print(f'New cart item added: {cart_id}')
         return True
 
+    # Delete cart item by cart id
     def delete_item(self, cart_id):
         try:
             cart_list = db.get_cart_list()
@@ -49,6 +53,7 @@ class CartManager():
         except:
             print(f'Cart item {cart_id} does not exist!')
 
+    # Delete cart items by customer id
     def delete_items_by_customer(self, customer_id):
         cart_list = db.get_cart_list()
         delete_list = []
@@ -64,6 +69,7 @@ class CartManager():
         db.update_cart_list(cart_list)
         print(f'Cart items by customer {customer_id} successfully deleted!')
 
+    # Delete cart items by product id
     def delete_items_by_product(self, product_id):
         cart_list = db.get_cart_list()
         delete_list = []
@@ -79,6 +85,7 @@ class CartManager():
         db.update_cart_list(cart_list)
         print(f'Cart items by product {product_id} successfully deleted!')
 
+    # Delete cart items by product id
     def get_cart(self, customer_id):
         cart_list = db.get_cart_list()
         cart_items = []
@@ -94,6 +101,7 @@ class CartManager():
         print(f'Cart items for customer {customer_id} retrieved! {len(cart_items)} items found.')
         return cart_items
 
+    # Update cart item quantity
     def update_cart(self, cart_id, quantity):
         try:
             cart_list = db.get_cart_list()
@@ -104,6 +112,7 @@ class CartManager():
         except:
             print(f'Cart item {cart_id} does not exist!')
 
+    # Get cart item quantity
     def get_cart_html(self, id):
         cart = CartManager.get_cart(self, id)
         cart_display = ""

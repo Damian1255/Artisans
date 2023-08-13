@@ -8,6 +8,7 @@ salt = config.HASH_SALT
 db = DbManager.DbManager()
 
 class UserManager():
+    # authenticate a admin user
     def authenticate_admin(self, username, password):
         password = hashlib.md5((password + salt).encode()).hexdigest()
         admin_list = db.get_admin_list()
@@ -19,7 +20,7 @@ class UserManager():
             
         return {'success': False}
     
-
+    # authenticate a customer user
     def authenticate_customer(self, username, password):
         password = hashlib.md5((password + salt).encode()).hexdigest()
         customer_list = db.get_customer_list()
@@ -31,7 +32,7 @@ class UserManager():
             
         return {'success': False}
     
-
+    # check if username is available
     def username_available(self, username):
         customer_list = db.get_customer_list()
 
@@ -41,7 +42,7 @@ class UserManager():
             
         return True
     
-
+    # check if email is available
     def email_available(self, email):
         customer_list = db.get_customer_list()
 
@@ -51,7 +52,7 @@ class UserManager():
             
         return True
     
-
+    # check if admin username is available
     def admin_username_available(self, username):
         admin_list = db.get_admin_list()
 
@@ -61,7 +62,7 @@ class UserManager():
             
         return True
     
-
+    # check if admin email is available
     def admin_email_available(self, email):
         admin_list = db.get_admin_list()
 
@@ -71,7 +72,7 @@ class UserManager():
             
         return True
     
-
+    # create a new customer
     def create_customer(self, username, first_name, last_name, password, email, dob, gender):
         password = hashlib.md5((password + salt).encode()).hexdigest()
         customer = Customer.Customer(username, first_name, last_name, password, email, dob, gender)
@@ -88,7 +89,7 @@ class UserManager():
         db.update_customer_list(customer_list)
         print(f'New customer {customer.get_username()} created!')
 
-
+    # create a new admin
     def create_admin(self, username, first_name, last_name, password, email):
         password = hashlib.md5((password + salt).encode()).hexdigest()
         admin = Admin.Admin(username, first_name, last_name, password, email)
@@ -105,7 +106,7 @@ class UserManager():
         db.update_admin_list(admin_list)
         print(f'New admin {admin.get_username()} created!')
 
-
+    # get a customer by id
     def get_customer(self, id):
         try:
             customer = db.get_customer_list()[id]
@@ -114,16 +115,18 @@ class UserManager():
             print(f'Customer {id} not found!')
             return False
     
-
+    # get a admin by id
     def get_admin(self, id):
         admin = db.get_admin_list()[id]
         print(f'Admin {admin.get_username()} successfully retrieved!')
         return admin
     
+    # get admin list
     def get_admin_list(self):
         print(f'Admin list successfully retrieved!')
         return db.get_admin_list()
 
+    # updates a customer
     def update_customer(self, id, first_name, last_name, email, dob):
         customer_list = db.get_customer_list()
         customer = customer_list[id]
@@ -138,7 +141,7 @@ class UserManager():
         print(f'Customer {customer.get_username()} successfully updated!')
         return True
     
-    
+    # updates a admin
     def update_admin(self, id, first_name, last_name, email):
         admin_list = db.get_admin_list()
         admin = admin_list[id]
@@ -152,7 +155,7 @@ class UserManager():
         print(f'Admin {admin.get_username()} successfully updated!')
         return True
     
-
+    # updates a customer password
     def update_password(self, id, password):
         customer_list = db.get_customer_list()
         customer = customer_list[id]
@@ -165,7 +168,7 @@ class UserManager():
         print(f'Customer {customer.get_username()} password successfully updated!')
         return True
     
-
+    # updates a admin password
     def update_admin_password(self, id, password):
         admin_list = db.get_admin_list()
         admin = admin_list[id]
@@ -178,17 +181,12 @@ class UserManager():
         print(f'Admin {admin.get_username()} password successfully updated!')
         return True
 
-
+    # get customer list
     def get_customer_list(self):
         print(f'Customer list successfully retrieved!')
         return db.get_customer_list()
     
-
-    def get_admin_list(self):
-        print(f'Admin list successfully retrieved!')
-        return db.get_admin_list()
-    
-
+    # delete a customer
     def delete_customer(self, id):
         try:
             customer_list = db.get_customer_list()
@@ -199,7 +197,7 @@ class UserManager():
         except:
             return False
 
-
+    # delete a admin
     def delete_admin(self, id):
         try:
             admin_list = db.get_admin_list()

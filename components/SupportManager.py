@@ -5,6 +5,7 @@ from components import DbManager
 db = DbManager.DbManager()
 
 class SupportManager():
+    # Creates a new support ticket
     def new_ticket(self, firstName, lastName, email, countryCode, phoneNumber, category, subject, message):
         ticket_list = db.get_support_ticket_list()
 
@@ -20,6 +21,7 @@ class SupportManager():
         print(f'Support Ticket #{ticket_id} created.')
         return True
     
+    # get ticket by id
     def get_ticket(self, ticket_id):
         ticket_list = db.get_support_ticket_list()
         if ticket_id in ticket_list:
@@ -28,12 +30,14 @@ class SupportManager():
         else:
             print(f'Support Ticket #{ticket_id} not found.')
             return False
-        
+    
+    # get all tickets
     def get_ticket_list(self):
         ticket_list = db.get_support_ticket_list()
         print(f'Support Tickets retrieved.')
         return ticket_list
     
+    # delete ticket by id
     def delete_ticket(self, ticket_id):
         ticket_list = db.get_support_ticket_list()
         
@@ -45,7 +49,8 @@ class SupportManager():
         else:
             print(f'Support Ticket #{ticket_id} not found.')
             return False
-        
+    
+    # update ticket status
     def set_status(self, ticket_id, status):
         ticket_list = db.get_support_ticket_list()
         

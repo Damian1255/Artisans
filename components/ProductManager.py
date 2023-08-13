@@ -5,6 +5,7 @@ from components import DbManager
 db = DbManager.DbManager()
 
 class ProductManager():
+    # add new product to database
     def add_product(self, customer_id, name, price, quantity, image, description, category):
         product_list = db.get_product_list()
 
@@ -19,6 +20,7 @@ class ProductManager():
         print(f'New product added: {name}')
         return { 'success': True, 'product_id': product_id}
     
+    # update product in database
     def update_product(self, id, name, price, quantity, description, category):
         product_list = db.get_product_list()
         try:
@@ -35,6 +37,7 @@ class ProductManager():
             print(f'Product {id} does not exist!')
             return False
 
+    # delete product from database
     def delete_product(self, id):
         try:
             product_list = db.get_product_list()
@@ -47,9 +50,11 @@ class ProductManager():
             print(f'Product {id} does not exist!')
             return False
 
+    # get product list from database
     def get_product_list(self):
         return db.get_product_list()
 
+    # get product from database
     def get_product(self, id):
         product_list = db.get_product_list()
         try:
@@ -57,7 +62,8 @@ class ProductManager():
         except:
             print(f'Product {id} does not exist!')
             return False
-        
+    
+    # get product list by customer
     def get_products_by_customer(self, customer_id):
         product_list = db.get_product_list()
         customer_products = []
@@ -68,6 +74,7 @@ class ProductManager():
                 
         return customer_products
 
+    # delete products by customer
     def delete_products_by_customer(self, customer_id):
         product_list = db.get_product_list()
         delete_list = []
@@ -82,7 +89,8 @@ class ProductManager():
             
         db.update_product_list(product_list)
         print(f'Products by customer {customer_id} successfully deleted!')
-        
+    
+    # gupdates product quantity
     def update_product_quantity(self, product_id, quantity):
         product_list = db.get_product_list()
         try:
@@ -92,7 +100,7 @@ class ProductManager():
         except:
             print(f'Product {product_id} does not exist!')
 
-        
+    # search product by name and category
     def search_product(self, query, category):
         product_list = db.get_product_list()
         results = {}
@@ -102,6 +110,7 @@ class ProductManager():
                 
         return results
     
+    # get categories from product list
     def get_categories(self, product_list):
         categories = []
         for product in product_list.values():
