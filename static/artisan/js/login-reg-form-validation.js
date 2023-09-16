@@ -31,6 +31,13 @@ registerForm.addEventListener("submit", function (event) {
         return
     }
 
+    // validate password length
+    if (password.value.length < 8) {
+        highlight_elements_red([password, rePassword])
+        show_reg_error('Password must be at least 8 characters long.')
+        return
+    }
+
     // Ajax call to register user 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/account/register', true);

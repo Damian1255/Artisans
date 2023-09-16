@@ -12,6 +12,8 @@ from blueprints.support import support_bp
 # Initialize Flask app
 app = Flask(__name__, static_url_path='/static')
 app.config.from_pyfile('configuration/config.py')
+
+# Register blueprints
 app.register_blueprint(admin_blueprint)
 app.register_blueprint(account_blueprint)
 app.register_blueprint(db_blueprint)
